@@ -1,43 +1,44 @@
 <template>
-
-  <div>
-    <h1>Extranet Index</h1>
-    <h2>{{res}}</h2>
-  </div>
-
-
+  <v-app id='menu-app'>
+    <h1>Price</h1>
+  </v-app>
 </template>
 
 <script>
+
+
   export default {
+    layout: 'admin',
+
     data() {
       return {
-        res: ''
+
       }
-    },
-  methods: {
-    async test() {
-        let result = await this.$axios.get('https://engine.more-otdih.online/api/test')
-      this.res = result.data.data
-console.log(result.data.data)
-
     }
 
-    },
-    mounted() {
-     this.test()
-    }
   }
 </script>
 
-<style>
-  .container {
-    margin: 0 auto;
+<style scoped>
+
+  li {
+    list-style-type: none;
+  }
+
+  .bg-grey {
+    margin: 0;
+    padding: 35px 35px 35px 35px;
+    background-color: rgb(238, 238, 238);
     min-height: 100vh;
+  }
+
+  .container {
+    margin: 0;
+
     display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    /*text-align: center;*/
   }
 
   .title {

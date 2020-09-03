@@ -8,7 +8,7 @@ export default {
     htmlAttrs: {
       lang: 'ru-Ru'
     },
-    title: process.env.npm_package_name || '',
+    title: "Натяжные потолки в Краснодаре" || '',
     meta: [
       {charset: 'utf-8'},
       {name: 'viewport', content: 'width=device-width, initial-scale=1'},
@@ -75,7 +75,7 @@ export default {
 
   axios:
     {
-      baseURL: 'https://extranet.more-otdih.online/api'
+      baseURL: 'http://api.potolkov.one/api'
     }
   ,
 

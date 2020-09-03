@@ -1,14 +1,14 @@
 <template>
   <v-app app>
-<div>
+    <div>
 
-  <transition name="slide-fade" mode="out-in">
-    <auth v-if="$store.getters['authentication/authenticationWindow']"></auth>
-  </transition>
-</div>
+      <transition name="slide-fade" mode="out-in">
+        <auth v-if="$store.getters['authentication/authenticationWindow']"></auth>
+      </transition>
+    </div>
 
-   <navbar></navbar>
-
+    <navbar></navbar>
+    <drawer></drawer>
 
     <v-main app>
       <nuxt/>
@@ -24,22 +24,21 @@
 </template>
 <script>
   import Navbar from "@/components/Navbar";
-
   import Auth from "../components/auth/Auth";
-
+  import Drawer from "@/components/Drawer";
   export default {
 
     data() {
       return {
         login: false,
-        drawer: true
+
       }
     },
     created() {
       // this.$vuetify.theme.dark = true
     },
     components: {
-      Navbar, Auth
+      Navbar, Auth, Drawer
     },
 
 
@@ -55,6 +54,6 @@
   .slide-fade-enter, .slide-fade-leave-to
     /* .slide-fade-leave-active below version 2.1.8 */ {
     transform: translateY(-100px);
-opacity: 0;
+    opacity: 0;
   }
 </style>
