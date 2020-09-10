@@ -1,6 +1,26 @@
 <template>
   <v-app id='menu-app'>
-    <h1>Price</h1>
+    <button>
+      <clipper-upload v-model="imgURL">upload image</clipper-upload>
+    </button>
+    <button @click="getResult">clip image</button>
+    <clipper-basic
+      class="my-clipper"
+      ref="clipper"
+      :src="imgURL"
+      preview="my-preview">
+      <div class="placeholder" slot="placeholder">No image</div>
+    </clipper-basic>
+    <div>
+      <div>preview:</div>
+      <clipper-preview name="my-preview" class="my-clipper">
+        <div class="placeholder" slot="placeholder">preview area</div>
+      </clipper-preview>
+    </div>
+    <div>
+      <div>result:</div>
+      <img class="result" :src="resultURL" alt="">
+    </div>
   </v-app>
 </template>
 
@@ -12,7 +32,15 @@
 
     data() {
       return {
-
+        imgURL: '',
+        resultURL: ''
+      }
+    },
+    methods: {
+      getResult() {
+        const canvas = this.$refs.clipper.clip();//call component's clip method
+        console.log(this.$refs.clipper)
+        this.resultURL = canvas.toDataURL("image/jpeg", 1);//canvas->image
       }
     }
 
@@ -21,6 +49,16 @@
 
 <style scoped>
 
+  .my-clipper {
+    width: 100%;
+    max-width: 700px;
+  }
+
+  .placeholder {
+    text-align: center;
+    padding: 20px;
+    background-color: lightgray;
+  }
   li {
     list-style-type: none;
   }

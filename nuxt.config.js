@@ -35,6 +35,8 @@ export default {
     './plugins/mixins/intended',
     './plugins/axios',
 
+    { src: './plugins/vuejs-clipper.js', ssr: false },
+
   ],
   auth: {
     strategies: {

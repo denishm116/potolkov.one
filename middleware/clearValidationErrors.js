@@ -1,3 +1,3 @@
 export default function ({store}) {
-store.dispatch('authentication/validation/clearError')
+store.dispatch('validation/validation/clearError')
 }

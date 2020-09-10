@@ -29,7 +29,7 @@
 
             <template v-for="(item, i) in items">
                 <v-list dense>
-                    <v-list-item link :to="item.to" :active="$route.path">
+                    <v-list-item link :to="item.to" :active="$route.path" exact>
                         <v-list-item-action>
                             <v-icon>{{item.icon}}</v-icon>
                         </v-list-item-action>

@@ -12,6 +12,7 @@ export const mutations = {
 export const actions = {
   setErrors({commit}, errors) {
     commit('SET_VALIDATION_ERRORS', errors)
+
   },
   clearError({commit}, errors) {
     commit('SET_VALIDATION_ERRORS', {})

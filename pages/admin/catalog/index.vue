@@ -9,138 +9,131 @@
 
     </v-row>
 
-
     <v-row no-gutters class="pt-10">
       <v-col>
         <v-card
-          class="mx-auto"
+          class="mx-auto pa-5"
 
         >
           <v-subheader>Редактирование каталога потолков</v-subheader>
 
-          <v-list-item three-line>
-            <v-list-item-content>
-              <v-list-item>
+          <v-row>
 
-
-                <v-row>
-
-                  <v-col>
-
-                    <v-text-field
-                      @input="activeButton()"
-                      label="Название категории"
-                      outlined
-                      dense
-                      v-model="newCategory.title"
-                    ></v-text-field>
-
-                  </v-col>
-
-                  <v-col>
-
-                    <v-select
-                      :items="catalog"
-                      label="Выберите родительскую категорию"
-                      item-text="title"
-                      item-value="id"
-                      dense
-                      outlined
-                      v-model="newCategory.parent_id"
-                    ></v-select>
-
-
-                  </v-col>
-
-                  <v-col cols="2"
-                         class="flex-grow-0 flex-shrink-0">
-                    <v-btn
-                      color="access accent-4"
-                      @click="saveCatalogItem()"
-                      :disabled="activeButtonVar"
-                    >
-                      Сохранить
-                    </v-btn>
-
-
-                  </v-col>
-
-                </v-row>
-
-              </v-list-item>
-
-<!--              <v-file-input-->
-<!--                small-chips-->
-<!--                multiple-->
-<!--                outlined-->
-<!--                dense-->
-<!--                name="image"-->
-<!--                label="Нажмите здесь, чтобы выбрать изображения"-->
-<!--                v-model="files"-->
-<!--                @change="onFileChange"-->
-<!--              ></v-file-input>-->
-              <v-btn @click="onButtonClick">
-                <v-icon>mdi-paperclip</v-icon>
-                Select File
-              </v-btn>
+            <v-col>
 
               <v-text-field
-                v-model="formData.displayFileName"
-                readonly
+                @input="activeButton()"
+                label="Название категории"
+                outlined
+                dense
+                :error-messages="titleErrors"
+                v-model="newCategory.title"
               ></v-text-field>
-                            <input multiple class="input-field-file" type="file" ref="fupload" @change="onFileChange">
 
-              <!--              <div v-for="file in files">Whitehaven-->
+            </v-col>
 
+            <v-col>
 
-              <v-card class="d-inline-block mx-auto">
-                <v-container>
-                  <v-row justify="space-between">
-                    <v-col cols="auto" v-if="readyToUpload">
-
-                      <img class="preview-image"
-
-                        :src="formData.uploadFileData"
-                      >
-                    </v-col>
-
-
-                  </v-row>
-                </v-container>
-              </v-card>
+              <v-select
+                :items="catalog"
+                label="Выберите родительскую категорию"
+                item-text="title"
+                item-value="id"
+                dense
+                outlined
+                :error-messages="parent_idErrors"
+                v-model="newCategory.parent_id"
+              ></v-select>
+            </v-col>
+          </v-row>
 
 
+          <v-row>
+            <v-col>
+              <v-textarea
+                outlined
+                dense
+                name="input-7-4"
+                label="Описание"
+                v-model="newCategory.description"
+                :error-messages="descriptionErrors"
+              ></v-textarea>
+            </v-col>
+          </v-row>
 
 
-
-
-              <v-btn
-                color="access accent-4"
-                @click="picture()"
-
-              >
-                Картинка
+          <v-row>
+            <v-col>
+              <v-btn @click="onButtonClick">
+                <v-icon>mdi-paperclip</v-icon>
+                Прикрепить изображения
               </v-btn>
+              <input multiple class="input-field-file" type="file" ref="fupload" @change="onFileChange">
+            </v-col>
+          </v-row>
 
-              <ul>
-                <template v-for="cat in catalogList">
+          <v-row justify="space-between">
+            <v-col cols="auto" v-if="readyToUpload">
+              <div v-for="file in formData" :key="file.key">
+                <v-row>
+                  <v-col>
 
-                  <li>
-                    <template v-for="depth in cat.depth">
-                      --
-                    </template>
-                    {{cat.title }}
+                    <clipper-basic
+                      class="my-clipper"
+                      :src="file.uploadFileData"
+                      :ref="'clipper' + file.key"
+                      :preview="'my-preview' + file.key"
+                    >
 
-                  </li>
+                    </clipper-basic>
 
+                  </v-col>
+                  <v-col>
+                    <clipper-preview :name="'my-preview' + file.key" class="my-clipper">
+                      <div class="placeholder" slot="placeholder">preview area</div>
+                    </clipper-preview>
+                  </v-col>
+                </v-row>
+              </div>
+            </v-col>
+          </v-row>
+
+          <v-row>
+            <v-col>
+              <v-btn
+                color="access accent-4 "
+                @click="onButton2Click"
+              >
+                Сохранить
+              </v-btn>
+            </v-col>
+          </v-row>
+
+
+          <v-card
+            class="d-inline-flex pa-2"
+            outlined
+            tile
+            v-for="thumb in resultURL" :key="1"
+          >
+            <div class="thumbs">
+              <v-img :src="thumb"></v-img>
+            </div>
+          </v-card>
+
+          <ul>
+            <template v-for="cat in catalogList">
+
+              <li>
+               <a href="#" @click.prevent="goTo(cat.slug)"><template v-for="depth in cat.depth">
+                  --
                 </template>
-              </ul>
+                {{cat.title }}
+                </a>
+              </li>
 
-
-            </v-list-item-content>
-
-
-          </v-list-item>
+            </template>
+          </ul>
 
 
         </v-card>
@@ -155,37 +148,37 @@
 
 <script>
 
+  import {clipperBasic, clipperPreview} from 'vuejs-clipper'
 
   export default {
     layout: 'admin',
-
+    components: {
+      clipperBasic, clipperPreview
+    },
     data() {
       return {
         // status: this.$auth.user.status,
         newCategory: {
           title: '',
-          parent_id: ''
+          parent_id: '',
+          description: ''
         },
         files: [],
         catalog: [],
         catalogList: '',
         activeButtonVar: true,
         filesOrder: [],
-        filen: {
-          data: ''
-        },
-        formData: {
-          displayFileName: null,
-          uploadFileData: null,
-          file: null
-        }
+        formData: [],
+
+        resultURL: []
       }
     },
 
     methods: {
-      picture() {
-        console.log(this.files)
+      goTo(slug) {
+       this.$router.push('/admin/catalog/' + slug)
       },
+
       async getCatalog() {
         const catalog = await this.$axios.$get('admin/catalog')
         this.catalogList = catalog
@@ -212,30 +205,60 @@
         return tmp
       },
 
-      async saveCatalogItem() {
-        await this.$axios.$post('admin/catalog', this.newCategory)
-        await this.getCatalog()
-      },
 
       onFileChange(event) {
+
         if (event.target.files && event.target.files.length) {
-          let file = event.target.files[0];
-          this.formData.file = file;
-          this.formData.displayFileName =
-            event.target.files[0].name +
-            " (" +
-            this.calcSize(file.size) +
-            "Kb)";
-          let reader = new FileReader();
-          reader.onload = e => {
-            this.formData.uploadFileData = e.target.result;
-          };
-          reader.readAsDataURL(file);
+          let files = event.target.files
+
+          for (let i = 0; i < files.length; i++) {
+            let temp = {
+              displayFileName: event.target.files[i].name +
+                " (" +
+                this.calcSize(files[i].size) +
+                "Kb)",
+              uploadFileData: '',
+              file: files[i],
+              key: i,
+            }
+
+            let reader = new FileReader();
+            reader.onload = e => {
+              temp.uploadFileData = e.target.result;
+            };
+            reader.readAsDataURL(files[i]);
+            this.formData.push(temp)
+
+            // let alias = 'clipper' + i
+            // let canvas = this.$refs.alias.clip();
+            // result.push(canvas.toDataURL("image/jpeg", 1))//canvas->image
+
+          }
+
         }
+        // console.log(this.$refs['clipper0'])
       },
       onButtonClick() {
         this.$refs.fupload.click();
       },
+
+      onButton2Click() {
+        for (let prop in this.$refs) {
+          let n = ''
+          if (prop.substr(0, 7) === 'clipper') {
+            const canvas = this.$refs[prop][0].clip()
+            this.resultURL.push(canvas.toDataURL("image/jpeg", 1))
+          }
+        }
+        this.newCategory.files = this.resultURL
+        this.$axios.$post('admin/catalog', this.newCategory)
+          .then(() => {
+            return this.getCatalog()
+          })
+
+
+      },
+
       calcSize(size) {
         return Math.round(size / 1024);
       },
@@ -250,7 +273,16 @@
     },
     computed: {
       readyToUpload() {
-        return (this.formData.uploadFileData);
+        return this.formData.length
+      },
+      titleErrors() {
+        if (this.errors) return this.errors.title
+      },
+      parent_idErrors() {
+        if (this.errors) return this.errors.parent_id
+      },
+      descriptionErrors() {
+        if (this.errors) return this.errors.description
       },
 
     },
@@ -258,6 +290,22 @@
 </script>
 
 <style scoped>
+
+  .thumbs {
+    max-width: 150px;
+    margin: 15px;
+  }
+
+  .my-clipper {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .placeholder {
+    text-align: center;
+    padding: 20px;
+    background-color: lightgray;
+  }
 
   li {
     list-style-type: none;
@@ -273,10 +321,13 @@
   .input-field-file {
     display: none;
   }
+
   .preview-image {
-    width: 250px;
+    width: 60vw;
     padding: 15px;
+    margin: 15px;
     border: 1px solid #999;
     border-radius: 5px;
+    box-shadow: 5px 6px 16px rgba(0, 0, 0, 0.15);
   }
 </style>

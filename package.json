@@ -1,5 +1,5 @@
 {
-  "name": "more-otdih",
+  "name": "potolkov.shop",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -11,13 +11,18 @@
   },
   "dependencies": {
     "@nuxtjs/auth": "^4.9.1",
-    "@nuxtjs/axios": "^5.11.0",
+    "@nuxtjs/axios": "^5.12.2",
     "@nuxtjs/proxy": "^2.0.1",
-    "@nuxtjs/pwa": "^3.0.0-beta.20",
-    "nuxt": "^2.13.0",
-    "yarn": "^1.22.4"
+    "@nuxtjs/pwa": "^3.0.2",
+    "nuxt": "^2.14.4",
+    "rxjs": "^6.6.3",
+    "vue-rx": "^6.2.0",
+    "vuejs-clipper": "^3.0.2",
+    "yarn": "^1.22.5"
   },
   "devDependencies": {
-    "@nuxtjs/vuetify": "^1.11.2"
+    "@nuxtjs/vuetify": "^1.11.2",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^10.0.2"
   }
 }
