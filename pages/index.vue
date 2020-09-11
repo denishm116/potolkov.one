@@ -40,6 +40,7 @@
 
 <script>
 export default {
+  transition: 'test',
 mounted() {
 
 }

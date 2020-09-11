@@ -27,7 +27,7 @@
   import Auth from "../components/auth/Auth";
   import Drawer from "@/components/Drawer";
   export default {
-
+    transition: 'test',
     data() {
       return {
         login: false,

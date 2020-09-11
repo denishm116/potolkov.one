@@ -125,6 +125,9 @@
             <template v-for="cat in catalogList">
 
               <li>
+                <a href="#" @click.prevent="itemUp(cat.slug)"><v-icon>mdi-arrow-up-bold-circle</v-icon></a>
+                <a href="#" @click.prevent="itemDown(cat.slug)"><v-icon>mdi-arrow-down-bold-circle</v-icon></a>
+                <a href="#" @click.prevent="itemDelete(cat.slug)"><v-icon>mdi-delete</v-icon></a>
                <a href="#" @click.prevent="goTo(cat.slug)"><template v-for="depth in cat.depth">
                   --
                 </template>
@@ -151,6 +154,8 @@
   import {clipperBasic, clipperPreview} from 'vuejs-clipper'
 
   export default {
+    transition:  'test',
+
     layout: 'admin',
     components: {
       clipperBasic, clipperPreview
@@ -240,6 +245,21 @@
       },
       onButtonClick() {
         this.$refs.fupload.click();
+      },
+
+     async itemUp(slug) {
+       const catalog = await this.$axios.$post('admin/catalog/' + slug + '/up')
+       this.getCatalog()
+      },
+
+     async itemDown(slug) {
+       const catalog = await this.$axios.$post('admin/catalog/' + slug + '/down')
+       this.getCatalog()
+      },
+
+     async itemDelete(slug) {
+       const catalog = await this.$axios.$post('admin/catalog/' + slug + '/destroy')
+       this.getCatalog()
       },
 
       onButton2Click() {
