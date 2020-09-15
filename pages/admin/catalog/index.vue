@@ -120,7 +120,11 @@
               <v-img :src="thumb"></v-img>
             </div>
           </v-card>
-
+<br>
+<br>
+<br>
+<br>
+          <h1>Спивок категорий потолков</h1>
           <ul>
             <template v-for="cat in catalogList">
 
