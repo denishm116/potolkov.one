@@ -5,7 +5,7 @@
     <h3>Описание: {{data.description}}</h3>
 
     <div v-for="image in data.images">
-      <img :src="'http://api.potolkov.one/' + image.path">
+      <img :src="'http://api.potolkov.one/storage/' + image.path">
     </div>
   </div>
 </template>
