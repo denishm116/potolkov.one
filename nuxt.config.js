@@ -73,11 +73,18 @@ export default {
     '@nuxtjs/auth',
 
   ],
-
+  env: {
+    BASEUrl:
+      process.env.NODE_ENV === 'development'
+        ? 'http://api.potolkov.one/'
+        : 'https://api.potolkov.shop/'
+  },
 
   axios:
     {
-      baseURL: 'http://api.potolkov.one/api'
+      baseURL: process.env.NODE_ENV === 'development'
+        ? 'http://api.potolkov.one/api'
+        : 'https://api.potolkov.shop/api'
     }
   ,
 

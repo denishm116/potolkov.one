@@ -292,7 +292,10 @@
     },
 
     mounted() {
+      console.log(process.env.BASEUrl)
+      console.log(process.env.NODE_ENV)
       this.getCatalog()
+
 
     },
     computed: {

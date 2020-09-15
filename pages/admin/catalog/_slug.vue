@@ -5,7 +5,7 @@
     <h3>Описание: {{data.description}}</h3>
 
     <div v-for="image in data.images">
-      <img :src="'http://api.potolkov.one/storage/' + image.path">
+      <img :src="path + image.path">
     </div>
   </div>
 </template>
@@ -15,6 +15,7 @@
     layout: 'admin',
     data() {
       return {
+        // path: process.env.baseUrl + '/storage/',
         data: ''
       }
     },
@@ -25,12 +26,17 @@
       async getData() {
         const catalog = await this.$axios.$get('admin/catalog/' + this.$route.params.slug)
         this.data = catalog[0]
-        console.log(this.data)
+        console.log(this.path)
       }
     },
     mounted() {
       this.getData()
 
+    },
+    computed: {
+      path() {
+        return process.env.BASEUrl + 'storage/'
+      }
     }
 
   }
