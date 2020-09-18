@@ -46,5 +46,9 @@
 </script>
 
 <style scoped>
-
+  .container {
+    max-width: 1270px;
+    margin: 0 auto;
+    width: 100%;
+  }
 </style>
