@@ -47,7 +47,6 @@
             </v-col>
           </v-row>
 
-
           <v-row>
             <v-col>
               <v-textarea
@@ -120,22 +119,29 @@
               <v-img :src="thumb"></v-img>
             </div>
           </v-card>
-<br>
-<br>
-<br>
-<br>
+          <br>
+          <br>
+          <br>
+          <br>
           <h1>Спивок категорий потолков</h1>
           <ul>
-            <template v-for="cat in catalogList">
+            <template v-for="cat in allCatalog">
 
               <li>
-                <a href="#" @click.prevent="itemUp(cat.slug)"><v-icon>mdi-arrow-up-bold-circle</v-icon></a>
-                <a href="#" @click.prevent="itemDown(cat.slug)"><v-icon>mdi-arrow-down-bold-circle</v-icon></a>
-                <a href="#" @click.prevent="itemDelete(cat.slug)"><v-icon>mdi-delete</v-icon></a>
-               <a href="#" @click.prevent="goTo(cat.slug)"><template v-for="depth in cat.depth">
-                  --
-                </template>
-                {{cat.title }}
+                <a href="#" @click.prevent="itemUp(cat.slug)">
+                  <v-icon>mdi-arrow-up-bold-circle</v-icon>
+                </a>
+                <a href="#" @click.prevent="itemDown(cat.slug)">
+                  <v-icon>mdi-arrow-down-bold-circle</v-icon>
+                </a>
+                <a href="#" @click.prevent="itemDelete(cat.slug)">
+                  <v-icon>mdi-delete</v-icon>
+                </a>
+                <a href="#" @click.prevent="goTo(cat.slug)">
+                  <template v-for="depth in cat.depth">
+                    --
+                  </template>
+                  {{cat.title }}
                 </a>
               </li>
 
@@ -156,9 +162,10 @@
 <script>
 
   import {clipperBasic, clipperPreview} from 'vuejs-clipper'
+  import {mapGetters, mapActions} from 'vuex'
 
   export default {
-    transition:  'test',
+    transition: 'test',
 
     layout: 'admin',
     components: {
@@ -166,14 +173,14 @@
     },
     data() {
       return {
-        // status: this.$auth.user.status,
+
         newCategory: {
           title: '',
           parent_id: '',
           description: ''
         },
         files: [],
-        catalog: [],
+
         catalogList: '',
         activeButtonVar: true,
         filesOrder: [],
@@ -185,41 +192,12 @@
 
     methods: {
       goTo(slug) {
-       this.$router.push('/admin/catalog/' + slug)
+        this.$router.push('/admin/catalog/' + slug)
       },
-
-      async getCatalog() {
-        const catalog = await this.$axios.$get('admin/catalog')
-        this.catalogList = catalog
-        let tmp = []
-        catalog.forEach((cat, index) => {
-          if (cat.depth) {
-            let def = ''
-            for (let i = 0; i < cat.depth; i++) {
-              def += "--"
-            }
-            let tempObj =
-              tmp.push({
-                'title': def + cat.title,
-                'id': cat.id
-              });
-          } else {
-            tmp.push({
-              'title': cat.title,
-              'id': cat.id
-            })
-          }
-        })
-        this.catalog = tmp
-        return tmp
-      },
-
 
       onFileChange(event) {
-
         if (event.target.files && event.target.files.length) {
           let files = event.target.files
-
           for (let i = 0; i < files.length; i++) {
             let temp = {
               displayFileName: event.target.files[i].name +
@@ -230,40 +208,32 @@
               file: files[i],
               key: i,
             }
-
             let reader = new FileReader();
             reader.onload = e => {
               temp.uploadFileData = e.target.result;
             };
             reader.readAsDataURL(files[i]);
             this.formData.push(temp)
-
-            // let alias = 'clipper' + i
-            // let canvas = this.$refs.alias.clip();
-            // result.push(canvas.toDataURL("image/jpeg", 1))//canvas->image
-
           }
-
         }
-        // console.log(this.$refs['clipper0'])
       },
       onButtonClick() {
         this.$refs.fupload.click();
       },
 
-     async itemUp(slug) {
-       const catalog = await this.$axios.$post('admin/catalog/' + slug + '/up')
-       this.getCatalog()
+      async itemUp(slug) {
+        await this.$axios.$post('admin/catalog/' + slug + '/up')
+        return this.fetchCatalog()
       },
 
-     async itemDown(slug) {
-       const catalog = await this.$axios.$post('admin/catalog/' + slug + '/down')
-       this.getCatalog()
+      async itemDown(slug) {
+        await this.$axios.$post('admin/catalog/' + slug + '/down')
+        this.fetchCatalog()
       },
 
-     async itemDelete(slug) {
-       const catalog = await this.$axios.$post('admin/catalog/' + slug + '/destroy')
-       this.getCatalog()
+      async itemDelete(slug) {
+        await this.$axios.$post('admin/catalog/' + slug + '/destroy')
+        this.fetchCatalog()
       },
 
       onButton2Click() {
@@ -277,10 +247,8 @@
         this.newCategory.files = this.resultURL
         this.$axios.$post('admin/catalog', this.newCategory)
           .then(() => {
-            return this.getCatalog()
+            return this.fetchCatalog()
           })
-
-
       },
 
       calcSize(size) {
@@ -288,17 +256,19 @@
       },
       activeButton() {
         this.activeButtonVar = false
-      }
+      },
+      ...mapActions({
+        fetchCatalog: 'catalog/fetchCatalog'
+      })
     },
 
     mounted() {
-      console.log(process.env.BASEUrl)
-      console.log(process.env.NODE_ENV)
-      this.getCatalog()
-
-
+      this.fetchCatalog()
     },
     computed: {
+      ...mapGetters({
+        allCatalog: 'catalog/allCatalog'
+      }),
       readyToUpload() {
         return this.formData.length
       },
@@ -311,7 +281,28 @@
       descriptionErrors() {
         if (this.errors) return this.errors.description
       },
-
+      catalog() {
+        const tmp777 = Array.from(this.allCatalog)
+        let tmp = []
+        tmp777.forEach((cat, index) => {
+          if (cat.depth) {
+            let def = ''
+            for (let i = 0; i < cat.depth; i++) {
+              def += "--"
+            }
+            tmp.push({
+              'title': def + cat.title,
+              'id': cat.id
+            });
+          } else {
+            tmp.push({
+              'title': cat.title,
+              'id': cat.id
+            })
+          }
+        })
+        return tmp
+      }
     },
   }
 </script>

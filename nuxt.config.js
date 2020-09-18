@@ -20,7 +20,7 @@ export default {
 
   },
 
-  css: ['@/assets/css/ress.css',
+  css: ['@/assets/css/ress.css', '@/assets/css/style.css',
   ],
 
   router: {
@@ -34,6 +34,7 @@ export default {
     './plugins/mixins/user',
     './plugins/mixins/intended',
     './plugins/axios',
+    './plugins/scroll',
 
     { src: './plugins/vuejs-clipper.js', ssr: false },
 

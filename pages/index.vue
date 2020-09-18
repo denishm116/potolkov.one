@@ -1,52 +1,42 @@
 <template>
-  <v-card
-    class="mx-auto"
-    max-width="400"
-  >
-    <v-img
-      class="white--text align-end"
-      height="200px"
-      src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-    >
-      <v-card-title>POTOLKOV.ONE</v-card-title>
-    </v-img>
-
-    <v-card-subtitle class="pb-0">Number 10</v-card-subtitle>
-
-    <v-card-text class="text--primary">
-      <div>Whitehaven Beach</div>
-      {{$auth.$state.loggedIn}}
-    </v-card-text>
-
-    <v-card-actions>
-
-      <v-btn
-        color="orange"
-        text
-      >
-        Share
-      </v-btn>
-
-      <v-btn
-        color="orange"
-        text
-      >
-        Explore
-      </v-btn>
-    </v-card-actions>
-  </v-card>
-
+  <div class="wrapper">
+    <Main></Main>
+    <Flat></Flat>
+    <Calculator></Calculator>
+    <Stocks></Stocks>
+    <Order></Order>
+    <Why></Why>
+    <Projects></Projects>
+    <Questions></Questions>
+    <Moments></Moments>
+    <Reviews></Reviews>
+    <Map></Map>
+    <Communicate></Communicate>
+  </div>
 </template>
 
 <script>
-export default {
-  transition: 'test',
-mounted() {
+  import Main from "@/components/frontend/Main"
+  import Flat from "@/components/frontend/Flat"
+  import Calculator from "@/components/frontend/Calculator"
+  import Stocks from "@/components/frontend/Stocks"
+  import Order from "@/components/frontend/Order"
+  import Why from "@/components/frontend/Why"
+  import Questions from "@/components/frontend/Questions"
+  import Moments from "@/components/frontend/Moments"
+  import Reviews from "@/components/frontend/Reviews"
+  import Map from "@/components/frontend/Map"
+  import Communicate from "@/components/frontend/Communicate"
 
-}
-}
+  export default {
+    components: {
+      Main, Flat, Stocks, Order, Calculator, Why, Questions, Moments, Reviews, Map, Communicate
+    }
+
+
+  }
 </script>
 
-<style>
+<style scoped>
 
 </style>
