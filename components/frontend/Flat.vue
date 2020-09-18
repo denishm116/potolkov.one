@@ -154,16 +154,13 @@
         if (this.dispalyClick === '' && this.dispalyClick !== 0) {
           this.flat[index].isActive = false
           this.flat[0].isActive = true
-        }
-        else if (this.dispalyClick === index && this.flat[index].isActive) {
+        } else if (this.dispalyClick === index && this.flat[index].isActive) {
           this.flat[index].isActive = true
         } else {
           this.flat[index].isActive = false
         }
 
-
-
-          },
+      },
       click(index) {
         for (let i = 0; i < this.flat.length; i++) {
           this.flat[i].isActive = false
@@ -177,7 +174,11 @@
 </script>
 
 <style scoped>
-
+  .container {
+    max-width: 1270px;
+    margin: 0 auto;
+    width: 100%;
+  }
   .flat {
     position: absolute;
   }
