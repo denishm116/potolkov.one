@@ -32,10 +32,9 @@ export default {
   plugins: [
     './plugins/mixins/validation',
     './plugins/mixins/user',
-    './plugins/mixins/intended',
     './plugins/axios',
     './plugins/scroll',
-
+    // './plugins/photoGallery/initAddons',
     { src: './plugins/vuejs-clipper.js', ssr: false },
 
   ],
@@ -54,15 +53,10 @@ export default {
       login: '/auth/login',
       home: '/',
     },
-    plugins: [
-      './plugins/intended'
-    ]
-
   },
   components: true,
 
   buildModules: [
-
 
     ['@nuxtjs/vuetify', { /* module options */}]
   ],

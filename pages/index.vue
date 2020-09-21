@@ -2,9 +2,13 @@
   <div class="wrapper">
     <Main></Main>
     <Flat></Flat>
+
+
+
     <Calculator></Calculator>
     <Stocks></Stocks>
     <Order></Order>
+
     <Why></Why>
     <Projects></Projects>
     <Questions></Questions>
@@ -12,6 +16,7 @@
     <Reviews></Reviews>
     <Map></Map>
     <Communicate></Communicate>
+
   </div>
 </template>
 
@@ -27,10 +32,11 @@
   import Reviews from "@/components/frontend/Reviews"
   import Map from "@/components/frontend/Map"
   import Communicate from "@/components/frontend/Communicate"
+  import Projects from "@/components/frontend/Projects"
 
   export default {
     components: {
-      Main, Flat, Stocks, Order, Calculator, Why, Questions, Moments, Reviews, Map, Communicate
+      Main, Flat, Stocks, Order, Calculator, Why, Questions, Moments, Reviews, Map, Communicate, Projects
     }
 
 

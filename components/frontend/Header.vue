@@ -31,9 +31,6 @@
           </ul>
         </div>
       </div>
-
-      <!--        <div class="header__block"></div>-->
-
       <div class="header__row down">
         <a href="#" v-bind:class="classObject"><img src="~/assets/img/logo.png" alt="Натяжные потолки
 в Краснодаре - potolkov.shop"/></a>
@@ -52,10 +49,7 @@
               </a>
               <span class="menu__arrow arrow"></span>
 
-              <div class="submenu_display">
-                <Submenu :catalog="menuItem.submenu" v-if="menuItem.submenu"></Submenu>
-              </div>
-
+              <Submenu :catalog="menuItem.submenu" v-if="menuItem.submenu" class="submenu_display"></Submenu>
 
 
             </li>
@@ -186,5 +180,18 @@
 <style scoped>
   .header {
     transition: all 0.3s ease-out 0s;
+  }
+
+  .submenu_display {
+    transition: all 0.2s ease-out 0s;
+    opacity: 0;
+    top: -9.7rem;
+
+  }
+
+  .header-menu__item:hover .submenu_display {
+    opacity: 0.95;
+    /*max-height: 100%;*/
+    transform: translateY(13rem)
   }
 </style>

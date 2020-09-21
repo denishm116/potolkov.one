@@ -135,8 +135,7 @@ body.lock {
 
 .wrapper {
   width: 100%;
-  min-height: 100%;
-  overflow: hidden;
+   overflow: hidden;
 }
 
 .container {
@@ -1513,27 +1512,31 @@ body.ie .ibg img {
   min-width: 300px;
   position: absolute;
   display: block;
+  top:0.42rem;
+
   /*left: 0;*/
 }
 
-.sub-header-menu__item:hover .children_wrapper{
-  display: block
-}
-
-.submenu_display {
-  display: none;
-}
-
-.header-menu__item:hover .submenu_display {
-  display: block;
-}
 
 .children_wrapper {
   position: absolute;
-  top: 20%;
-  left: 100%;
-  display: none;
+  /*top: -515%;*/
+  top:  -36%;
+  left: -48%;
+  transition: all 0.2s ease-out 0s;
+  opacity: 0;
+
 }
+
+.sub-header-menu__item:hover .children_wrapper{
+  opacity: 0.95;
+  /*max-height: 100%;*/
+  transform: translateX(150%)
+}
+
+
+
+
 
 .sub-header-menu__list a {
   color: #fff;
@@ -1566,7 +1569,7 @@ body.ie .ibg img {
   height: 50px;
   position: absolute;
   right: 0px;
-  top: 15px;
+  top: 5px;
   margin: -8px 0px 0px 0px;
   -webkit-transition: all 0.3s;
   -o-transition: all 0.3s;
@@ -1585,6 +1588,7 @@ body.ie .ibg img {
   -ms-flex-align: center;
   align-items: center;
 }
+
 
 .sub-header-menu__list li .sub-arrow:before {
   content: '';
@@ -1619,7 +1623,7 @@ body.ie .ibg img {
 
 .sub-header-menu__link {
   display: block;
-  /*padding: 15px 10px;*/
+  padding: 15px 10px;
   -webkit-transition: all 0.3s;
   -o-transition: all 0.3s;
   transition: all 0.3s;
@@ -2554,6 +2558,7 @@ body.touch {
   font-size: 60px;
   font-family: "Geometria-Bold";
   max-width: 800px;
+  color: #333333;
   margin: 0px 0px 40px 0px;
 }
 

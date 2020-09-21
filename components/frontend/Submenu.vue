@@ -3,7 +3,7 @@
     <li v-for="(catalogItem, index) in catalog" class="sub-header-menu__item">
       <div class="" v-if="catalogItem.children.length">
         <a href="#" class="sub-header-menu__link">
-          {{catalogItem.title}}-{{catalogItem.depth}}-{{catalogItem.children.length}}-{{index}}
+          {{catalogItem.title}}
        </a>
         <span class="menu__arrow sub-arrow"></span>
         <Submenu :catalog="catalogItem.children" class="children_wrapper" v-if=" catalogItem.depth === 0"></Submenu>

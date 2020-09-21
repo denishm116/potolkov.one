@@ -1,5 +1,7 @@
 <template>
+
   <v-main app>
+
     <Header></Header>
 
     <nuxt/>
@@ -10,7 +12,7 @@
 </template>
 <script>
   import Header from "@/components/frontend/Header";
-
+  import Footer from "@/components/frontend/Footer";
   import Auth from "../components/auth/Auth";
 
   export default {
@@ -25,8 +27,14 @@
       // this.$vuetify.theme.dark = true
     },
     components: {
-      Header, Auth
+      Header, Auth, Footer
     },
+    mounted() {
+     for (let i = 0; i < this.$el.getElementsByClassName('v-application--wrap').length; i++) {
+       this.$el.getElementsByClassName('v-application--wrap')[i].style = "min-height: 0;"
+     }
+
+    }
 
 
   }
