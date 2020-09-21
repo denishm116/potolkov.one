@@ -1,6 +1,6 @@
 <template>
   <header class="header" v-scroll="handleScroll">
-    <div class="header__body" :style="{'transform': scrolling}">
+    <div class="header__body"  :style="header_collapse">
 
       <div class="header__row_wrapper">
         <div class="header__row fade">
@@ -42,7 +42,7 @@
         <div class="header-menu js-menu">
 
           <transition name="fade">
-            <ul class="header-menu__list" v-if="show">
+            <ul class="header-menu__list">
               <li v-for="menuItem in menu" class="header-menu__item">
                 <a href="#" class="header-menu__link li" :class="{active: menuItem.isActive}">
                   {{menuItem.title}}
@@ -98,8 +98,10 @@
     },
     data() {
       return {
-        show: false,
-        scrolling: 'translateY(0px)',
+        // show: false,
+        header_collapse: {
+          transform: 'translateY(0px)'
+        },
 
         classObject: {
           'header__logo': true,
@@ -115,11 +117,11 @@
       handleScroll(event, el) {
 
         if (window.scrollY > 50) {
-          this.scrolling = 'translateY(-37%)'
+          this.header_collapse.transform = 'translateY(-37%)'
           this.classObject.header__logo = false
           this.classObject.header__logo_scroll = true
         } else {
-          this.scrolling = 'translateY(0px)'
+          this.header_collapse.transform = 'translateY(0)'
           this.classObject.header__logo = true
           this.classObject.header__logo_scroll = false
         }
