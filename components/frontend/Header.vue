@@ -1,13 +1,13 @@
 <template>
   <header class="header" v-scroll="handleScroll">
-    <div class="header__body">
+    <div class="header__body" :style="{'transform': scrolling}">
 
       <div class="header__row_wrapper">
         <div class="header__row fade">
           <div class="header__info">
             Интеллигентный подход к вашему интерьеру
           </div>
-          <ul class="header__social" data-da="header__wrap,first,576">
+          <ul class="header__social">
             <li>
               <a href="#" class="header__social-link">
                 <img src="~/assets/img/icons/01.svg" alt=""/>
@@ -34,27 +34,27 @@
       <div class="header__row down">
         <a href="#" v-bind:class="classObject"><img src="~/assets/img/logo.png" alt="Натяжные потолки
 в Краснодаре - potolkov.shop"/></a>
-        <div class="header-menu__icon">
+        <div class="header-menu__icon" @click="show = !show">
           <span></span>
           <span></span>
           <span></span>
         </div>
         <div class="header-menu js-menu">
 
+          <transition name="fade">
+            <ul class="header-menu__list" v-if="show">
+              <li v-for="menuItem in menu" class="header-menu__item">
+                <a href="#" class="header-menu__link li" :class="{active: menuItem.isActive}">
+                  {{menuItem.title}}
+                </a>
+                <span class="menu__arrow arrow"></span>
+                <transition name="fade">
+                  <Submenu :catalog="menuItem.submenu" class="submenu_display"></Submenu>
+                </transition>
 
-          <ul class="header-menu__list">
-            <li v-for="menuItem in menu" class="header-menu__item">
-              <a href="#" class="header-menu__link li" :class="{active: menuItem.isActive}">
-                {{menuItem.title}}
-              </a>
-              <span class="menu__arrow arrow"></span>
-
-              <Submenu :catalog="menuItem.submenu" v-if="menuItem.submenu" class="submenu_display"></Submenu>
-
-
-            </li>
-          </ul>
-
+              </li>
+            </ul>
+          </transition>
         </div>
 
         <div class="header__wrap">
@@ -98,6 +98,8 @@
     },
     data() {
       return {
+        show: false,
+        scrolling: 'translateY(0px)',
 
         classObject: {
           'header__logo': true,
@@ -113,22 +115,20 @@
       handleScroll(event, el) {
 
         if (window.scrollY > 50) {
-          el.setAttribute(
-            'style',
-            'transform: translateY(-37%)'
-          )
+          this.scrolling = 'translateY(-37%)'
           this.classObject.header__logo = false
           this.classObject.header__logo_scroll = true
         } else {
-          el.setAttribute(
-            'style',
-            'transform: translateY(0px)'
-          )
+          this.scrolling = 'translateY(0px)'
           this.classObject.header__logo = true
           this.classObject.header__logo_scroll = false
         }
-
       },
+      resolutionShow() {
+        if (window.innerWidth < 1100) {
+          this.show = true
+        }
+      }
     },
     computed: {
       ...mapGetters({
@@ -161,23 +161,34 @@
           {
             title: 'Освещение',
             isActive: false,
-            submenu: '',
+            submenu: this.catalog,
           },
           {
             title: 'Дополнительно',
             isActive: false,
-            submenu: '',
+            submenu: this.catalog,
           }]
       }
     },
     mounted() {
       this.fetchCatalog()
+      this.resolutionShow()
+
 
     }
   }
 </script>
 
 <style scoped>
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity 1s;
+  }
+
+  .fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */
+  {
+    opacity: 0;
+  }
+
   .header {
     transition: all 0.3s ease-out 0s;
   }
@@ -185,13 +196,18 @@
   .submenu_display {
     transition: all 0.2s ease-out 0s;
     opacity: 0;
-    top: -9.7rem;
+    display: block;
+    position: absolute;
 
+  }
+
+  .header-menu__item {
+    overflow: hidden;
   }
 
   .header-menu__item:hover .submenu_display {
     opacity: 0.95;
-    /*max-height: 100%;*/
-    transform: translateY(13rem)
+    display: block;
+
   }
 </style>
