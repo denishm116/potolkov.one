@@ -1,6 +1,6 @@
 <template>
   <header class="header" v-scroll="handleScroll" :style="header_collapse">
-    <div class="header__body"  >
+    <div class="header__body">
 
       <div class="header__row_wrapper">
         <div class="header__row fade">
@@ -34,12 +34,12 @@
       <div class="header__row down">
         <a href="#" v-bind:class="classObject"><img src="~/assets/img/logo.png" alt="Натяжные потолки
 в Краснодаре - potolkov.shop"/></a>
-        <div class="header-menu__icon" @click="show = !show">
+        <div class="header-menu__icon" @click="showMenu">
           <span></span>
           <span></span>
           <span></span>
         </div>
-        <div class="header-menu js-menu">
+        <div class="header-menu js-menu" :style="mobileMenu">
 
           <transition name="fade">
             <ul class="header-menu__list">
@@ -98,7 +98,10 @@
     },
     data() {
       return {
-        // show: false,
+        mobileMenu: {
+
+          margin: '-100vh 0 0 0',
+        },
         header_collapse: {
           transform: 'translateY(0px)'
         },
@@ -117,7 +120,7 @@
       handleScroll(event, el) {
 
         if (window.scrollY > 50) {
-          this.header_collapse.transform = 'translateY(-37%)'
+          this.header_collapse.transform = 'translateY(-39%)'
           this.classObject.header__logo = false
           this.classObject.header__logo_scroll = true
         } else {
@@ -126,11 +129,12 @@
           this.classObject.header__logo_scroll = false
         }
       },
-      resolutionShow() {
-        if (window.innerWidth < 1100) {
-          this.show = true
-        }
-      }
+      showMenu() {
+        if (this.mobileMenu.margin === '-100vh 0 0 0')
+          this.mobileMenu.margin = '0 0 0 0'
+        else
+          this.mobileMenu.margin = '-100vh 0 0 0'
+          }
     },
     computed: {
       ...mapGetters({
@@ -174,7 +178,6 @@
     },
     mounted() {
       this.fetchCatalog()
-      this.resolutionShow()
 
 
     }
@@ -224,5 +227,36 @@
     max-width: 215px;
     margin: -30px 10% -30px 0px;
     transition: 0.3s;
+  }
+
+  @media (max-width: 479.98px) {
+    .header__logo {
+      display: block;
+      margin: 0 0 0 30%;
+      transition: 0.3s;
+    }
+
+    .header__logo_scroll {
+      display: block;
+      margin: 0 0 0 25%;
+      transition: 0.3s;
+    }
+
+    .header__logo img{
+      display: block;
+      max-width: 100px;
+      transition: 0.3s;
+    }
+
+    .header__logo_scroll img {
+      transition: 0.3s;
+      max-width: 120px;
+    }
+    .header__info {
+
+      text-align: left;
+      line-height: 16px;
+    }
+
   }
 </style>
