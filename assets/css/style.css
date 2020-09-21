@@ -854,19 +854,7 @@ body.ie .ibg img {
   max-height: 20px;
 }
 
-.header__logo {
-  display: block;
-  max-width: 215px;
-  margin: -30px 10% 15px 0px;
-  transition: 0.3s;
-}
 
-.header__logo_scroll {
-  display: block;
-  max-width: 215px;
-  margin: -30px 10% -30px 0px;
-  transition: 0.3s;
-}
 
 .header__logo.forfade {
   margin-top: 0;

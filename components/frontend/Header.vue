@@ -1,6 +1,6 @@
 <template>
-  <header class="header" v-scroll="handleScroll">
-    <div class="header__body"  :style="header_collapse">
+  <header class="header" v-scroll="handleScroll" :style="header_collapse">
+    <div class="header__body"  >
 
       <div class="header__row_wrapper">
         <div class="header__row fade">
@@ -210,6 +210,19 @@
   .header-menu__item:hover .submenu_display {
     opacity: 0.95;
     display: block;
+  }
 
+  .header__logo {
+    display: block;
+    max-width: 215px;
+    margin: -30px 10% 15px 0px;
+    transition: 0.3s;
+  }
+
+  .header__logo_scroll {
+    display: block;
+    max-width: 215px;
+    margin: -30px 10% -30px 0px;
+    transition: 0.3s;
   }
 </style>
