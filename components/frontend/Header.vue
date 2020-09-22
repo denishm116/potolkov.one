@@ -2,11 +2,12 @@
   <header class="header" v-scroll="handleScroll" :style="header_collapse">
     <div class="header__body">
 
-      <div class="header__row_wrapper">
-        <div class="header__row fade">
-          <div class="header__info">
-            Интеллигентный подход к вашему интерьеру
-          </div>
+
+      <div class="header__row fade">
+        <div class="header__info">
+          Интеллигентный подход к вашему интерьеру
+        </div>
+        <div>
           <ul class="header__social">
             <li>
               <a href="#" class="header__social-link">
@@ -31,16 +32,26 @@
           </ul>
         </div>
       </div>
-      <div class="header__row down">
-        <a href="#" v-bind:class="classObject"><img src="~/assets/img/logo.png" alt="Натяжные потолки
-в Краснодаре - potolkov.shop"/></a>
-        <div class="header-menu__icon" @click="showMenu">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <div class="header-menu js-menu" :style="mobileMenu">
 
+      <div class="header__row down">
+
+        <div class="menu-icon-wrapper" @click="showMenu">
+<div class="menu-icon" :class="{'menu-icon-active': menu_icon_active}"></div>
+<!--          <div class="header-menu__icon">-->
+<!--            <span></span>-->
+<!--            <span></span>-->
+<!--            <span></span>-->
+<!--          </div>-->
+        </div>
+        <div class="logo__wrapper">
+
+          <a href="#" v-bind:class="classObject"><img src="~/assets/img/logo.png" alt="Натяжные потолки
+в Краснодаре - potolkov.shop"/></a>
+        </div>
+
+
+
+        <div :class="menuBar">
           <transition name="fade">
             <ul class="header-menu__list">
               <li v-for="menuItem in menu" class="header-menu__item">
@@ -98,8 +109,14 @@
     },
     data() {
       return {
-        mobileMenu: {
+        menu_icon_active: false,
+        menuBar: {
+          'header-menu': true,
+          'mobile-menu-hidden': false,
+          'mobile-menu-open': false,
 
+        },
+        mMenu: {
           margin: '-100vh 0 0 0',
         },
         header_collapse: {
@@ -130,11 +147,28 @@
         }
       },
       showMenu() {
-        if (this.mobileMenu.margin === '-100vh 0 0 0')
-          this.mobileMenu.margin = '0 0 0 0'
-        else
-          this.mobileMenu.margin = '-100vh 0 0 0'
-          }
+
+        if (this.menuBar["mobile-menu-hidden"] === true) {
+          this.menu_icon_active = true
+          this.menuBar["mobile-menu-open"] = true
+          this.menuBar["mobile-menu-hidden"] = false
+        } else {
+          this.menu_icon_active = false
+          this.menuBar["mobile-menu-open"] = false
+          this.menuBar["mobile-menu-hidden"] = true
+        }
+      },
+      mobileStyleToggle() {
+        if (window.innerWidth < 1100) {
+          this.menuBar["header-menu"] = false
+          this.menuBar["mobile-menu-hidden"] = true
+        } else {
+          this.menuBar["header-menu"] = true
+          this.menuBar["mobile-menu-hidden"] = false
+          this.menuBar["mobile-menu-open"] = false
+        }
+
+      }
     },
     computed: {
       ...mapGetters({
@@ -178,9 +212,9 @@
     },
     mounted() {
       this.fetchCatalog()
+      window.addEventListener('resize', this.mobileStyleToggle);
+    },
 
-
-    }
   }
 </script>
 
@@ -196,6 +230,11 @@
 
   .header {
     transition: all 0.3s ease-out 0s;
+  }
+
+  .header__body {
+    display: flex;
+    flex-direction: column;
   }
 
   .submenu_display {
@@ -218,7 +257,7 @@
   .header__logo {
     display: block;
     max-width: 215px;
-    margin: -30px 10% 15px 0px;
+    margin-left: 15px;
     transition: 0.3s;
   }
 
@@ -229,7 +268,15 @@
     transition: 0.3s;
   }
 
-  @media (max-width: 479.98px) {
+  .mobile-menu-open {
+    margin: 0px 0px 0px 0px;
+  }
+
+  .mobile-menu-hidden {
+    margin: -100vh 0px 0px 0px;
+  }
+
+  @media (max-width: 579.98px) {
     .header__logo {
       display: block;
       margin: 0 0 0 30%;
@@ -242,7 +289,7 @@
       transition: 0.3s;
     }
 
-    .header__logo img{
+    .header__logo img {
       display: block;
       max-width: 100px;
       transition: 0.3s;
@@ -252,11 +299,62 @@
       transition: 0.3s;
       max-width: 120px;
     }
-    .header__info {
 
+    .header__info {
       text-align: left;
       line-height: 16px;
     }
 
   }
+
+
+  .menu-icon {
+    position: relative;
+    width: 30px;
+    height: 5px;
+    background-color: #ff0000;
+    transition: background-color 0.2s ease-in 0.2s;
+  }
+
+  .menu-icon::before {
+    position: absolute;
+    left: 0;
+    top: -10px;
+    content: '';
+    width: 30px;
+    height: 5px;
+    background-color: #ff0000;
+    transition: transform 0.2s ease-in, top 0.2s linear 0.2s;
+
+  }
+
+  .menu-icon::after {
+    position: absolute;
+    left: 0;
+    top: 10px;
+    content: '';
+    width: 30px;
+    height: 5px;
+    background-color: #ff0000;
+    transition: transform 0.2s ease-in, top 0.2s linear 0.2s;
+
+  }
+
+  .menu-icon.menu-icon-active {
+    background-color: transparent;
+    transition: background-color 0.2s ease-in 0.2s;
+  }
+
+  .menu-icon.menu-icon-active::before {
+    transform: rotate(45deg);
+    top: 0;
+    transition: top 0.2s linear, transform 0.2s ease-in 0.2s;
+  }
+
+  .menu-icon.menu-icon-active::after {
+    transform: rotate(-45deg);
+    top: 0;
+    transition: top 0.2s linear, transform 0.2s ease-in 0.2s;
+  }
+
 </style>
