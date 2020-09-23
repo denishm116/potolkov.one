@@ -40,20 +40,22 @@
         <div :class="menuBar" :style="menuToggler">
 
 
-            <ul class="header-menu__list">
+          <ul class="header-menu__list">
 
-              <li v-for="menuItem in menu" class="header-menu__item">
+            <li v-for="menuItem in menu" class="header-menu__item">
 
-                <a href="#" class="header-menu__link" :class="{active: menuItem.isActive}">
-                  {{menuItem.title}}
-                </a>
+              <a href="#" class="header-menu__link" :class="{active: menuItem.isActive}" >
+                {{menuItem.title}}
 
-                <span class="menu__arrow arrow"></span>
+              </a>
+              <span class="menu__arrow arrow" v-if="menuItem.submenu.length"
+                    :style="arrowRotate" @click="collapseMenu"></span>
 
-                  <Submenu :catalog="menuItem.submenu" class="submenu_display"></Submenu>
 
-              </li>
-            </ul>
+              <Submenu :catalog="menuItem.submenu" class="submenu_display" :style="displayNone"></Submenu>
+
+            </li>
+          </ul>
 
         </div>
 
@@ -98,6 +100,12 @@
     },
     data() {
       return {
+        arrowRotate: {
+          transform: 'rotate(0deg)'
+        },
+        displayNone: {
+          display: ''
+        },
         submenu_display: {},
         submenu: false,
         menu_icon_active: false,
@@ -142,9 +150,7 @@
 
         this.menu_icon_active = !this.menu_icon_active
       },
-      showSubMenu() {
 
-      },
       mobileStyleToggle() {
         if (window.innerWidth < 1100) {
           this.menuBar["header-menu"] = false
@@ -156,6 +162,19 @@
           this.menuBar["mobile-menu"] = false
         }
 
+      },
+      collapseMenu() {
+        if (window.innerWidth < 1100) {
+          if (this.displayNone.display === 'block') {
+            this.displayNone.display = 'none'
+            this.arrowRotate.transform = 'rotate(0deg)'
+          } else {
+            this.displayNone.display = 'block';
+            this.arrowRotate.transform = 'rotate(90deg)'
+          }
+          this.arrow_rotate = !this.arrow_rotate
+          console.log(this.arrow_rotate)
+        }
       }
     },
     computed: {
@@ -226,7 +245,7 @@
     width: 100%;
     left: 0;
     top: 0;
-    z-index: 9;
+    z-index: 11;
   }
 
   .header__body {
@@ -356,6 +375,24 @@
     -o-transition: all 0.3s;
     transition: all 0.3s;
     display: block;
+
+  }
+
+  .header-menu__item {
+    position: relative;
+  }
+
+  .menu__arrow {
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-left: 10px solid #ff0000;
+    border-bottom: 8px solid transparent;
+    cursor: pointer;
+    display: none;
+    position: absolute;
+    top: 1rem;
+    right: 0;
   }
 
   .active {
@@ -455,6 +492,8 @@
   }
 
   @media (max-width: 1100px) {
+
+
     .header__logo {
       display: block;
       transition: 0.3s;
@@ -506,6 +545,8 @@
       display: block;
       padding: 20px 20px;
       max-width: 700px;
+      /*overflow: hidden;*/
+      transition: 0.3s;
     }
 
     .header-menu__list li a {
@@ -526,9 +567,6 @@
       font-size: 21px;
     }
 
-    .header-menu__list .sub-header-menu__list .sub-sub-header-menu__list li a {
-      font-size: 19px;
-    }
 
     .header-menu__list li.active .sub-header-menu__list {
       display: block;
@@ -580,6 +618,39 @@
     .menu-icon-wrapper {
       display: flex;
     }
+
+    .menu__arrow {
+      display: block;
+    }
+
+    .header-menu__list:hover .arrow {
+      -webkit-transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+      transform: rotate(90deg);
+      transition: 0.3s;
+    }
+
+    .arrow_rotate {
+      -webkit-transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+      transform: rotate(-90deg);
+      transition: 0.3s;
+    }
+
+    .submenu_display {
+      transition: all 0.2s ease-out 0s;
+      opacity: 0;
+      display: none;
+    }
+
+
+    .header-menu__item:hover .submenu_display {
+      transition: all 0.2s ease-in 0s;
+      opacity: 1;
+      display: block;
+      height: auto;
+    }
+
   }
 
   @media (max-width: 576px) {
@@ -704,6 +775,7 @@
       font-size: 10px;
       text-align: left;
     }
+
     .header__row.down {
       margin-bottom: 15px;
     }
@@ -711,16 +783,20 @@
 
   .submenu_display {
     transition: all 0.2s ease-out 0s;
+    display: block;
     opacity: 0;
-    height: 0px;
+    /*display: none;*/
+    height: 0;
+    overflow: hidden;
   }
 
 
   .header-menu__item:hover .submenu_display {
     transition: all 0.2s ease-in 0s;
     opacity: 1;
-    display: block;
+    /*display: block;*/
     height: auto;
+    overflow: visible;
 
   }
 

@@ -1,17 +1,17 @@
 <template>
 
-  <ul class="sub-header-menu__list">
+  <ul class="sub-header-menu__list" :style="showStyle">
     <li v-for="(catalogItem, index) in catalog" class="sub-header-menu__item">
       <div class="" v-if="catalogItem.children.length">
         <a href="#" class="sub-header-menu__link">
           {{catalogItem.title}}
-       </a>
-        <span class="menu__arrow sub-arrow"></span>
-        <Submenu :catalog="catalogItem.children" class="children_wrapper" v-if="catalogItem.depth === 0"></Submenu>
+        </a>
+        <span class="menu__arrow sub-arrow" :style="arrowRotate"  @click="collapseMenu"></span>
+        <Submenu :catalog="catalogItem.children" class="children_wrapper" v-if="catalogItem.depth === 0" :style="displayNone"></Submenu>
       </div>
 
 
-      <div class=""  v-else>
+      <div class="" v-else>
         <a href="#" class="sub-header-menu__link">
           {{catalogItem.title}}
         </a>
@@ -26,15 +26,44 @@
   export default {
     name: 'Submenu',
     props: ['catalog'],
-    // props: {
-    //   catalog: Object
-    // },
+    data() {
+      return {
+        arrowRotate: {
+          transform: 'rotate(0deg)'
+        },
+        displayNone: {
+          display: ''
+        },
+        showStyle: {
+          display: '',
+        }
+      }
+
+    },
     computed: {
       allCatalog() {
         // return Array.from(this.catalog)
         return this.catalog
       }
-    },
+      ,
+
+    }
+    ,
+    methods: {
+      collapseMenu() {
+        if (window.innerWidth < 1100) {
+          if (this.displayNone.display === 'block') {
+            this.displayNone.display = 'none'
+            this.arrowRotate.transform = 'rotate(0deg)'
+          } else {
+            this.displayNone.display = 'block';
+            this.arrowRotate.transform = 'rotate(90deg)'
+          }
+          this.arrow_rotate = !this.arrow_rotate
+          console.log(this.arrow_rotate)
+        }
+      }
+    }
 
   }
 
@@ -46,36 +75,37 @@
     transition: all 0.2s ease-out 0s;
     min-width: 300px;
     /*overflow: hidden;*/
-    /*position: absolute;*/
+    position: absolute;
+
   }
 
   .sub-header-menu__item {
     transition: all 0.2s ease-out 0s;
     z-index: 10;
     max-width: 290px;
-    display: flex;
-    top:0.42rem;
-    overflow: hidden;
-    /*position: absolute;*/
-  }
+    /*display: block;*/
 
+    position: absolute;
+
+  }
 
   .children_wrapper {
     transition: all 0.2s ease-out 1s;
     opacity: 0.5;
-    height: 10px;
+    height: 0px;
+
     /*display: none;*/
   }
 
-  .sub-header-menu__item:hover .children_wrapper{
+  .sub-header-menu__item:hover .children_wrapper {
     transition: all 0.2s ease-out 0s;
-    /*display: block;*/
-    opacity: 0.95;
+    display: block;
+    opacity: 1;
     height: 100%;
-    left: 70%;
-    bottom: 40px;
-    padding-bottom: 40px;
-    /*position: absolute;*/
+    left: 100%;
+    margin-right: 15px;
+    top: 0;
+    position: absolute;
   }
 
   .sub-header-menu__list a {
@@ -97,8 +127,8 @@
     width: 50px;
     height: 50px;
     position: absolute;
-    right: 0px;
-    top: 5px;
+    right: 25px;
+    top: 10px;
     margin: -8px 0px 0px 0px;
     -webkit-transition: all 0.3s;
     -o-transition: all 0.3s;
@@ -126,10 +156,27 @@
   }
 
   .sub-header-menu__list li:hover .sub-arrow {
-    -webkit-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    transform: rotate(90deg);
+    /*-webkit-transform: rotate(360deg);*/
+    /*-ms-transform: rotate(360deg);*/
+    /*transform: rotate(360deg);*/
+    -webkit-transform: translateX(20px);
+    -ms-transform: translateX(20px);
+    transform: translateX(20px);
+    transition: 0.3s;
   }
+
+  .sub-header-menu__list li:hover .sub-arrow:before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-left: 10px solid #ff0000;
+    border-bottom: 8px solid transparent;
+    -webkit-transform: translateX(5px);
+    -ms-transform: translateX(5px);
+    transform: translateX(5px);
+  }
+
 
   .sub-header-menu__list li .sub-arrow.active {
     -webkit-transform: rotate(90deg);
@@ -156,7 +203,7 @@
   }
 
   .sub-sub-header-menu__list li {
-    background: #333;
+
     position: relative;
   }
 
@@ -187,27 +234,36 @@
       left: -100%;
     }
   }
-  @media (min-width: 1100px) {
+
+  @media (max-width: 1100px) {
+    .sub-header-menu__list li:hover .sub-arrow {
+      -webkit-transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+      transform: rotate(90deg);
+    }
 
     .sub-header-menu__list {
-      position: absolute;
-    }
-
-    .sub-header-menu__item:hover .children_wrapper{
-      transition: all 0.2s ease-out 0s;
-      display: block;
-      opacity: 0.95;
-      height: 100%;
-      /*left: 50%;*/
-      /*top: 0;*/
       position: relative;
+      overflow: hidden;
+
     }
 
+    .sub-header-menu__item:hover .children_wrapper {
+      position: relative;
+      left: 0;
+    }
 
+    .sub-header-menu__list li {
+      background-color: black;
+
+    }
+  }
+
+  @media (min-width: 1100px) {
 
 
     .sub-header-menu__list a {
-      padding: 10px 0px;
+      padding: 10px 10px;
     }
 
     .sub-header-menu__list a:hover {
@@ -221,11 +277,10 @@
     }
 
     .sub-header-menu__list li {
+
       padding: 10px 0px;
     }
 
-    .sub-header-menu__list li .sub-arrow {
-      top: 5px;
-    }
+
   }
 </style>
