@@ -1,8 +1,7 @@
 <template>
   <header class="header" v-scroll="handleScroll" :style="header_collapse">
+
     <div class="header__body">
-
-
       <div class="header__row fade">
         <div class="header__info">
           Интеллигентный подход к вашему интерьеру
@@ -10,24 +9,16 @@
         <div>
           <ul class="header__social">
             <li>
-              <a href="#" class="header__social-link">
-                <img src="~/assets/img/icons/01.svg" alt=""/>
-              </a>
+              <a href="#"><img src="~/assets/img/icons/01.svg" alt=""/></a>
             </li>
             <li>
-              <a href="#" class="header__social-link">
-                <img src="~/assets/img/icons/02.svg" alt=""/>
-              </a>
+              <a href="#"><img src="~/assets/img/icons/02.svg" alt=""/></a>
             </li>
             <li>
-              <a href="#" class="header__social-link">
-                <img src="~/assets/img/icons/03.svg" alt=""/>
-              </a>
+              <a href="#"><img src="~/assets/img/icons/03.svg" alt=""/></a>
             </li>
             <li>
-              <a href="#" class="header__social-link">
-                <img src="~/assets/img/icons/04.svg" alt=""/>
-              </a>
+              <a href="#"><img src="~/assets/img/icons/04.svg" alt=""/></a>
             </li>
           </ul>
         </div>
@@ -36,36 +27,34 @@
       <div class="header__row down">
 
         <div class="menu-icon-wrapper" @click="showMenu">
-<div class="menu-icon" :class="{'menu-icon-active': menu_icon_active}"></div>
-<!--          <div class="header-menu__icon">-->
-<!--            <span></span>-->
-<!--            <span></span>-->
-<!--            <span></span>-->
-<!--          </div>-->
+          <div class="menu-icon" :class="{'menu-icon-active': menu_icon_active}"></div>
         </div>
         <div class="logo__wrapper">
-
-          <a href="#" v-bind:class="classObject"><img src="~/assets/img/logo.png" alt="Натяжные потолки
+          <transition name="fade">
+            <a href="#" v-bind:class="logoScroll"><img src="~/assets/img/logo.png" alt="Натяжные потолки
 в Краснодаре - potolkov.shop"/></a>
+          </transition>
         </div>
 
 
+        <div :class="menuBar" :style="menuToggler">
 
-        <div :class="menuBar">
-          <transition name="fade">
+
             <ul class="header-menu__list">
+
               <li v-for="menuItem in menu" class="header-menu__item">
-                <a href="#" class="header-menu__link li" :class="{active: menuItem.isActive}">
+
+                <a href="#" class="header-menu__link" :class="{active: menuItem.isActive}">
                   {{menuItem.title}}
                 </a>
+
                 <span class="menu__arrow arrow"></span>
-                <transition name="fade">
+
                   <Submenu :catalog="menuItem.submenu" class="submenu_display"></Submenu>
-                </transition>
 
               </li>
             </ul>
-          </transition>
+
         </div>
 
         <div class="header__wrap">
@@ -109,21 +98,22 @@
     },
     data() {
       return {
+        submenu_display: {},
+        submenu: false,
         menu_icon_active: false,
         menuBar: {
           'header-menu': true,
-          'mobile-menu-hidden': false,
-          'mobile-menu-open': false,
-
+          'mobile-menu': false,
+          'mobile-menu-show': false,
         },
-        mMenu: {
+        menuToggler: {
           margin: '-100vh 0 0 0',
         },
         header_collapse: {
           transform: 'translateY(0px)'
         },
 
-        classObject: {
+        logoScroll: {
           'header__logo': true,
           'header__logo_scroll': false,
         }
@@ -137,35 +127,33 @@
       handleScroll(event, el) {
 
         if (window.scrollY > 50) {
-          this.header_collapse.transform = 'translateY(-39%)'
-          this.classObject.header__logo = false
-          this.classObject.header__logo_scroll = true
+          this.header_collapse.transform = 'translateY(-40%)'
+          this.logoScroll['header__logo_scroll'] = true;
         } else {
           this.header_collapse.transform = 'translateY(0)'
-          this.classObject.header__logo = true
-          this.classObject.header__logo_scroll = false
+          this.logoScroll['header__logo_scroll'] = false;
         }
       },
       showMenu() {
+        if (this.menuToggler.margin === '-100vh 0 0 0')
+          this.menuToggler.margin = '0 0 0 0'
+        else
+          this.menuToggler.margin = '-100vh 0 0 0'
 
-        if (this.menuBar["mobile-menu-hidden"] === true) {
-          this.menu_icon_active = true
-          this.menuBar["mobile-menu-open"] = true
-          this.menuBar["mobile-menu-hidden"] = false
-        } else {
-          this.menu_icon_active = false
-          this.menuBar["mobile-menu-open"] = false
-          this.menuBar["mobile-menu-hidden"] = true
-        }
+        this.menu_icon_active = !this.menu_icon_active
+      },
+      showSubMenu() {
+
       },
       mobileStyleToggle() {
         if (window.innerWidth < 1100) {
           this.menuBar["header-menu"] = false
-          this.menuBar["mobile-menu-hidden"] = true
+          this.menuBar["mobile-menu"] = true
+          this.menuToggler.margin = '-100vh 0 0 0'
         } else {
+          this.menuToggler.margin = '0 0 0 0'
           this.menuBar["header-menu"] = true
-          this.menuBar["mobile-menu-hidden"] = false
-          this.menuBar["mobile-menu-open"] = false
+          this.menuBar["mobile-menu"] = false
         }
 
       }
@@ -213,7 +201,9 @@
     mounted() {
       this.fetchCatalog()
       window.addEventListener('resize', this.mobileStyleToggle);
+      this.mobileStyleToggle()
     },
+
 
   }
 </script>
@@ -230,6 +220,13 @@
 
   .header {
     transition: all 0.3s ease-out 0s;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px 15px 5px 15px;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 9;
   }
 
   .header__body {
@@ -237,46 +234,412 @@
     flex-direction: column;
   }
 
-  .submenu_display {
-    transition: all 0.2s ease-out 0s;
-    opacity: 0;
-    display: block;
-    position: absolute;
-
+  .header__row.fade {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin: 0 0 15px auto;
   }
 
-  .header-menu__item {
-    overflow: hidden;
+  .header__info {
+    font-size: 14px;
+    font-family: "Geometria-Bold";
+    color: #fff;
+    margin: 0px 10% 0px 0px;
   }
 
-  .header-menu__item:hover .submenu_display {
-    opacity: 0.95;
+  .header__social {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    font-size: 0;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    z-index: 10;
+  }
+
+  .header__social li a {
     display: block;
+    width: 15px;
+    min-height: 12px;
+    margin: 0 0 0 20px;
+  }
+
+  .header__social li a img {
+    display: block;
+    max-height: 20px;
+  }
+
+  .header__row.down {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    display: flex;
+    font-size: 0;
+    align-items: center;
+    position: relative;
+    justify-content: space-between;
+    transition: 0.3s;
+  }
+
+  .mobile-menu {
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: #000;
+    height: 100vh;
+    width: 100%;
+    overflow: auto;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    margin: -200vh 0px 0px 0px;
+    transition: all 0.3s;
+    padding-top: 140px;
   }
 
   .header__logo {
     display: block;
-    max-width: 215px;
-    margin-left: 15px;
     transition: 0.3s;
+    margin: -50px 0 10px 0px;
   }
 
   .header__logo_scroll {
     display: block;
-    max-width: 215px;
-    margin: -30px 10% -30px 0px;
+    margin: 0px 0 5px 0px;
     transition: 0.3s;
   }
 
-  .mobile-menu-open {
+  .header__logo img {
+    display: block;
+    max-width: 100%;
+  }
+
+  .header-menu__list {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    /*position: relative;*/
+
+  }
+
+  .header-menu__list > li {
+    margin: 0px 20px 0px 0px;
+  }
+
+  .header-menu__list > li:last-child {
     margin: 0px 0px 0px 0px;
   }
 
-  .mobile-menu-hidden {
-    margin: -100vh 0px 0px 0px;
+  .header-menu__list a:hover {
+    color: #ff0000;
   }
 
-  @media (max-width: 579.98px) {
+  .header-menu__link {
+    font-size: 18px;
+    color: #fff;
+    min-height: 100%;
+    padding: 5px 10px 30px 10px;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+    display: block;
+  }
+
+  .active {
+    position: relative;
+
+    box-sizing: border-box;
+  }
+
+  .active:before {
+    content: "";
+    width: 100%;
+    height: 6px;
+    background: #ff0000;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+  }
+
+  .menu-icon-wrapper {
+    width: 30px;
+    height: 30px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10;
+
+  }
+
+  .header-menu.active {
+    margin: 0;
+  }
+
+
+  .header__btn {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    font-size: 0;
+    font-size: 24px;
+    font-family: "Geometria-Medium";
+    color: #fff;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 280px;
+    height: 50px;
+    border: 1px solid #fff;
+    border-radius: 50px;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+  }
+
+  .header__btn .header__btn-icon {
+    width: 25px;
+    display: block;
+    margin-right: 10px;
+    fill: #fff;
+  }
+
+  @media (max-width: 1895px) {
+    .header__logo {
+      margin-right: 50px;
+    }
+  }
+
+  @media (max-width: 1450px) {
+    .header__logo {
+      max-width: 160px;
+    }
+
+    .header-menu__link {
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 1282px) {
+    .header__btn {
+      font-size: 14px;
+      width: 180px;
+      height: 40px;
+    }
+
+    .header-menu__link {
+      padding-bottom: 35px;
+    }
+
+  }
+
+  @media (max-width: 1100px) {
+    .header__logo {
+      display: block;
+      transition: 0.3s;
+      margin: 0px 0 10px 0px;
+    }
+
+    .header__row.fade {
+      justify-content: space-between;
+      margin: 0 0 15px 0;
+    }
+
+    .header__info {
+      max-width: 270px;
+    }
+
+    .header-menu {
+      position: fixed;
+      left: 0;
+      top: 0;
+      background: #000;
+      height: 100vh;
+      width: 100%;
+      overflow: auto;
+      /*margin: -100vh 0px 0px 0px;*/
+      -webkit-transition: all 0.3s;
+      -o-transition: all 0.3s;
+      transition: all 0.3s;
+      padding-top: 140px;
+    }
+
+    .header__logo {
+      z-index: 10;
+    }
+
+    .header__btn {
+      z-index: 10;
+      position: relative;
+      padding: 0px 10px;
+      font-size: 20px;
+      width: 250px;
+      height: 50px;
+    }
+
+    .header__btn:hover {
+      background: #ff0000;
+    }
+
+    .header-menu__list {
+      display: block;
+      padding: 20px 20px;
+      max-width: 700px;
+    }
+
+    .header-menu__list li a {
+      font-size: 26px;
+      padding: 10px 5px;
+      display: block;
+    }
+
+    .header-menu__list li a.active {
+      color: #ff0000;
+    }
+
+    .header-menu__list li a:before {
+      display: none;
+    }
+
+    .header-menu__list .sub-header-menu__list li a {
+      font-size: 21px;
+    }
+
+    .header-menu__list .sub-header-menu__list .sub-sub-header-menu__list li a {
+      font-size: 19px;
+    }
+
+    .header-menu__list li.active .sub-header-menu__list {
+      display: block;
+    }
+
+    .header-menu li {
+      position: relative;
+      margin-right: 0;
+      padding-right: 60px;
+    }
+
+    .header-menu .arrow {
+      position: absolute;
+      right: 10px;
+      top: 0px;
+      -webkit-transition: 0.3s all;
+      -o-transition: 0.3s all;
+      transition: 0.3s all;
+      cursor: pointer;
+      width: 50px;
+      height: 50px;
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      font-size: 0;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+    }
+
+    .header-menu .arrow:before {
+      content: '';
+      border-top: 8px solid transparent;
+      border-left: 10px solid red;
+      border-bottom: 8px solid transparent;
+    }
+
+    .header-menu .arrow.active {
+      -webkit-transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+      transform: rotate(90deg);
+    }
+
+    .menu-icon-wrapper {
+      display: flex;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .header .fade {
+      max-width: 576px;
+    }
+
+
+    .header__info {
+      text-align: left;
+      margin-top: -15px;
+    }
+
+    .header__btn {
+      font-size: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      font-size: 0;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      border: 1px solid #ff0000;
+      padding: 5px;
+      margin: 0px 0px 0px 30px;
+    }
+
+    .header .header__btn-icon {
+      margin: 0;
+      fill: #ff0000;
+    }
+
+    .header__wrap {
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      font-size: 0;
+      max-width: 100%;
+      justify-content: space-around;
+    }
+
+    .header-menu .sub-header-menu__list li a {
+      font-size: 18px;
+    }
+
+    .header-menu .sub-header-menu__list .sub-sub-header-menu__list li a {
+      font-size: 16px;
+    }
+
+
     .header__logo {
       display: block;
       margin: 0 0 0 30%;
@@ -305,8 +668,82 @@
       line-height: 16px;
     }
 
+
   }
 
+  @media (max-width: 479.98px) {
+    .header {
+      padding-left: 15px;
+    }
+
+    .header .fade {
+      max-width: 100%;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+    }
+
+    .header__logo {
+      margin: 0;
+    }
+
+
+  }
+
+  @media (max-width: 380px) {
+    .header__info {
+      font-size: 12px;
+      text-align: left;
+      margin-top: -20px;
+      padding-top: 10px;
+    }
+  }
+
+  @media (max-width: 321px) {
+    .header__info {
+      font-size: 10px;
+      text-align: left;
+    }
+    .header__row.down {
+      margin-bottom: 15px;
+    }
+  }
+
+  .submenu_display {
+    transition: all 0.2s ease-out 0s;
+    opacity: 0;
+    height: 0px;
+  }
+
+
+  .header-menu__item:hover .submenu_display {
+    transition: all 0.2s ease-in 0s;
+    opacity: 1;
+    display: block;
+    height: auto;
+
+  }
+
+  .mobile-menu-open {
+    margin: 0px 0px 0px 0px;
+  }
+
+  .mobile-menu-hidden {
+    margin: -100vh 0px 0px 0px;
+  }
+
+  .logo__wrapper {
+    transition: .3s
+  }
+
+  /*Анимация бургера*//*Анимация бургера*//*Анимация бургера*//*Анимация бургера*//*Анимация бургера*//*Анимация бургера*/
+  /*Анимация бургера*//*Анимация бургера*//*Анимация бургера*//*Анимация бургера*//*Анимация бургера*//*Анимация бургера*/
+
+  .menu__wrapper {
+    transition: 0.3s;
+    margin: 0px 50px 0px auto;
+
+  }
 
   .menu-icon {
     position: relative;
