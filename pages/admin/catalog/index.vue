@@ -4,7 +4,7 @@
     <v-row no-gutters
     >
       <v-col>
-        <span class="grey--text text--darken-3 text-right text-uppercase text-lg-h5 font-weight-bold ">Редактирование каталога потолков</span>
+        <span class="grey--text text--darken-3 text-right text-uppercase text-lg-h5 font-weight-bold ">Создание новой категории</span>
       </v-col>
 
     </v-row>
@@ -15,7 +15,8 @@
           class="mx-auto pa-5"
 
         >
-          <v-subheader>Редактирование каталога потолков</v-subheader>
+          <v-subheader>Заполните необходимы поля (Название категории, родительскую категорию, описание и изображения)
+          </v-subheader>
 
           <v-row>
 
@@ -60,7 +61,6 @@
             </v-col>
           </v-row>
 
-
           <v-row>
             <v-col>
               <v-btn @click="onButtonClick">
@@ -73,27 +73,28 @@
 
           <v-row justify="space-between">
             <v-col cols="auto" v-if="readyToUpload">
-              <div v-for="file in formData" :key="file.key">
-                <v-row>
-                  <v-col>
 
+              <v-radio-group v-model="newCategory.mainImage" column>
+                <v-row v-for="(file, index) in formData" :key="index">
+                  <v-col>
                     <clipper-basic
                       class="my-clipper"
                       :src="file.uploadFileData"
                       :ref="'clipper' + file.key"
                       :preview="'my-preview' + file.key"
                     >
-
                     </clipper-basic>
-
                   </v-col>
                   <v-col>
                     <clipper-preview :name="'my-preview' + file.key" class="my-clipper">
                       <div class="placeholder" slot="placeholder">preview area</div>
                     </clipper-preview>
                   </v-col>
+
+                  <v-radio label="Сделать основной" :value="file.key"></v-radio>
+
                 </v-row>
-              </div>
+              </v-radio-group>
             </v-col>
           </v-row>
 
@@ -107,13 +108,11 @@
               </v-btn>
             </v-col>
           </v-row>
-
-
           <v-card
             class="d-inline-flex pa-2"
             outlined
             tile
-            v-for="thumb in resultURL" :key="1"
+            v-for="(thumb, index) in resultURL" :key="index"
           >
             <div class="thumbs">
               <v-img :src="thumb"></v-img>
@@ -123,7 +122,7 @@
           <br>
           <br>
           <br>
-          <h1>Спивок категорий потолков</h1>
+          <h1>Список категорий потолков</h1>
           <ul>
             <template v-for="cat in allCatalog">
 
@@ -147,13 +146,9 @@
 
             </template>
           </ul>
-
-
         </v-card>
       </v-col>
-
     </v-row>
-
 
   </div>
 </template>
@@ -177,7 +172,8 @@
         newCategory: {
           title: '',
           parent_id: '',
-          description: ''
+          description: '',
+          mainImage: ''
         },
         files: [],
 
@@ -237,14 +233,23 @@
       },
 
       onButton2Click() {
+        let main = 0;
         for (let prop in this.$refs) {
-          let n = ''
           if (prop.substr(0, 7) === 'clipper') {
             const canvas = this.$refs[prop][0].clip()
-            this.resultURL.push(canvas.toDataURL("image/jpeg", 1))
+
+            if (+prop.substr(7, 1) === this.newCategory.mainImage)
+              main = 1
+            this.resultURL.push(
+              {
+                image: canvas.toDataURL("image/jpeg", 1),
+                main: main
+              }
+              )
           }
         }
         this.newCategory.files = this.resultURL
+
         this.$axios.$post('admin/catalog', this.newCategory)
           .then(() => {
             return this.fetchCatalog()
