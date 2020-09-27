@@ -4,7 +4,7 @@
     <v-row no-gutters
     >
       <v-col>
-        <span class="grey--text text--darken-3 text-right text-uppercase text-lg-h5 font-weight-bold ">Создание новой категории</span>
+        <span class="grey--text text--darken-3 text-right text-uppercase text-lg-h5 font-weight-bold ">Добавить потолок в каталог</span>
       </v-col>
 
     </v-row>
@@ -24,11 +24,11 @@
 
               <v-text-field
                 @input="activeButton()"
-                label="Название категории"
+                label="Полное название потолка"
                 outlined
                 dense
                 :error-messages="titleErrors"
-                v-model="newCategory.title"
+                v-model="newCeiling.title"
               ></v-text-field>
 
             </v-col>
@@ -43,7 +43,7 @@
                 dense
                 outlined
                 :error-messages="parent_idErrors"
-                v-model="newCategory.parent_id"
+                v-model="newCeiling.catalog_id"
               ></v-select>
             </v-col>
           </v-row>
@@ -52,7 +52,7 @@
             <v-col>
               <ClientOnly>
                 <!-- Use the component in the right place of the template -->
-                <tiptap-vuetify v-model="newCategory.description" :extensions="extensions"/>
+                <tiptap-vuetify v-model="newCeiling.description" :extensions="extensions"/>
 
                 <template #placeholder>
                   Подождите капельку...
@@ -83,7 +83,7 @@
           <v-row justify="space-between">
             <v-col cols="auto" v-if="readyToUpload">
 
-              <v-radio-group v-model="newCategory.mainImage" column>
+              <v-radio-group v-model="newCeiling.mainImage" column>
                 <v-row v-for="(file, index) in formData" :key="index">
                   <v-col>
                     <clipper-basic
@@ -92,8 +92,8 @@
                       :ref="'clipper' + file.key"
                       :preview="'my-preview' + file.key"
                       :corner="true"
-                      init-width="100"
-                      init-height="100"
+                      :init-width="100"
+                      :init-height="100"
                       :ratio="265/180"
                     >
                     </clipper-basic>
@@ -135,25 +135,23 @@
           <br>
           <br>
           <br>
-          <h1>Список категорий потолков</h1>
+          <h1>Список потолков</h1>
           <ul>
-            <template v-for="cat in allCatalog">
+            <template v-for="ceiling in CEILINGS">
 
               <li>
-                <a href="#" @click.prevent="itemUp(cat.slug)">
+                <a href="#" @click.prevent="itemUp(ceiling.slug)">
                   <v-icon>mdi-arrow-up-bold-circle</v-icon>
                 </a>
-                <a href="#" @click.prevent="itemDown(cat.slug)">
+                <a href="#" @click.prevent="itemDown(ceiling.slug)">
                   <v-icon>mdi-arrow-down-bold-circle</v-icon>
                 </a>
-                <a href="#" @click.prevent="itemDelete(cat.slug)">
+                <a href="#" @click.prevent="itemDelete(ceiling.slug)">
                   <v-icon>mdi-delete</v-icon>
                 </a>
-                <a href="#" @click.prevent="goTo(cat.slug)">
-                  <template v-for="depth in cat.depth">
-                    --
-                  </template>
-                  {{cat.title }}
+                <a href="#" @click.prevent="goTo(ceiling.slug)">
+
+                  {{ceiling.title }}
                 </a>
               </li>
 
@@ -171,7 +169,7 @@
 
   import {clipperBasic, clipperPreview} from 'vuejs-clipper'
   import {mapGetters, mapActions} from 'vuex'
-  import Editor from '@/components/partials/Editor'
+
   import {
     TiptapVuetify,
     Heading,
@@ -224,10 +222,10 @@
           Paragraph,
           HardBreak
         ],
-        newCategory: {
+        newCeiling: {
           title: '',
-          parent_id: '',
-          description: '',
+          catalog_id: '',
+          description: 'Введите описание с <b>форматированием</b>',
           mainImage: ''
         },
         files: [],
@@ -237,13 +235,14 @@
         filesOrder: [],
         formData: [],
 
-        resultURL: []
+        resultURL: [],
+
       }
     },
 
     methods: {
       goTo(slug) {
-        this.$router.push('/admin/catalog/' + slug)
+        this.$router.push('/admin/ceilings/' + slug)
       },
 
       onFileChange(event) {
@@ -293,7 +292,7 @@
           if (prop.substr(0, 7) === 'clipper') {
             const canvas = this.$refs[prop][0].clip()
 
-            if (+prop.substr(7, 1) === this.newCategory.mainImage)
+            if (+prop.substr(7, 1) === this.newCeiling.mainImage)
               main = 1
             this.resultURL.push(
               {
@@ -303,13 +302,15 @@
               )
           }
         }
-        this.newCategory.files = this.resultURL
+        this.newCeiling.files = this.resultURL
 
-        this.$axios.$post('admin/catalog', this.newCategory)
+        this.$axios.$post('admin/ceilings', this.newCeiling)
           .then(() => {
             return this.fetchCatalog()
           })
+      this.fetchCeilings()
       },
+
 
       calcSize(size) {
         return Math.round(size / 1024);
@@ -317,17 +318,23 @@
       activeButton() {
         this.activeButtonVar = false
       },
+
       ...mapActions({
-        fetchCatalog: 'catalog/fetchCatalog'
+        fetchCatalog: 'catalog/fetchCatalog',
+        fetchCeilings: 'ceilings/fetchCeilings'
       })
     },
 
     mounted() {
       this.fetchCatalog()
+      this.fetchCeilings()
+
     },
+
     computed: {
       ...mapGetters({
-        allCatalog: 'catalog/allCatalog'
+        allCatalog: 'catalog/allCatalog',
+        CEILINGS: 'ceilings/CEILINGS'
       }),
       readyToUpload() {
         return this.formData.length

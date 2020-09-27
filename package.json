@@ -14,13 +14,15 @@
     "@nuxtjs/axios": "^5.12.2",
     "@nuxtjs/proxy": "^2.0.1",
     "@nuxtjs/pwa": "^3.0.2",
+    "epic-spinners": "^1.1.0",
+    "hammerjs": "^2.0.8",
     "nuxt": "^2.14.4",
     "rxjs": "^6.6.3",
+    "tiptap-vuetify": "^2.24.0",
     "vue-rx": "^6.2.0",
+    "vue-trix": "github:hanhdt/vue-trix",
     "vuejs-clipper": "^3.0.2",
-    "yarn": "^1.22.5",
-    "epic-spinners": "^1.1.0",
-    "hammerjs": "^2.0.8"
+    "yarn": "^1.22.5"
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.11.2",

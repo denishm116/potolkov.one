@@ -44,10 +44,10 @@
 
             <li v-for="menuItem in menu" class="header-menu__item">
 
-              <a href="#" class="header-menu__link" :class="{active: menuItem.isActive}" >
+              <nuxt-link :to="menuItem.href" class="header-menu__link" :class="{active: menuItem.isActive}" >
                 {{menuItem.title}}
 
-              </a>
+              </nuxt-link>
               <span class="menu__arrow arrow" v-if="menuItem.submenu.length"
                     :style="arrowRotate" @click="collapseMenu"></span>
 
@@ -189,31 +189,37 @@
           title: 'Каталог потолков',
           isActive: false,
           submenu: this.catalog,
+          href: 'ceilings_catalog'
         },
           {
             title: 'Цены',
             isActive: true,
             submenu: '',
+            href: 'catalog'
           },
           {
             title: 'Калькулятор',
             isActive: false,
             submenu: '',
+            href: 'catalog'
           },
           {
             title: 'Фото',
             isActive: false,
             submenu: '',
+            href: 'catalog'
           },
           {
             title: 'Освещение',
             isActive: false,
             submenu: this.catalog,
+            href: 'catalog'
           },
           {
             title: 'Дополнительно',
             isActive: false,
             submenu: this.catalog,
+            href: 'catalog'
           }]
       }
     },

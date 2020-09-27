@@ -34,8 +34,8 @@ export default {
     './plugins/mixins/user',
     './plugins/axios',
     './plugins/scroll',
-    // './plugins/photoGallery/initAddons',
     { src: './plugins/vuejs-clipper.js', ssr: false },
+    { src: './plugins/TiptapVuetify', mode: 'client' }
 
   ],
   auth: {
@@ -69,7 +69,7 @@ export default {
 
   ],
   env: {
-    BASEUrl:
+    baseURL:
       process.env.NODE_ENV === 'development'
         ? 'http://api.potolkov.one/'
         : 'https://api.potolkov.shop/'
@@ -83,5 +83,7 @@ export default {
     }
   ,
 
-  build: {}
+  build: {
+    transpile: ['vuetify/lib', 'tiptap-vuetify']
+  }
 }

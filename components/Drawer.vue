@@ -79,12 +79,12 @@
             items: [
                 {
                     icon: 'mdi-view-dashboard',
-                    title: 'Добавить объект',
-                    to: '/admin',
+                    title: 'Добавить потолок',
+                    to: '/admin/ceilings/',
                 },
                 {
                     icon: 'mdi-calendar-multiple',
-                    title: 'Каталог',
+                    title: 'Добавить категорию в каталог',
                     to: '/admin/catalog/',
                 },
                 {
