@@ -47,7 +47,7 @@
   export default {
     computed: {
       ...mapGetters({
-        allCatalog: 'frontend/catalog/allCatalog'
+        allCatalog: 'frontend/ceiling_catalog'
       }),
       path() {
         return process.env.baseURL + 'storage/'

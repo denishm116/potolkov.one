@@ -26,7 +26,7 @@
       async getData() {
         const catalog = await this.$axios.$get('admin/catalog/' + this.$route.params.slug)
         this.data = catalog[0]
-        console.log(this.path)
+
       }
     },
     mounted() {

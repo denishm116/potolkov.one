@@ -2,21 +2,24 @@
 
   <ul class="sub-header-menu__list" :style="showStyle">
     <li v-for="(catalogItem, index) in catalog" class="sub-header-menu__item">
-      <div class="" v-if="catalogItem.children.length">
-        <a href="#" class="sub-header-menu__link">
+      <div v-if="catalogItem.children.length">
+        <nuxt-link :to="parentLink + '/' + catalogItem.slug" class="sub-header-menu__link">
           {{catalogItem.title}}
-        </a>
-        <span class="menu__arrow sub-arrow" :style="arrowRotate"  @click="collapseMenu"></span>
-        <Submenu :catalog="catalogItem.children" class="children_wrapper" v-if="catalogItem.depth === 0" :style="displayNone"></Submenu>
+        </nuxt-link>
+        <span class="menu__arrow sub-arrow" @click="collapseMenu($event)"></span>
+        <Submenu :catalog="catalogItem.children" class="children_wrapper" v-if="catalogItem.depth === 0"
+                 :parentLink="parentLink"></Submenu>
       </div>
 
 
       <div class="" v-else>
-        <a href="#" class="sub-header-menu__link">
+        <nuxt-link :to="parentLink + '/' + catalogItem.slug + '/' + (catalogItem.ceiling ? catalogItem.ceiling.slug : '')"
+           class="sub-header-menu__link">
           {{catalogItem.title}}
-        </a>
+        </nuxt-link>
       </div>
     </li>
+
   </ul>
 
 </template>
@@ -25,44 +28,42 @@
 
   export default {
     name: 'Submenu',
-    props: ['catalog'],
+    props: ['catalog', 'parentLink'],
     data() {
       return {
-        arrowRotate: {
-          transform: 'rotate(0deg)'
-        },
+
+
         displayNone: {
-          display: ''
+          display: 'none',
+          transition: 'all 0.3s'
         },
         showStyle: {
           display: '',
         }
       }
-
     },
     computed: {
       allCatalog() {
-        // return Array.from(this.catalog)
-        return this.catalog
-      }
-      ,
+        return Array.from(this.catalog)
 
-    }
-    ,
+      },
+    },
     methods: {
-      collapseMenu() {
+      collapseMenu(event) {
+
         if (window.innerWidth < 1100) {
-          if (this.displayNone.display === 'block') {
-            this.displayNone.display = 'none'
-            this.arrowRotate.transform = 'rotate(0deg)'
+          event.target.style.transform = 'rotate(0deg)'
+          if (event.target.nextElementSibling.style.display === 'block') {
+            event.target.nextElementSibling.style.display = 'none'
           } else {
-            this.displayNone.display = 'block';
-            this.arrowRotate.transform = 'rotate(90deg)'
+            event.target.style.transform = 'rotate(90deg)'
+            event.target.nextElementSibling.style.display = 'block'
           }
-          this.arrow_rotate = !this.arrow_rotate
-          console.log(this.arrow_rotate)
         }
       }
+    },
+    mounted() {
+      // this.collapseMenu()
     }
 
   }
@@ -77,6 +78,7 @@
     /*overflow: hidden;*/
     position: absolute;
 
+
   }
 
   .sub-header-menu__item {
@@ -90,11 +92,11 @@
   }
 
   .children_wrapper {
-    transition: all 0.2s ease-out 1s;
-    opacity: 0.5;
-    height: 0px;
+    transition: all 0.2s;
+    opacity: 0;
+    /*height: 0px;*/
 
-    /*display: none;*/
+    display: none;
   }
 
   .sub-header-menu__item:hover .children_wrapper {
@@ -153,16 +155,15 @@
     border-top: 8px solid transparent;
     border-left: 10px solid #ff0000;
     border-bottom: 8px solid transparent;
+    transition: all 0.3s;
   }
 
   .sub-header-menu__list li:hover .sub-arrow {
-    /*-webkit-transform: rotate(360deg);*/
-    /*-ms-transform: rotate(360deg);*/
-    /*transform: rotate(360deg);*/
-    -webkit-transform: translateX(20px);
-    -ms-transform: translateX(20px);
-    transform: translateX(20px);
-    transition: 0.3s;
+
+    -webkit-transform: translateX(15px);
+    -ms-transform: translateX(15px);
+    transform: translateX(15px);
+    transition: all 0.3s;
   }
 
   .sub-header-menu__list li:hover .sub-arrow:before {
@@ -235,17 +236,36 @@
     }
   }
 
+
   @media (max-width: 1100px) {
-    .sub-header-menu__list li:hover .sub-arrow {
-      -webkit-transform: rotate(90deg);
-      -ms-transform: rotate(90deg);
-      transform: rotate(90deg);
-    }
+
 
     .sub-header-menu__list {
+      /*position: static;*/
+      opacity: 1;
+      display: none;
+      -webkit-transition: all 0s;
+      -o-transition: all 0s;
+      transition: all 0s;
       position: relative;
       overflow: hidden;
 
+    }
+
+    .sub-header-menu__list a {
+      font-size: 18px;
+    }
+
+    .sub-header-menu__list li {
+      padding-right: 50px;
+    }
+
+    .sub-header-menu li a {
+      font-size: 18px;
+    }
+
+    .sub-header-menu__item {
+      background: #5f5f5f;
     }
 
     .sub-header-menu__item:hover .children_wrapper {
@@ -261,7 +281,6 @@
 
   @media (min-width: 1100px) {
 
-
     .sub-header-menu__list a {
       padding: 10px 10px;
     }
@@ -270,14 +289,7 @@
       color: #ff0000;
     }
 
-    .sub-header-menu__list li:hover > .sub-arrow {
-      -webkit-transform: rotate(90deg);
-      -ms-transform: rotate(90deg);
-      transform: rotate(90deg);
-    }
-
     .sub-header-menu__list li {
-
       padding: 10px 0px;
     }
 

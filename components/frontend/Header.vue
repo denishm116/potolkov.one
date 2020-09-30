@@ -31,7 +31,7 @@
         </div>
         <div class="logo__wrapper">
           <transition name="fade">
-            <a href="#" v-bind:class="logoScroll"><img src="~/assets/img/logo.png" alt="Натяжные потолки
+            <a href="/" v-bind:class="logoScroll"><img src="~/assets/img/logo.png" alt="Натяжные потолки
 в Краснодаре - potolkov.shop"/></a>
           </transition>
         </div>
@@ -42,17 +42,17 @@
 
           <ul class="header-menu__list">
 
-            <li v-for="menuItem in menu" class="header-menu__item">
+            <li v-for="(menuItem, index) in menu" class="header-menu__item">
 
-              <nuxt-link :to="menuItem.href" class="header-menu__link" :class="{active: menuItem.isActive}" >
+              <nuxt-link :to="menuItem.href" class="header-menu__link" :class="{active: menuItem.isActive}">
                 {{menuItem.title}}
 
               </nuxt-link>
-              <span class="menu__arrow arrow" v-if="menuItem.submenu.length"
-                    :style="arrowRotate" @click="collapseMenu"></span>
+              <span class="menu__arrow arrow" v-if="menuItem.submenu"
+                    @click="collapseMenu($event)"></span>
 
-
-              <Submenu :catalog="menuItem.submenu" class="submenu_display" :style="displayNone"></Submenu>
+              <Submenu :catalog="menuItem.submenu" class="submenu_display"
+                       :parentLink=menuItem.href></Submenu>
 
             </li>
           </ul>
@@ -100,12 +100,11 @@
     },
     data() {
       return {
-        arrowRotate: {
-          transform: 'rotate(0deg)'
-        },
-        displayNone: {
-          display: ''
-        },
+
+        // displayNone: {
+        //   display: 'none',
+        //   transition: 'all 0.3s'
+        // },
         submenu_display: {},
         submenu: false,
         menu_icon_active: false,
@@ -130,7 +129,7 @@
     },
     methods: {
       ...mapActions({
-        fetchCatalog: 'frontend/catalog/fetchCatalog'
+        fetchCatalog: 'frontend/fetchCeilingCatalog'
       }),
       handleScroll(event, el) {
 
@@ -163,42 +162,48 @@
         }
 
       },
-      collapseMenu() {
+      collapseMenu(event) {
+        const arrow = event.target
+        const menuEl = event.target.nextElementSibling
         if (window.innerWidth < 1100) {
-          if (this.displayNone.display === 'block') {
-            this.displayNone.display = 'none'
-            this.arrowRotate.transform = 'rotate(0deg)'
+          arrow.style.transform = 'rotate(0deg)'
+          if (menuEl.style.height === '100%') {
+            menuEl.style.height = '0'
+            menuEl.style.display = 'none'
+            menuEl.style.opacity = '0'
+
           } else {
-            this.displayNone.display = 'block';
-            this.arrowRotate.transform = 'rotate(90deg)'
+            arrow.style.transform = 'rotate(90deg)'
+            menuEl.style.height = '100%'
+            menuEl.style.opacity = '1'
+            menuEl.style.display = 'block'
+
           }
-          this.arrow_rotate = !this.arrow_rotate
-          console.log(this.arrow_rotate)
         }
+
+
       }
     },
     computed: {
       ...mapGetters({
-        allCatalog: 'frontend/catalog/allCatalog'
+        ceilings_catalog: 'frontend/ceiling_catalog'
       }),
-      catalog() {
-        return Array.from(this.allCatalog)
-      },
+
       menu() {
         return [{
           title: 'Каталог потолков',
           isActive: false,
-          submenu: this.catalog,
-          href: 'ceilings_catalog'
+          submenu: this.ceilings_catalog,
+          href: '/ceilings_catalog'
         },
           {
             title: 'Цены',
-            isActive: true,
+            isActive: false,
             submenu: '',
-            href: 'catalog'
+            href: '/catalog'
           },
           {
-            title: 'Калькулятор',
+            title: 'Комплектующие',
             isActive: false,
             submenu: '',
             href: 'catalog'
@@ -212,14 +217,21 @@
           {
             title: 'Освещение',
             isActive: false,
-            submenu: this.catalog,
+            submenu: '',
             href: 'catalog'
           },
           {
             title: 'Дополнительно',
             isActive: false,
-            submenu: this.catalog,
-            href: 'catalog'
+            submenu: [
+              {title: 'Часто задаваемые вопросы', slug: 'faq', children: []},
+              {title: 'Калькулятор', slug: 'calculator', children: []},
+              {title: 'Отзывы', slug: 'reviews', children: []},
+              {title: 'Статьи о потолках', slug: 'blog', children: []},
+              {title: 'Слив воды', slug: 'sliv_vodi', children: []},
+              {title: 'Ремонт натяжных потолков', slug: 'remont_potolkov', children: []},
+            ],
+            href: '/other'
           }]
       }
     },
@@ -227,6 +239,8 @@
       this.fetchCatalog()
       window.addEventListener('resize', this.mobileStyleToggle);
       this.mobileStyleToggle()
+      // this.collapseMenu()
+
     },
 
 
@@ -361,7 +375,8 @@
   }
 
   .header-menu__list > li {
-    margin: 0px 20px 0px 0px;
+    margin: 0px 20px 10px 0px;
+
   }
 
   .header-menu__list > li:last-child {
@@ -407,6 +422,18 @@
     box-sizing: border-box;
   }
 
+  .nuxt-link-active:before {
+    content: "";
+    width: 100%;
+    height: 6px;
+    background: #ff0000;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+  }
   .active:before {
     content: "";
     width: 100%;
@@ -554,7 +581,9 @@
       /*overflow: hidden;*/
       transition: 0.3s;
     }
-
+    .header-menu__list > li {
+   border-bottom: 1px solid #222222;
+    }
     .header-menu__list li a {
       font-size: 26px;
       padding: 10px 5px;

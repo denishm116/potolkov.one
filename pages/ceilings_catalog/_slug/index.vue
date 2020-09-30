@@ -58,7 +58,7 @@
     methods: {
       async fetchCeiling() {
         const response = await this.$axios.$get('frontend/getChildren/' + this.$route.params.slug)
-        console.log(response)
+
         this.children = response[0].children
       },
       test() {

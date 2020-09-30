@@ -15,14 +15,11 @@
         <h2 class="cattegory__title title">{{ceiling.title}}</h2>
         <div class="cattegory__row">
           <div class="cattegory__column">
-            <div class="cattegory__gallery fotorama" data-nav="thumbs">
-              <img src="https://s.fotorama.io/1.jpg" alt="">
-
-            </div>
+            <PhotoGallery :width="width" :items="items" :addons="{ enableLargeView: true }" ></PhotoGallery>
           </div>
-          v-html: <div class="cattegory__column">
-            <p class="cattegory__text">{!! ceiling.description !!}</p>
-            <p class="cattegory__text">{{ceiling.description}}</p>
+          <div class="cattegory__column">
+
+            <p class="cattegory__text" v-html="rawHtml">{{ceiling.description}}</p>
           </div>
         </div>
       </div>
@@ -35,7 +32,7 @@
           <div class="projects__row">
             <div class="projects__column">
               <div class="projects__photo fotorama" data-width="100%" data-nav="thumbs" data-loop="false">
-                <img :src="baseURL" alt="">
+                <img src="" alt="">
 
               </div>
             </div>
@@ -100,74 +97,7 @@
               </div>
             </div>
           </div>
-          <div class="projects__row">
-            <div class="projects__column">
-              <div class="projects__photo fotorama" data-width="100%" data-nav="thumbs" data-loop="false">
-                <img src="https://s.fotorama.io/1.jpg" alt="">
 
-              </div>
-            </div>
-            <div class="projects__column">
-              <div class="projects__info">
-                <div class="projects__info-block projects-info-block">
-                  <div class="projects-info-block__icon">
-                    <img src="img/projects/icons/01.png" alt=""/>
-                  </div>
-                  <div class="projects-info-block__text">
-                    <span>Срок</span> 8 недель
-                  </div>
-                </div>
-                <div class="projects__info-block projects-info-block">
-                  <div class="projects-info-block__icon">
-                    <img src="img/projects/icons/02.png" alt=""/>
-                  </div>
-                  <div class="projects-info-block__text">
-                    <span>Площадь</span> 50 м2
-                  </div>
-                </div>
-                <div class="projects__info-block projects-info-block">
-                  <div class="projects-info-block__icon">
-                    <img src="img/projects/icons/03.png" alt=""/>
-                  </div>
-                  <div class="projects-info-block__text">
-                    <span>Подарок клиенту</span> Светильник
-                  </div>
-                </div>
-              </div>
-              <div class="projects__info-item projects-info-item">
-                <div class="projects-info-item__title">
-                  Что было сделано
-                </div>
-                <div class="projects-info-item__row">
-                  <div class="projects-info-item__row-name">Название услуги</div>
-                  <div class="projects-info-item__row-price">2 000 Р</div>
-                </div>
-                <div class="projects-info-item__row">
-                  <div class="projects-info-item__row-name">Название услуги</div>
-                  <div class="projects-info-item__row-price">2 000 Р</div>
-                </div>
-                <div class="projects-info-item__row">
-                  <div class="projects-info-item__row-name">Название услуги</div>
-                  <div class="projects-info-item__row-price">2 000 Р</div>
-                </div>
-                <div class="projects-info-item__row">
-                  <div class="projects-info-item__row-name">Название услуги</div>
-                  <div class="projects-info-item__row-price">2 000 Р</div>
-                </div>
-                <div class="projects-info-item__sum">
-                  Всего: 10 000Р
-                </div>
-                <div class="projects-info-item__nav">
-                  <a href="" class="projects-info-item__nav-link">Назад</a>
-                  <a href="" class="projects-info-item__nav-link">Следующий проект</a>
-                </div>
-              </div>
-              <div class="projects__buttons">
-                <a href="" class="projects__btn btn">Заказть замер</a>
-                <a href="" class="projects__btn btn tr">Каталог</a>
-              </div>
-            </div>
-          </div>
         </div>
 
       </div>
@@ -179,20 +109,85 @@
   export default {
     data: () => {
       return {
-        ceiling: {}
+
+        ceiling: {},
+        width: 1920,
+
+        items: [{
+          src: 'https://picsum.photos/900/600/?image=0',
+          thumbnail: 'https://picsum.photos/64/64/?image=0',
+          caption: 'Some Caption',
+          id: 'someid1'
+        },
+          {
+            src: 'https://picsum.photos/900/600/?image=11',
+            thumbnail: 'https://picsum.photos/64/64/?image=11'
+          },
+          {
+            src: 'https://picsum.photos/900/600/?image=12',
+            thumbnail: 'https://picsum.photos/64/64/?image=12'
+          },
+          {
+            src: 'https://picsum.photos/900/600/?image=13',
+            thumbnail: 'https://picsum.photos/64/64/?image=13'
+          },
+          {
+            src: 'https://picsum.photos/900/600/?image=14',
+            thumbnail: 'https://picsum.photos/64/64/?image=14'
+          },
+          {
+            src: 'https://picsum.photos/900/600/?image=15',
+            thumbnail: 'https://picsum.photos/64/64/?image=15'
+          },
+          {
+            src: 'https://picsum.photos/900/600/?image=16',
+            thumbnail: 'https://picsum.photos/64/64/?image=16'
+          },
+          {
+            src: 'https://picsum.photos/900/600/?image=11',
+            thumbnail: 'https://picsum.photos/64/64/?image=11'
+          },
+          {
+            src: 'https://picsum.photos/900/600/?image=12',
+            thumbnail: 'https://picsum.photos/64/64/?image=12'
+          },
+          {
+            src: 'https://picsum.photos/900/600/?image=13',
+            thumbnail: 'https://picsum.photos/64/64/?image=13'
+          },
+          {
+            src: 'https://picsum.photos/900/600/?image=14',
+            thumbnail: 'https://picsum.photos/64/64/?image=14'
+          },
+          {
+            src: 'https://picsum.photos/900/600/?image=15',
+            thumbnail: 'https://picsum.photos/64/64/?image=15'
+          },
+          {
+            src: 'https://picsum.photos/900/600/?image=16',
+            thumbnail: 'https://picsum.photos/64/64/?image=16'
+          },
+        ],
       }
     },
     methods: {
       async fetchCeiling() {
         const response = await this.$axios.$get('frontend/getCeiling/' + this.$route.params.ceiling)
-        console.log(response)
+
         this.ceiling = response[0]
       },
     },
     mounted() {
       this.fetchCeiling()
-    // console.log(this.$route.params.ceiling)
     },
+    computed: {
+      path() {
+        return process.env.baseURL + 'storage/'
+      },
+      rawHtml() {
+        return this.ceiling.description;
+      }
+    }
   }
 </script>
 
