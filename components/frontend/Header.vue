@@ -44,7 +44,7 @@
 
             <li v-for="(menuItem, index) in menu" class="header-menu__item">
 
-              <nuxt-link :to="menuItem.href" class="header-menu__link" :class="{active: menuItem.isActive}">
+              <nuxt-link :to="menuItem.href" class="header-menu__link" :class="{active: menuItem.isActive}" v-on:click.native="showMenu">
                 {{menuItem.title}}
 
               </nuxt-link>
@@ -52,7 +52,7 @@
                     @click="collapseMenu($event)"></span>
 
               <Submenu :catalog="menuItem.submenu" class="submenu_display"
-                       :parentLink=menuItem.href></Submenu>
+                       :parentLink=menuItem.href @updateParent="showMenu"></Submenu>
 
             </li>
           </ul>
@@ -101,10 +101,6 @@
     data() {
       return {
 
-        // displayNone: {
-        //   display: 'none',
-        //   transition: 'all 0.3s'
-        // },
         submenu_display: {},
         submenu: false,
         menu_icon_active: false,
@@ -132,7 +128,6 @@
         fetchCatalog: 'frontend/fetchCeilingCatalog'
       }),
       handleScroll(event, el) {
-
         if (window.scrollY > 50) {
           this.header_collapse.transform = 'translateY(-40%)'
           this.logoScroll['header__logo_scroll'] = true;
@@ -146,7 +141,6 @@
           this.menuToggler.margin = '0 0 0 0'
         else
           this.menuToggler.margin = '-100vh 0 0 0'
-
         this.menu_icon_active = !this.menu_icon_active
       },
 
@@ -644,12 +638,6 @@
       border-bottom: 8px solid transparent;
     }
 
-    .header-menu .arrow.active {
-      -webkit-transform: rotate(90deg);
-      -ms-transform: rotate(90deg);
-      transform: rotate(90deg);
-    }
-
     .menu-icon-wrapper {
       display: flex;
     }
@@ -659,18 +647,9 @@
     }
 
     .header-menu__list:hover .arrow {
-      -webkit-transform: rotate(90deg);
-      -ms-transform: rotate(90deg);
-      transform: rotate(90deg);
-      transition: 0.3s;
+      transition: 0.2s ease-out 0s;
     }
 
-    .arrow_rotate {
-      -webkit-transform: rotate(90deg);
-      -ms-transform: rotate(90deg);
-      transform: rotate(-90deg);
-      transition: 0.3s;
-    }
 
     .submenu_display {
       transition: all 0.2s ease-out 0s;
