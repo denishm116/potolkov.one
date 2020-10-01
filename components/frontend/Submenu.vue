@@ -3,7 +3,7 @@
   <ul class="sub-header-menu__list" :style="showStyle">
     <li v-for="(catalogItem, index) in catalog" class="sub-header-menu__item">
       <div v-if="catalogItem.children.length">
-        <a :href="parentLink + '/' + catalogItem.slug" class="sub-header-menu__link" v-on:click.native="showMenu">
+        <a :href="parentLink + '/' + catalogItem.slug" class="sub-header-menu__link" v-on:click="showMenu">
           {{catalogItem.title}}
         </a>
         <span class="menu__arrow sub-arrow" @click="collapseMenu($event)"></span>

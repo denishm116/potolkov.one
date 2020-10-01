@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="flex">
   <section class="article sect-mt">
     <div class='container'>
       <nav class="breadcrumbs">
@@ -8,7 +8,7 @@
             <a href="" class="breadcrumbs__link">Главная</a>
           </li>
           <li>
-            <span>Хлебные крошки</span>
+            <span>Слив воды</span>
           </li>
         </ul>
       </nav>
@@ -37,66 +37,36 @@
             perferendis
           </p>
 
-          <p> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus asperiores ipsam et incidunt
-            reiciendis minima harum tenetur ipsum amet, repellendus at molestiae soluta, illo, saepe
-            perferendis
-            dignissimos totam eos eligendi!
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus asperiores ipsam et incidunt
-            reiciendis minima harum tenetur ipsum amet, repellendus at molestiae soluta, illo, saepe
-            perferendis
-            dignissimos totam eos eligendi!
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus asperiores ipsam et incidunt
-            reiciendis minima harum tenetur ipsum amet, repellendus at molestiae soluta, illo, saepe
-            perferendis
-            dignissimos totam eos eligendi!
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus asperiores ipsam et incidunt
-            reiciendis minima harum tenetur ipsum amet, repellendus at molestiae soluta, illo, saepe
-            perferendis
-          </p>
-          <p> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus asperiores ipsam et incidunt
-            reiciendis minima harum tenetur ipsum amet, repellendus at molestiae soluta, illo, saepe
-            perferendis
-            dignissimos totam eos eligendi!
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus asperiores ipsam et incidunt
-            reiciendis minima harum tenetur ipsum amet, repellendus at molestiae soluta, illo, saepe
-            perferendis
-            dignissimos totam eos eligendi!
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus asperiores ipsam et incidunt
-            reiciendis minima harum tenetur ipsum amet, repellendus at molestiae soluta, illo, saepe
-            perferendis
-            dignissimos totam eos eligendi!
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus asperiores ipsam et incidunt
-            reiciendis minima harum tenetur ipsum amet, repellendus at molestiae soluta, illo, saepe
-            perferendis
-          </p>
-        </div>
-        <div class="article__slider">
-
-          <horizontal-list :items="items" :options="options">
-            <template v-slot:default="{item}">
-              <div>
-                <div class="aspect r-10-12 border-3 overflow-hidden">
-                  <div class="relative wh-100 lh-0">
-                    <img :src="item.image"/>
-
-
-                    <div class="bg-overlay absolute-0 wh-100 p-24 flex-end">
-                      <h4 class="m-0 text-ellipsis-2l text-center white">{{item.title}}</h4>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="mt-8 tiny-bold">SUBTITLE • FOCUS</div>
-
-                <p class="mt-4 text-ellipsis-2l">{{item.content}}</p>
-              </div>
-            </template>
-          </horizontal-list>
 
         </div>
+
       </div>
     </div>
   </section>
+    <section class='container'>
+
+      <horizontal-list :items="items" :options="options">
+        <template v-slot:default="{item}">
+          <div>
+            <div class="aspect r-10-12 border-3 overflow-hidden">
+              <div class="relative wh-100 lh-0">
+                <img :src="item.image"/>
+
+
+                <div class="bg-overlay absolute-0 wh-100 p-24 flex-end">
+                  <h4 class="m-0 text-ellipsis-2l text-center white">{{item.title}}</h4>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-8 tiny-bold">SUBTITLE • FOCUS</div>
+
+            <p class="mt-4 text-ellipsis-2l">{{item.content}}</p>
+          </div>
+        </template>
+      </horizontal-list>
+    </section>
+
   <section class="blog">
     <div class='container'>
       <h2 class="blog__title read">
@@ -261,6 +231,11 @@
 </script>
 
 <style scoped>
+  .flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
   .vhl-btn-left, .vhl-btn-right {
     width: 48px;
     height: 48px;

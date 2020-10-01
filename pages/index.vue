@@ -15,7 +15,7 @@
     <Moments></Moments>
     <Reviews></Reviews>
     <Map></Map>
-    <Communicate></Communicate>
+<!--    <Communicate></Communicate>-->
 
   </div>
 </template>

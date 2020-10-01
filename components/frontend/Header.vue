@@ -44,7 +44,8 @@
 
             <li v-for="(menuItem, index) in menu" class="header-menu__item">
 
-              <nuxt-link :to="menuItem.href" class="header-menu__link" :class="{active: menuItem.isActive}" v-on:click.native="showMenu">
+              <nuxt-link :to="menuItem.href" class="header-menu__link" :class="{active: menuItem.isActive}"
+                         v-on:click.native="showMenu">
                 {{menuItem.title}}
 
               </nuxt-link>
@@ -110,7 +111,7 @@
           'mobile-menu-show': false,
         },
         menuToggler: {
-          margin: '-100vh 0 0 0',
+          margin: '0 0 0 0',
         },
         header_collapse: {
           transform: 'translateY(0px)'
@@ -137,11 +138,13 @@
         }
       },
       showMenu() {
-        if (this.menuToggler.margin === '-100vh 0 0 0')
-          this.menuToggler.margin = '0 0 0 0'
-        else
-          this.menuToggler.margin = '-100vh 0 0 0'
-        this.menu_icon_active = !this.menu_icon_active
+        if (window.innerWidth < 1100) {
+          if (this.menuToggler.margin === '-100vh 0 0 0')
+            this.menuToggler.margin = '0 0 0 0'
+          else
+            this.menuToggler.margin = '-100vh 0 0 0'
+          this.menu_icon_active = !this.menu_icon_active
+        }
       },
 
       mobileStyleToggle() {
@@ -162,17 +165,18 @@
         if (window.innerWidth < 1100) {
           arrow.style.transform = 'rotate(0deg)'
           if (menuEl.style.height === '100%') {
-            menuEl.style.height = '0'
             menuEl.style.display = 'none'
             menuEl.style.opacity = '0'
-
           } else {
             arrow.style.transform = 'rotate(90deg)'
-            menuEl.style.height = '100%'
+
             menuEl.style.opacity = '1'
             menuEl.style.display = 'block'
 
           }
+        } else {
+          menuEl.style.opacity = '1'
+          menuEl.style.display = 'block'
         }
 
 
@@ -180,7 +184,8 @@
     },
     computed: {
       ...mapGetters({
-        ceilings_catalog: 'frontend/ceiling_catalog'
+        ceilings_catalog: 'frontend/ceiling_catalog',
+        other: 'frontend/other',
       }),
 
       menu() {
@@ -194,37 +199,32 @@
             title: 'Цены',
             isActive: false,
             submenu: '',
-            href: '/catalog'
-          },
-          {
-            title: 'Комплектующие',
-            isActive: false,
-            submenu: '',
-            href: 'catalog'
-          },
-          {
-            title: 'Фото',
-            isActive: false,
-            submenu: '',
-            href: 'catalog'
+            href: '/price'
           },
           {
             title: 'Освещение',
             isActive: false,
             submenu: '',
-            href: 'catalog'
+            href: '/lightnings_catalog'
+
+          },
+
+          {
+            title: 'Фото',
+            isActive: false,
+            submenu: '',
+            href: '/photogallery'
+          },
+          {
+            title: 'Комплектующие',
+            isActive: false,
+            submenu: '',
+            href: '/components_catalog'
           },
           {
             title: 'Дополнительно',
             isActive: false,
-            submenu: [
-              {title: 'Часто задаваемые вопросы', slug: 'faq', children: []},
-              {title: 'Калькулятор', slug: 'calculator', children: []},
-              {title: 'Отзывы', slug: 'reviews', children: []},
-              {title: 'Статьи о потолках', slug: 'blog', children: []},
-              {title: 'Слив воды', slug: 'sliv_vodi', children: []},
-              {title: 'Ремонт натяжных потолков', slug: 'remont_potolkov', children: []},
-            ],
+            submenu: this.other,
             href: '/other'
           }]
       }
@@ -428,6 +428,7 @@
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
   }
+
   .active:before {
     content: "";
     width: 100%;
@@ -575,9 +576,11 @@
       /*overflow: hidden;*/
       transition: 0.3s;
     }
+
     .header-menu__list > li {
-   border-bottom: 1px solid #222222;
+      border-bottom: 1px solid #222222;
     }
+
     .header-menu__list li a {
       font-size: 26px;
       padding: 10px 5px;

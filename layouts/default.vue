@@ -2,10 +2,16 @@
 
   <v-main app>
 
+
     <Header></Header>
 
     <nuxt/>
+
+<Communicate></Communicate>
     <Footer></Footer>
+
+
+
   </v-main>
 
 
@@ -13,6 +19,7 @@
 <script>
   import Header from "@/components/frontend/Header";
   import Footer from "@/components/frontend/Footer";
+  import Communicate from "@/components/frontend/Communicate";
   import Auth from "../components/auth/Auth";
 
   export default {
@@ -27,7 +34,7 @@
       // this.$vuetify.theme.dark = true
     },
     components: {
-      Header, Auth, Footer
+      Header, Auth, Footer, Communicate
     },
     mounted() {
      for (let i = 0; i < this.$el.getElementsByClassName('v-application--wrap').length; i++) {
@@ -40,6 +47,7 @@
   }
 </script>
 <style scoped>
+
   .slide-fade-enter-active {
     transition: all .3s ease;
   }

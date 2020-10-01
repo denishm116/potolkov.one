@@ -59,14 +59,6 @@
                 </template>
               </ClientOnly>
 
-<!--              <v-textarea-->
-<!--                outlined-->
-<!--                dense-->
-<!--                name="input-7-4"-->
-<!--                label="Описание"-->
-<!--                v-model="newCategory.description"-->
-<!--                :error-messages="descriptionErrors"-->
-<!--              ></v-textarea>-->
             </v-col>
           </v-row>
 
