@@ -18,7 +18,7 @@
         белые, матовые, глянцевые и сатиновые потолки, цветные потолки, которые также могут быть разных фактур. Это и
         многоуровневые потолки с подсветкой и без, и современные парящие потолки, и резные потолки Apply, и
         технологичные потолки DoubleVision, изображение на которых меняется в зависимости от
-        освещения.
+        освещения.{{children}}
       </p>
       <div class="catalog__row">
         <div class="catalog__column" v-for="(catalog, index) in children">
@@ -57,7 +57,8 @@
     },
     methods: {
       async fetchCeiling() {
-        const response = await this.$axios.$get('frontend/getChildren/' + this.$route.params.slug)
+        console.log(this.$route.params)
+        const response = await this.$axios.$get('frontend/getChildren/' + this.$route.params)
 
         this.children = response[0].children
       },

@@ -4,7 +4,16 @@
     <v-row no-gutters
     >
       <v-col>
-        <span class="grey--text text--darken-3 text-right text-uppercase text-lg-h5 font-weight-bold ">Создание новой категории</span>
+        <span class="grey--text text--darken-3 text-right text-uppercase text-lg-h5 font-weight-bold "></span>С
+        оздание новой категории
+        <v-select
+          :items="catalogs"
+          label="Выберите каталог"
+          item-text="title"
+          item-value="id"
+          v-model="catalogNumber"
+          @change="selectCatalog"
+        ></v-select>
       </v-col>
 
     </v-row>
@@ -36,7 +45,7 @@
             <v-col>
 
               <v-select
-                :items="catalog"
+                :items="currentCatalog.catalog"
                 label="Выберите родительскую категорию"
                 item-text="title"
                 item-value="id"
@@ -84,8 +93,8 @@
                       :ref="'clipper' + file.key"
                       :preview="'my-preview' + file.key"
                       :corner="true"
-                      init-width="100"
-                      init-height="100"
+                      :init-width="100"
+                      :init-height="100"
                       :ratio="265/180"
                     >
                     </clipper-basic>
@@ -129,7 +138,7 @@
           <br>
           <h1>Список категорий потолков</h1>
           <ul>
-            <template v-for="cat in allCatalog">
+            <template v-for="cat in currentCatalog.catalog">
 
               <li>
                 <a href="#" @click.prevent="itemUp(cat.slug)">
@@ -142,10 +151,9 @@
                   <v-icon>mdi-delete</v-icon>
                 </a>
                 <a href="#" @click.prevent="goTo(cat.slug)">
-                  <template v-for="depth in cat.depth">
-                    --
-                  </template>
-                  {{cat.title }}
+                <span v-if="cat.depth">--</span>
+                  {{ cat.title}}
+
                 </a>
               </li>
 
@@ -163,7 +171,7 @@
 
   import {clipperBasic, clipperPreview} from 'vuejs-clipper'
   import {mapGetters, mapActions} from 'vuex'
-  import Editor from '@/components/partials/Editor'
+
   import {
     TiptapVuetify,
     Heading,
@@ -182,8 +190,9 @@
     HorizontalRule,
     History
   } from 'tiptap-vuetify'
+
   export default {
-    transition: 'test',
+
 
     layout: 'admin',
     components: {
@@ -229,13 +238,39 @@
         filesOrder: [],
         formData: [],
 
-        resultURL: []
+        resultURL: [],
+        currentCatalog: {
+          path: '',
+          catalog: []
+        },
+        catalogNumber: '',
+        catalogs: [
+          {id: 1, title: 'Потолки'},
+          {id: 2, title: 'Светильники'},
+          {id: 3, title: 'Комплектующие'},
+        ]
       }
     },
 
     methods: {
+      selectCatalog() {
+        switch (this.catalogNumber) {
+          case 1:
+            this.currentCatalog.catalog = Array.from(this.CEILING_CATALOG)
+            this.currentCatalog.path = '/catalog/'
+            break
+          case 2:
+            this.currentCatalog.catalog = Array.from(this.LIGHTNING_CATALOG)
+            this.currentCatalog.path = '/lightnings_catalog/'
+            break
+          case 3:
+            this.currentCatalog = [{'components': this.catalogNumber}]
+            break
+        }
+
+      },
       goTo(slug) {
-        this.$router.push('/admin/catalog/' + slug)
+        this.$router.push('/admin/' + this.currentCatalog.path + slug)
       },
 
       onFileChange(event) {
@@ -265,18 +300,23 @@
       },
 
       async itemUp(slug) {
-        await this.$axios.$post('admin/catalog/' + slug + '/up')
-        return this.fetchCatalog()
+        await this.$axios.$post('/admin' + this.currentCatalog.path + slug + '/up')
+       this.fetchCeilingCatalog()
+        console.log(this.catalog)
+
       },
 
       async itemDown(slug) {
-        await this.$axios.$post('admin/catalog/' + slug + '/down')
-        this.fetchCatalog()
+        await this.$axios.$post('/admin' + this.currentCatalog.path + slug + '/down')
+        this.fetchCeilingCatalog()
+
       },
 
       async itemDelete(slug) {
-        await this.$axios.$post('admin/catalog/' + slug + '/destroy')
-        this.fetchCatalog()
+
+        this.currentCatalog.catalog = await this.$axios.$delete('/admin' + this.currentCatalog.path + slug)
+
+
       },
 
       onButton2Click() {
@@ -284,7 +324,6 @@
         for (let prop in this.$refs) {
           if (prop.substr(0, 7) === 'clipper') {
             const canvas = this.$refs[prop][0].clip()
-
             if (+prop.substr(7, 1) === this.newCategory.mainImage)
               main = 1
             this.resultURL.push(
@@ -292,17 +331,28 @@
                 image: canvas.toDataURL("image/jpeg", 1),
                 main: main
               }
-              )
+            )
           }
         }
         this.newCategory.files = this.resultURL
+        try {
+          switch (this.catalogNumber) {
+            case 1:
 
-        this.$axios.$post('admin/catalog', this.newCategory)
-          .then(() => {
-            return this.fetchCatalog()
-          })
+              this.$store.dispatch('catalog/addCeilingCategory', this.newCategory)
+              this.fetchCeilingCatalog()
+
+              break
+            case 2:
+              this.$store.dispatch('catalog/addLightningCategory', this.newCategory)
+              this.currentCatalog.catalog = Array.from(this.LIGHTNING_CATALOG)
+              break
+          }
+
+        } catch (e) {
+          return e
+        }
       },
-
       calcSize(size) {
         return Math.round(size / 1024);
       },
@@ -310,17 +360,21 @@
         this.activeButtonVar = false
       },
       ...mapActions({
-        fetchCatalog: 'catalog/fetchCatalog'
+        fetchCeilingCatalog: 'catalog/fetchCeilingCatalog',
+        fetchLightningCatalog: 'catalog/fetchLightningCatalog',
       })
     },
-
     mounted() {
-      this.fetchCatalog()
-    },
+      this.fetchCeilingCatalog()
+      this.fetchLightningCatalog()
+     },
+
     computed: {
       ...mapGetters({
-        allCatalog: 'catalog/allCatalog'
-      }),
+          CEILING_CATALOG: 'catalog/CEILING_CATALOG',
+          LIGHTNING_CATALOG: 'catalog/LIGHTNING_CATALOG',
+        }),
+
       readyToUpload() {
         return this.formData.length
       },
@@ -333,35 +387,28 @@
       descriptionErrors() {
         if (this.errors) return this.errors.description
       },
-      catalog() {
-        const tmp777 = Array.from(this.allCatalog)
-        let tmp = []
-        tmp777.forEach((cat, index) => {
-          if (cat.depth) {
-            let def = ''
-            for (let i = 0; i < cat.depth; i++) {
-              def += "--"
-            }
-            tmp.push({
-              'title': def + cat.title,
-              'id': cat.id
-            });
-          } else {
-            tmp.push({
-              'title': cat.title,
-              'id': cat.id
-            })
-          }
-        })
-        return tmp
-      }
+      // catalog() {
+      //   return this.currentCatalog.catalog.map(cat => {
+      //     return {
+      //       'title': cat.depth ? '--' + cat.title : '' + cat.title,
+      //       'id': cat.id,
+      //       'slug': cat.slug,
+      //     }
+      //   })
+      // }
     },
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
       // Iconfonts for Vuetify. You need to leave only which one you use
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' },
-      { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css' },
-      { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/4.4.95/css/materialdesignicons.min.css' }
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons'
+      },
+      {rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css'},
+      {
+        rel: 'stylesheet',
+        href: 'https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/4.4.95/css/materialdesignicons.min.css'
+      }
     ]
   }
 </script>

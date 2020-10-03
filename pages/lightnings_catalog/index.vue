@@ -18,12 +18,12 @@
         светодиодная подсветка по периметру потолка, и новинка последних сезонов - световые линии.
       </p>
       <div class="catalog__row">
-        <div class="catalog__column" v-for="(catalog, index) in allCatalog">
+        <div class="catalog__column" v-for="(catalog, index) in lightning_catalog">
           <div class="catalog__item">
 
 
             <nuxt-link :to="'/ceilings_catalog/' + catalog.slug" class="catalog__item-photo ibg">
-              <img :src="path + catalog.images[0].path" alt=""/>
+              <img v-if="catalog.images.length" :src="path + catalog.images[0].path" alt=""/>
             </nuxt-link>
 
             <a href="#" class="catalog__item-title">{{catalog.title}}</a>
@@ -44,7 +44,7 @@
   export default {
     computed: {
       ...mapGetters({
-        allCatalog: 'frontend/ceiling_catalog'
+        lightning_catalog: 'frontend/lightning_catalog'
       }),
       path() {
         return process.env.baseURL + 'storage/'

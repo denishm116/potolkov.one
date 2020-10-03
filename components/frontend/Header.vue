@@ -49,6 +49,7 @@
                 {{menuItem.title}}
 
               </nuxt-link>
+
               <span class="menu__arrow arrow" v-if="menuItem.submenu"
                     @click="collapseMenu($event)"></span>
 
@@ -126,7 +127,8 @@
     },
     methods: {
       ...mapActions({
-        fetchCatalog: 'frontend/fetchCeilingCatalog'
+        fetchCeilingCatalog: 'frontend/fetchCeilingCatalog',
+        fetchLightningCatalog: 'frontend/fetchLightningCatalog'
       }),
       handleScroll(event, el) {
         if (window.scrollY > 50) {
@@ -164,13 +166,13 @@
         const menuEl = event.target.nextElementSibling
         if (window.innerWidth < 1100) {
           arrow.style.transform = 'rotate(0deg)'
-          if (menuEl.style.height === '100%') {
+          if (menuEl.style.display === 'block') {
             menuEl.style.display = 'none'
-            menuEl.style.opacity = '0'
+
           } else {
             arrow.style.transform = 'rotate(90deg)'
 
-            menuEl.style.opacity = '1'
+
             menuEl.style.display = 'block'
 
           }
@@ -185,6 +187,7 @@
     computed: {
       ...mapGetters({
         ceilings_catalog: 'frontend/ceiling_catalog',
+        lightning_catalog: 'frontend/lightning_catalog',
         other: 'frontend/other',
       }),
 
@@ -204,7 +207,7 @@
           {
             title: 'Освещение',
             isActive: false,
-            submenu: '',
+            submenu:  this.lightning_catalog,
             href: '/lightnings_catalog'
 
           },
@@ -230,10 +233,12 @@
       }
     },
     mounted() {
-      this.fetchCatalog()
+      this.fetchCeilingCatalog()
+      this.fetchLightningCatalog()
+
       window.addEventListener('resize', this.mobileStyleToggle);
       this.mobileStyleToggle()
-      // this.collapseMenu()
+      console.log(this.lightning_catalog)
 
     },
 

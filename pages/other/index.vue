@@ -23,8 +23,8 @@
           <div class="catalog__item">
 
 
-            <a :href=" otherItem.slug" class="catalog__item-photo ibg">
-              <img :src="otherItem.img" alt=""/>
+            <a :href="otherItem.slug" class="catalog__item-photo ibg">
+              <img :src="otherItem.img" alt="" class="shadow">
             </a>
 
             <a href="#" class="catalog__item-title">{{otherItem.title}}</a>
@@ -57,5 +57,8 @@
     max-width: 1370px;
     margin: 0 auto;
     width: 100%;
+  }
+  .shadow {
+    box-shadow:3px 3px 13px rgba(0, 0, 0, 0.26);
   }
 </style>

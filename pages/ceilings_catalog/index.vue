@@ -20,13 +20,13 @@
         технологичные потолки DoubleVision, изображение на которых меняется в зависимости от освещения.
       </p>
       <div class="catalog__row">
-        <div class="catalog__column" v-for="(catalog, index) in allCatalog">
+        <div class="catalog__column" v-for="(catalog, index) in ceiling_catalog">
           <div class="catalog__item">
 
 
 
             <nuxt-link  :to="'/ceilings_catalog/' + catalog.slug" class="catalog__item-photo ibg">
-              <img :src="path + catalog.images[0].path" alt=""/>
+              <img v-if="catalog.images.length" :src="path + catalog.images[0].path" alt=""/>
             </nuxt-link>
 
             <a href="#" class="catalog__item-title">{{catalog.title}}</a>
@@ -47,7 +47,7 @@
   export default {
     computed: {
       ...mapGetters({
-        allCatalog: 'frontend/ceiling_catalog'
+        ceiling_catalog: 'frontend/ceiling_catalog'
       }),
       path() {
         return process.env.baseURL + 'storage/'
