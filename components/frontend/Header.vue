@@ -238,7 +238,7 @@
 
       window.addEventListener('resize', this.mobileStyleToggle);
       this.mobileStyleToggle()
-      console.log(this.lightning_catalog)
+
 
     },
 

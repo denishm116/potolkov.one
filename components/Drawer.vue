@@ -79,33 +79,33 @@
             items: [
                 {
                     icon: 'mdi-view-dashboard',
+                    title: 'Каталог потолков',
+                    to: '/admin/catalog/',
+                },
+                {
+                    icon: 'mdi-calendar-multiple',
                     title: 'Добавить потолок',
                     to: '/admin/ceilings/',
                 },
                 {
-                    icon: 'mdi-calendar-multiple',
-                    title: 'Добавить категорию в каталог',
-                    to: '/admin/catalog/',
-                },
-                {
-                    title: 'Прайс',
+                    title: 'Каталог освещения',
                     icon: 'mdi-home-variant',
-                    to: '/admin/price/',
+                    to: '/admin/lightnings_catalog/',
                 },
                 {
-                    title: 'Статьи',
+                    title: 'Светильники',
                     icon: 'mdi-cash-multiple',
-                    to: '/components/typography',
+                    to: '/admin/lightnings',
                 },
                 {
-                    title: 'Пользователи',
+                    title: 'Каталог комплектующих',
                     icon: 'mdi-calendar',
-                    to: '/components/notifications',
+                    to: '/admin/components_catalog',
                 },
                 {
-                    title: 'Собщения',
+                    title: 'Комплектующие',
                     icon: 'mdi-email-open',
-                    to: '/components/notifications',
+                    to: '/admin/components',
                 },
                 {
                     title: 'Помощь',

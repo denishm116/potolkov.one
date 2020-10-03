@@ -4,8 +4,7 @@
     <v-row no-gutters
     >
       <v-col>
-        <span class="grey--text text--darken-3 text-right text-uppercase text-lg-h5 font-weight-bold "></span>Потолки:
-        создание категории
+        <span class="grey--text text--darken-3 text-right text-uppercase text-lg-h5 font-weight-bold "></span>Потолки: создание категории
 
       </v-col>
 
@@ -38,7 +37,7 @@
             <v-col>
 
               <v-select
-                :items="catalog"
+                :items="currentCatalog.catalog"
                 label="Выберите родительскую категорию"
                 item-text="title"
                 item-value="id"
@@ -131,7 +130,7 @@
           <br>
           <h1>Список категорий потолков</h1>
           <ul>
-            <template v-for="cat in catalog">
+            <template v-for="cat in currentCatalog.catalog">
 
               <li>
                 <a href="#" @click.prevent="itemUp(cat.slug)">
@@ -144,8 +143,9 @@
                   <v-icon>mdi-delete</v-icon>
                 </a>
                 <a href="#" @click.prevent="goTo(cat.slug)">
-
+                  <span v-if="cat.depth">--</span>
                   {{ cat.title}}
+
                 </a>
               </li>
 
@@ -224,7 +224,6 @@
           mainImage: ''
         },
         files: [],
-        slug: 'catalog/',
 
         catalogList: '',
         activeButtonVar: true,
@@ -232,7 +231,11 @@
         formData: [],
 
         resultURL: [],
-
+        currentCatalog: {
+          path: '',
+          catalog: []
+        },
+        catalogNumber: '',
         catalogs: [
           {id: 1, title: 'Потолки'},
           {id: 2, title: 'Светильники'},
@@ -242,10 +245,24 @@
     },
 
     methods: {
+      selectCatalog() {
+        switch (this.catalogNumber) {
+          case 1:
+            this.currentCatalog.catalog = Array.from(this.CEILING_CATALOG)
+            this.currentCatalog.path = '/catalog/'
+            break
+          case 2:
+            this.currentCatalog.catalog = Array.from(this.LIGHTNING_CATALOG)
+            this.currentCatalog.path = '/lightnings_catalog/'
+            break
+          case 3:
+            this.currentCatalog = [{'components': this.catalogNumber}]
+            break
+        }
 
-
+      },
       goTo(slug) {
-        this.$router.push('/admin/' + slug)
+        this.$router.push('/admin/' + this.currentCatalog.path + slug)
       },
 
       onFileChange(event) {
@@ -275,21 +292,23 @@
       },
 
       async itemUp(slug) {
-        await this.$axios.$post('/admin/' + this.slug + slug + '/up')
-        this.FETCH_CEILING_CATALOG()
+        await this.$axios.$post('/admin' + this.currentCatalog.path + slug + '/up')
+        this.fetchCeilingCatalog()
 
 
       },
 
       async itemDown(slug) {
-        await this.$axios.$post('/admin/' + this.slug + slug + '/down')
-        this.FETCH_CEILING_CATALOG()
+        await this.$axios.$post('/admin' + this.currentCatalog.path + slug + '/down')
+        this.fetchCeilingCatalog()
 
       },
 
       async itemDelete(slug) {
-         await this.$axios.$delete('/admin/' + this.slug + slug)
-        this.FETCH_CEILING_CATALOG()
+
+        this.currentCatalog.catalog = await this.$axios.$delete('/admin' + this.currentCatalog.path + slug)
+
+
       },
 
       onButton2Click() {
@@ -309,8 +328,19 @@
         }
         this.newCategory.files = this.resultURL
         try {
-          this.$store.dispatch('catalog/ADD_CEILING_CATEGORY', this.newCategory)
-          this.FETCH_CEILING_CATALOG()
+          switch (this.catalogNumber) {
+            case 1:
+
+              this.$store.dispatch('catalog/addCeilingCategory', this.newCategory)
+              this.fetchCeilingCatalog()
+
+              break
+            case 2:
+              this.$store.dispatch('catalog/addLightningCategory', this.newCategory)
+              this.currentCatalog.catalog = Array.from(this.LIGHTNING_CATALOG)
+              break
+          }
+
         } catch (e) {
           return e
         }
@@ -322,17 +352,19 @@
         this.activeButtonVar = false
       },
       ...mapActions({
-        FETCH_CEILING_CATALOG: 'catalog/FETCH_CEILING_CATALOG',
-
-      }),
+        fetchCeilingCatalog: 'catalog/fetchCeilingCatalog',
+        fetchLightningCatalog: 'catalog/fetchLightningCatalog',
+      })
     },
     mounted() {
-      this.FETCH_CEILING_CATALOG()
+      this.fetchCeilingCatalog()
+      this.fetchLightningCatalog()
     },
 
     computed: {
       ...mapGetters({
         CEILING_CATALOG: 'catalog/CEILING_CATALOG',
+        LIGHTNING_CATALOG: 'catalog/LIGHTNING_CATALOG',
       }),
 
       readyToUpload() {
@@ -347,15 +379,15 @@
       descriptionErrors() {
         if (this.errors) return this.errors.description
       },
-      catalog() {
-        return Array.from(this.CEILING_CATALOG).map(cat => {
-          return {
-            'title': cat.depth ? '--' + cat.title : '' + cat.title,
-            'id': cat.id,
-            'slug': cat.slug,
-          }
-        })
-      }
+      // catalog() {
+      //   return this.currentCatalog.catalog.map(cat => {
+      //     return {
+      //       'title': cat.depth ? '--' + cat.title : '' + cat.title,
+      //       'id': cat.id,
+      //       'slug': cat.slug,
+      //     }
+      //   })
+      // }
     },
     link: [
       {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},

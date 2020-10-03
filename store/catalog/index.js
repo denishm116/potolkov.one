@@ -19,21 +19,21 @@ export const mutations = {
 }
 
 export const actions = {
-  async fetchCeilingCatalog({commit, state}) {
+  async FETCH_CEILING_CATALOG({commit, state}) {
     try {
       const ceiling_catalog = await this.$axios.$get('admin/catalog')
       commit('SET_CEILING_CATALOG', ceiling_catalog)
-
+console.log(ceiling_catalog)
     } catch (e) {
       return e
     }
   },
 
-  async addCeilingCategory({commit, dispatch}, params) {
+  async ADD_CEILING_CATEGORY({commit, dispatch}, params) {
     try {
       const ceiling_category = await this.$axios.$post('admin/catalog', params)
       commit('ADD_CEILING_CATEGORY', ceiling_category)
-      dispatch('fetchCeilingCatalog')
+      dispatch('FETCH_CEILING_CATALOG')
     } catch (e) {
       return e
     }
