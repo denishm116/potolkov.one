@@ -13,7 +13,7 @@
 
 
       <div class="" v-else>
-        <a :href="parentLink + '/' + catalogItem.slug"
+        <a :href="parentLink + '/' + $route.params.slug + '/'+ catalogItem.slug"
            class="sub-header-menu__link">
           {{catalogItem.title}}
         </a>

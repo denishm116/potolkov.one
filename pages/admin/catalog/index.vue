@@ -10,157 +10,136 @@
       </v-col>
 
     </v-row>
+<AddCatalog></AddCatalog>
+<!--    <v-row no-gutters class="pt-10">-->
+<!--      <v-col>-->
+<!--        <v-card-->
+<!--          class="mx-auto pa-5"-->
 
-    <v-row no-gutters class="pt-10">
-      <v-col>
-        <v-card
-          class="mx-auto pa-5"
+<!--        >-->
+<!--          <v-subheader>Заполните необходимы поля (Название категории, родительскую категорию, описание и изображения)-->
+<!--          </v-subheader>-->
 
-        >
-          <v-subheader>Заполните необходимы поля (Название категории, родительскую категорию, описание и изображения)
-          </v-subheader>
+<!--          <v-row>-->
 
-          <v-row>
+<!--            <v-col>-->
 
-            <v-col>
+<!--              <v-text-field-->
+<!--                @input="activeButton()"-->
+<!--                label="Название категории"-->
+<!--                outlined-->
+<!--                dense-->
+<!--                :error-messages="titleErrors"-->
+<!--                v-model="newCategory.title"-->
+<!--              ></v-text-field>-->
 
-              <v-text-field
-                @input="activeButton()"
-                label="Название категории"
-                outlined
-                dense
-                :error-messages="titleErrors"
-                v-model="newCategory.title"
-              ></v-text-field>
+<!--            </v-col>-->
 
-            </v-col>
+<!--            <v-col>-->
 
-            <v-col>
+<!--              <v-select-->
+<!--                :items="catalog"-->
+<!--                label="Выберите родительскую категорию"-->
+<!--                item-text="title"-->
+<!--                item-value="id"-->
+<!--                dense-->
+<!--                outlined-->
+<!--                :error-messages="parent_idErrors"-->
+<!--                v-model="newCategory.parent_id"-->
+<!--              ></v-select>-->
+<!--            </v-col>-->
+<!--          </v-row>-->
 
-              <v-select
-                :items="catalog"
-                label="Выберите родительскую категорию"
-                item-text="title"
-                item-value="id"
-                dense
-                outlined
-                :error-messages="parent_idErrors"
-                v-model="newCategory.parent_id"
-              ></v-select>
-            </v-col>
-          </v-row>
+<!--          <v-row>-->
+<!--            <v-col>-->
+<!--              <ClientOnly>-->
+<!--                &lt;!&ndash; Use the component in the right place of the template &ndash;&gt;-->
+<!--                <tiptap-vuetify v-model="newCategory.description" :extensions="extensions"/>-->
 
-          <v-row>
-            <v-col>
-              <ClientOnly>
-                <!-- Use the component in the right place of the template -->
-                <tiptap-vuetify v-model="newCategory.description" :extensions="extensions"/>
+<!--                <template #placeholder>-->
+<!--                  Подождите капельку...-->
+<!--                </template>-->
+<!--              </ClientOnly>-->
 
-                <template #placeholder>
-                  Подождите капельку...
-                </template>
-              </ClientOnly>
+<!--            </v-col>-->
+<!--          </v-row>-->
 
-            </v-col>
-          </v-row>
+<!--          <v-row>-->
+<!--            <v-col>-->
+<!--              <v-btn @click="onButtonClick">-->
+<!--                <v-icon>mdi-paperclip</v-icon>-->
+<!--                Прикрепить изображения-->
+<!--              </v-btn>-->
+<!--              <input multiple class="input-field-file" type="file" ref="fupload" @change="onFileChange">-->
+<!--            </v-col>-->
+<!--          </v-row>-->
 
-          <v-row>
-            <v-col>
-              <v-btn @click="onButtonClick">
-                <v-icon>mdi-paperclip</v-icon>
-                Прикрепить изображения
-              </v-btn>
-              <input multiple class="input-field-file" type="file" ref="fupload" @change="onFileChange">
-            </v-col>
-          </v-row>
+<!--          <v-row justify="space-between">-->
+<!--            <v-col cols="auto" v-if="readyToUpload">-->
 
-          <v-row justify="space-between">
-            <v-col cols="auto" v-if="readyToUpload">
+<!--              <v-radio-group v-model="newCategory.mainImage" column>-->
+<!--                <v-row v-for="(file, index) in formData" :key="index">-->
+<!--                  <v-col>-->
+<!--                    <clipper-basic-->
+<!--                      class="my-clipper"-->
+<!--                      :src="file.uploadFileData"-->
+<!--                      :ref="'clipper' + file.key"-->
+<!--                      :preview="'my-preview' + file.key"-->
+<!--                      :corner="true"-->
+<!--                      :init-width="100"-->
+<!--                      :init-height="100"-->
+<!--                      :ratio="265/180"-->
+<!--                    >-->
+<!--                    </clipper-basic>-->
+<!--                  </v-col>-->
+<!--                  <v-col>-->
+<!--                    <clipper-preview :name="'my-preview' + file.key" class="my-clipper">-->
+<!--                      <div class="placeholder" slot="placeholder">preview area</div>-->
+<!--                    </clipper-preview>-->
+<!--                  </v-col>-->
 
-              <v-radio-group v-model="newCategory.mainImage" column>
-                <v-row v-for="(file, index) in formData" :key="index">
-                  <v-col>
-                    <clipper-basic
-                      class="my-clipper"
-                      :src="file.uploadFileData"
-                      :ref="'clipper' + file.key"
-                      :preview="'my-preview' + file.key"
-                      :corner="true"
-                      :init-width="100"
-                      :init-height="100"
-                      :ratio="265/180"
-                    >
-                    </clipper-basic>
-                  </v-col>
-                  <v-col>
-                    <clipper-preview :name="'my-preview' + file.key" class="my-clipper">
-                      <div class="placeholder" slot="placeholder">preview area</div>
-                    </clipper-preview>
-                  </v-col>
+<!--                  <v-radio label="Сделать основной" :value="file.key"></v-radio>-->
 
-                  <v-radio label="Сделать основной" :value="file.key"></v-radio>
+<!--                </v-row>-->
+<!--              </v-radio-group>-->
+<!--            </v-col>-->
+<!--          </v-row>-->
 
-                </v-row>
-              </v-radio-group>
-            </v-col>
-          </v-row>
+<!--          <v-row>-->
+<!--            <v-col>-->
+<!--              <v-btn-->
+<!--                color="access accent-4 "-->
+<!--                @click="onButton2Click"-->
+<!--              >-->
+<!--                Сохранить-->
+<!--              </v-btn>-->
+<!--            </v-col>-->
+<!--          </v-row>-->
+<!--          <v-card-->
+<!--            class="d-inline-flex pa-2"-->
+<!--            outlined-->
+<!--            tile-->
+<!--            v-for="(thumb, index) in resultURL" :key="index"-->
+<!--          >-->
+<!--            <div class="thumbs">-->
+<!--              <v-img :src="thumb"></v-img>-->
+<!--            </div>-->
+<!--          </v-card>-->
 
-          <v-row>
-            <v-col>
-              <v-btn
-                color="access accent-4 "
-                @click="onButton2Click"
-              >
-                Сохранить
-              </v-btn>
-            </v-col>
-          </v-row>
-          <v-card
-            class="d-inline-flex pa-2"
-            outlined
-            tile
-            v-for="(thumb, index) in resultURL" :key="index"
-          >
-            <div class="thumbs">
-              <v-img :src="thumb"></v-img>
-            </div>
-          </v-card>
-          <br>
-          <br>
-          <br>
-          <br>
-          <h1>Список категорий потолков</h1>
-          <ul>
-            <template v-for="cat in catalog">
 
-              <li>
-                <a href="#" @click.prevent="itemUp(cat.slug)">
-                  <v-icon>mdi-arrow-up-bold-circle</v-icon>
-                </a>
-                <a href="#" @click.prevent="itemDown(cat.slug)">
-                  <v-icon>mdi-arrow-down-bold-circle</v-icon>
-                </a>
-                <a href="#" @click.prevent="itemDelete(cat.slug)">
-                  <v-icon>mdi-delete</v-icon>
-                </a>
-                <a href="#" @click.prevent="goTo(cat.slug)">
+<!--        </v-card>-->
+<!--      </v-col>-->
+<!--    </v-row>-->
 
-                  {{ cat.title}}
-                </a>
-              </li>
 
-            </template>
-          </ul>
-        </v-card>
-      </v-col>
-    </v-row>
+
 
   </div>
 </template>
 
 
 <script>
-
+import AddCatalog from "@/components/partials/AddCatalog"
   import {clipperBasic, clipperPreview} from 'vuejs-clipper'
   import {mapGetters, mapActions} from 'vuex'
 
@@ -188,7 +167,7 @@
 
     layout: 'admin',
     components: {
-      clipperBasic, clipperPreview, TiptapVuetify
+      clipperBasic, clipperPreview, TiptapVuetify, AddCatalog
     },
     data() {
       return {
@@ -288,7 +267,7 @@
       },
 
       async itemDelete(slug) {
-         await this.$axios.$delete('/admin/' + this.slug + slug)
+        await this.$axios.$delete('/admin/' + this.slug + slug)
         this.FETCH_CEILING_CATALOG()
       },
 
@@ -374,7 +353,9 @@
 </script>
 
 <style scoped>
-
+.mb {
+  margin: 50px 0 0 0;
+}
   .thumbs {
     max-width: 150px;
     margin: 15px;

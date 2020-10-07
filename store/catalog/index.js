@@ -38,7 +38,7 @@ console.log(ceiling_catalog)
       return e
     }
   },
-  async fetchLightningCatalog({commit}) {
+  async FETCH_LIGHTNING_CATALOG({commit}) {
     try {
       const lightning_catalog = await this.$axios.$get('admin/lightning_catalog')
       commit('SET_LIGHTNING_CATALOG', lightning_catalog)
@@ -48,11 +48,11 @@ console.log(ceiling_catalog)
     }
   },
 
-  async addLightningCategory({commit, dispatch}, params) {
+  async ADD_LIGHTNING_CATEGORY({commit, dispatch}, params) {
     try {
       const lightning_category = await this.$axios.$post('admin/lightning_catalog', params)
       commit('ADD_LIGHTNING_CATEGORY', lightning_category)
-      dispatch('fetchLightningCatalog')
+      dispatch('FETCH_LIGHTNING_CATALOG')
     } catch (e) {
       return e
     }
