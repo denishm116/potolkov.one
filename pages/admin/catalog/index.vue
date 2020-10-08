@@ -10,126 +10,158 @@
       </v-col>
 
     </v-row>
-<AddCatalog></AddCatalog>
-<!--    <v-row no-gutters class="pt-10">-->
-<!--      <v-col>-->
-<!--        <v-card-->
-<!--          class="mx-auto pa-5"-->
+<!--<AddCatalog></AddCatalog>-->
+    <v-row no-gutters class="pt-10">
+      <v-col>
+        <v-card
+          class="mx-auto pa-5"
 
-<!--        >-->
-<!--          <v-subheader>Заполните необходимы поля (Название категории, родительскую категорию, описание и изображения)-->
-<!--          </v-subheader>-->
+        >
+          <v-subheader>Заполните необходимы поля (Название категории, родительскую категорию, описание и изображения)
+          </v-subheader>
 
-<!--          <v-row>-->
+          <v-row>
 
-<!--            <v-col>-->
+            <v-col>
 
-<!--              <v-text-field-->
-<!--                @input="activeButton()"-->
-<!--                label="Название категории"-->
-<!--                outlined-->
-<!--                dense-->
-<!--                :error-messages="titleErrors"-->
-<!--                v-model="newCategory.title"-->
-<!--              ></v-text-field>-->
+              <v-text-field
+                @input="activeButton()"
+                label="Название категории"
+                outlined
+                dense
+                :error-messages="titleErrors"
+                v-model="newCategory.title"
+              ></v-text-field>
 
-<!--            </v-col>-->
+            </v-col>
 
-<!--            <v-col>-->
+            <v-col>
 
-<!--              <v-select-->
-<!--                :items="catalog"-->
-<!--                label="Выберите родительскую категорию"-->
-<!--                item-text="title"-->
-<!--                item-value="id"-->
-<!--                dense-->
-<!--                outlined-->
-<!--                :error-messages="parent_idErrors"-->
-<!--                v-model="newCategory.parent_id"-->
-<!--              ></v-select>-->
-<!--            </v-col>-->
-<!--          </v-row>-->
+              <v-select
+                :items="catalog"
+                label="Выберите родительскую категорию"
+                item-text="title"
+                item-value="id"
+                dense
+                outlined
+                :error-messages="parent_idErrors"
+                v-model="newCategory.parent_id"
+              ></v-select>
+            </v-col>
+          </v-row>
 
-<!--          <v-row>-->
-<!--            <v-col>-->
-<!--              <ClientOnly>-->
-<!--                &lt;!&ndash; Use the component in the right place of the template &ndash;&gt;-->
-<!--                <tiptap-vuetify v-model="newCategory.description" :extensions="extensions"/>-->
+          <v-row>
+            <v-col>
+              <ClientOnly>
+                <!-- Use the component in the right place of the template -->
+                <tiptap-vuetify v-model="newCategory.description" :extensions="extensions"/>
 
-<!--                <template #placeholder>-->
-<!--                  Подождите капельку...-->
-<!--                </template>-->
-<!--              </ClientOnly>-->
+                <template #placeholder>
+                  Подождите капельку...
+                </template>
+              </ClientOnly>
 
-<!--            </v-col>-->
-<!--          </v-row>-->
-
-<!--          <v-row>-->
-<!--            <v-col>-->
-<!--              <v-btn @click="onButtonClick">-->
-<!--                <v-icon>mdi-paperclip</v-icon>-->
-<!--                Прикрепить изображения-->
-<!--              </v-btn>-->
-<!--              <input multiple class="input-field-file" type="file" ref="fupload" @change="onFileChange">-->
-<!--            </v-col>-->
-<!--          </v-row>-->
-
-<!--          <v-row justify="space-between">-->
-<!--            <v-col cols="auto" v-if="readyToUpload">-->
-
-<!--              <v-radio-group v-model="newCategory.mainImage" column>-->
-<!--                <v-row v-for="(file, index) in formData" :key="index">-->
-<!--                  <v-col>-->
-<!--                    <clipper-basic-->
-<!--                      class="my-clipper"-->
-<!--                      :src="file.uploadFileData"-->
-<!--                      :ref="'clipper' + file.key"-->
-<!--                      :preview="'my-preview' + file.key"-->
-<!--                      :corner="true"-->
-<!--                      :init-width="100"-->
-<!--                      :init-height="100"-->
-<!--                      :ratio="265/180"-->
-<!--                    >-->
-<!--                    </clipper-basic>-->
-<!--                  </v-col>-->
-<!--                  <v-col>-->
-<!--                    <clipper-preview :name="'my-preview' + file.key" class="my-clipper">-->
-<!--                      <div class="placeholder" slot="placeholder">preview area</div>-->
-<!--                    </clipper-preview>-->
-<!--                  </v-col>-->
-
-<!--                  <v-radio label="Сделать основной" :value="file.key"></v-radio>-->
-
-<!--                </v-row>-->
-<!--              </v-radio-group>-->
-<!--            </v-col>-->
-<!--          </v-row>-->
-
-<!--          <v-row>-->
-<!--            <v-col>-->
-<!--              <v-btn-->
-<!--                color="access accent-4 "-->
-<!--                @click="onButton2Click"-->
-<!--              >-->
-<!--                Сохранить-->
-<!--              </v-btn>-->
-<!--            </v-col>-->
-<!--          </v-row>-->
-<!--          <v-card-->
-<!--            class="d-inline-flex pa-2"-->
-<!--            outlined-->
-<!--            tile-->
-<!--            v-for="(thumb, index) in resultURL" :key="index"-->
-<!--          >-->
-<!--            <div class="thumbs">-->
-<!--              <v-img :src="thumb"></v-img>-->
-<!--            </div>-->
-<!--          </v-card>-->
+            </v-col>
+          </v-row>
 
 
-<!--        </v-card>-->
-<!--      </v-col>-->
-<!--    </v-row>-->
+          <!-- Начало компонента загрузки картинки -->
+          <v-row>
+            <v-col>
+              <v-btn @click="onButtonClick">
+                <v-icon>mdi-paperclip</v-icon>
+                Прикрепить изображения
+              </v-btn>
+              <input multiple class="input-field-file" type="file" ref="fupload" @change="onFileChange">
+            </v-col>
+          </v-row>
+          <v-row justify="space-between">
+            <v-col cols="auto" v-if="readyToUpload">
+              <v-radio-group v-model="mainImageRadio" column>
+                <v-row v-for="(file, index) in formData" :key="index">
+                  <v-col>
+                    <clipper-basic
+                      class="my-clipper"
+                      :src="file.uploadFileData"
+                      :ref="'clipper' + file.key"
+                      :preview="'my-preview' + file.key"
+                      :corner="true"
+                      :init-width="100"
+                      :init-height="100"
+                      :ratio="265/180"
+                    >
+                    </clipper-basic>
+                  </v-col>
+                  <v-col>
+                    <clipper-preview :name="'my-preview' + file.key" class="my-clipper">
+                      <div class="placeholder" slot="placeholder">preview area</div>
+                    </clipper-preview>
+                  </v-col>
+
+                  <v-radio label="Сделать основной" :value="file.key"></v-radio>
+
+                </v-row>
+              </v-radio-group>
+            </v-col>
+          </v-row>
+
+          <v-row>
+            <v-col>
+              <v-btn
+                color="access accent-4 "
+                @click="onButton2Click"
+              >
+                Сохранить
+              </v-btn>
+            </v-col>
+          </v-row>
+          <v-card
+            class="d-inline-flex pa-2"
+            outlined
+            tile
+            v-for="(thumb, index) in imageData" :key="index"
+          >
+            <div class="thumbs">
+              <v-img :src="thumb"></v-img>
+            </div>
+          </v-card>
+<!--          Конец компонента картинки-->
+
+        </v-card>
+
+        <v-card class="mb">
+          <v-row>
+
+            <v-col>
+
+              <ul>
+
+                <h1>Список категорий</h1>
+                <template v-for="cat in catalog">
+
+                  <li>
+                    <a :href="cat.slug" @click.prevent="itemUp(cat.slug)">
+                      <v-icon>mdi-arrow-up-bold-circle</v-icon>
+                    </a>
+                    <a :href="cat.slug" @click.prevent="itemDown(cat.slug)">
+                      <v-icon>mdi-arrow-down-bold-circle</v-icon>
+                    </a>
+                    <a :href="cat.slug" @click.prevent="itemDelete(cat.slug)">
+                      <v-icon>mdi-delete</v-icon>
+                    </a>
+                    <a :href="cat.slug" @click.prevent="goTo(cat.slug)">
+
+                      {{ cat.title}}
+                    </a>
+                  </li>
+
+                </template>
+              </ul>
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-col>
+    </v-row>
 
 
 
@@ -139,7 +171,7 @@
 
 
 <script>
-import AddCatalog from "@/components/partials/AddCatalog"
+// import AddCatalog from "@/components/partials/AddCatalog"
   import {clipperBasic, clipperPreview} from 'vuejs-clipper'
   import {mapGetters, mapActions} from 'vuex'
 
@@ -167,7 +199,7 @@ import AddCatalog from "@/components/partials/AddCatalog"
 
     layout: 'admin',
     components: {
-      clipperBasic, clipperPreview, TiptapVuetify, AddCatalog
+      clipperBasic, clipperPreview, TiptapVuetify
     },
     data() {
       return {
@@ -200,7 +232,7 @@ import AddCatalog from "@/components/partials/AddCatalog"
           title: '',
           parent_id: '',
           description: '',
-          mainImage: ''
+          files: ''
         },
         files: [],
         slug: 'catalog/',
@@ -210,13 +242,9 @@ import AddCatalog from "@/components/partials/AddCatalog"
         filesOrder: [],
         formData: [],
 
-        resultURL: [],
+        imageData: [],
+        mainImageRadio: '',
 
-        catalogs: [
-          {id: 1, title: 'Потолки'},
-          {id: 2, title: 'Светильники'},
-          {id: 3, title: 'Комплектующие'},
-        ]
       }
     },
 
@@ -224,7 +252,7 @@ import AddCatalog from "@/components/partials/AddCatalog"
 
 
       goTo(slug) {
-        this.$router.push('/admin/' + slug)
+        this.$router.push('/admin/'+ this.slug + slug)
       },
 
       onFileChange(event) {
@@ -276,9 +304,9 @@ import AddCatalog from "@/components/partials/AddCatalog"
         for (let prop in this.$refs) {
           if (prop.substr(0, 7) === 'clipper') {
             const canvas = this.$refs[prop][0].clip()
-            if (+prop.substr(7, 1) === this.newCategory.mainImage)
+            if (+prop.substr(7, 1) === this.mainImageRadio)
               main = 1
-            this.resultURL.push(
+            this.imageData.push(
               {
                 image: canvas.toDataURL("image/jpeg", 1),
                 main: main
@@ -286,7 +314,7 @@ import AddCatalog from "@/components/partials/AddCatalog"
             )
           }
         }
-        this.newCategory.files = this.resultURL
+        this.newCategory.files = this.imageData
         try {
           this.$store.dispatch('catalog/ADD_CEILING_CATEGORY', this.newCategory)
           this.FETCH_CEILING_CATALOG()

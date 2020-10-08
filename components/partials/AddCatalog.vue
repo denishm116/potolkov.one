@@ -157,9 +157,9 @@
 
 
 <script>
-  import AddCatalog from "@/components/partials/AddCatalog"
+
   import {clipperBasic, clipperPreview} from 'vuejs-clipper'
-  import {mapGetters, mapActions} from 'vuex'
+
 
   import {
     TiptapVuetify,
@@ -185,8 +185,11 @@
 
     layout: 'admin',
     components: {
-      clipperBasic, clipperPreview, TiptapVuetify, AddCatalog
+      clipperBasic, clipperPreview, TiptapVuetify
     },
+    props: [
+      'extCatalog', 'slug', 'action'
+    ],
     data() {
       return {
         extensions: [
@@ -221,7 +224,7 @@
           mainImage: ''
         },
         files: [],
-        slug: 'catalog/',
+
 
         catalogList: '',
         activeButtonVar: true,
@@ -229,18 +232,12 @@
         formData: [],
 
         resultURL: [],
-
-        catalogs: [
-          {id: 1, title: 'Потолки'},
-          {id: 2, title: 'Светильники'},
-          {id: 3, title: 'Комплектующие'},
-        ]
       }
     },
 
     methods: {
       goTo(slug) {
-        this.$router.push('/admin/' + slug)
+        this.$router.push('/admin/' + this.slug + slug)
       },
 
       onFileChange(event) {
@@ -271,20 +268,20 @@
 
       async itemUp(slug) {
         await this.$axios.$post('/admin/' + this.slug + slug + '/up')
-        this.FETCH_CEILING_CATALOG()
+
 
 
       },
 
       async itemDown(slug) {
         await this.$axios.$post('/admin/' + this.slug + slug + '/down')
-        this.FETCH_CEILING_CATALOG()
+
 
       },
 
       async itemDelete(slug) {
         await this.$axios.$delete('/admin/' + this.slug + slug)
-        this.FETCH_CEILING_CATALOG()
+
       },
 
       onButton2Click() {
@@ -304,8 +301,8 @@
         }
         this.newCategory.files = this.resultURL
         try {
-          this.$store.dispatch('catalog/ADD_CEILING_CATEGORY', this.newCategory)
-          this.FETCH_CEILING_CATALOG()
+          // this.$store.dispatch('catalog/' + this.action, this.newCategory)
+          // this.FETCH_CEILING_CATALOG()
         } catch (e) {
           return e
         }
@@ -316,19 +313,11 @@
       activeButton() {
         this.activeButtonVar = false
       },
-      ...mapActions({
-        FETCH_CEILING_CATALOG: 'catalog/FETCH_CEILING_CATALOG',
 
-      }),
     },
-    mounted() {
-      this.FETCH_CEILING_CATALOG()
-    },
+
 
     computed: {
-      ...mapGetters({
-        CEILING_CATALOG: 'catalog/CEILING_CATALOG',
-      }),
 
       readyToUpload() {
         return this.formData.length
@@ -343,7 +332,7 @@
         if (this.errors) return this.errors.description
       },
       catalog() {
-        return Array.from(this.CEILING_CATALOG).map(cat => {
+        return Array.from(this.extCatalog).map(cat => {
           return {
             'title': cat.depth ? '--' + cat.title : '' + cat.title,
             'id': cat.id,
