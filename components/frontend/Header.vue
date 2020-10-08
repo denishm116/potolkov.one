@@ -168,20 +168,14 @@
           arrow.style.transform = 'rotate(0deg)'
           if (menuEl.style.display === 'block') {
             menuEl.style.display = 'none'
-
           } else {
             arrow.style.transform = 'rotate(90deg)'
-
-
             menuEl.style.display = 'block'
-
           }
         } else {
           menuEl.style.opacity = '1'
           menuEl.style.display = 'block'
         }
-
-
       }
     },
     computed: {
@@ -208,7 +202,7 @@
             title: 'Освещение',
             isActive: false,
             submenu:  this.lightning_catalog,
-            href: '/lightnings_catalog'
+            href: '/lightning_catalog'
 
           },
 
@@ -222,7 +216,7 @@
             title: 'Комплектующие',
             isActive: false,
             submenu: '',
-            href: '/components_catalog'
+            href: '/component_catalog'
           },
           {
             title: 'Дополнительно',

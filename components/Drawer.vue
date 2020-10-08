@@ -90,17 +90,17 @@
                 {
                     title: 'Каталог освещения',
                     icon: 'mdi-home-variant',
-                    to: '/admin/lightnings_catalog/',
+                    to: '/admin/lightning_catalog/',
                 },
                 {
                     title: 'Светильники',
                     icon: 'mdi-cash-multiple',
-                    to: '/admin/lightnings',
+                    to: '/admin/lightning',
                 },
                 {
                     title: 'Каталог комплектующих',
                     icon: 'mdi-calendar',
-                    to: '/admin/components_catalog',
+                    to: '/admin/component_catalog',
                 },
                 {
                     title: 'Комплектующие',

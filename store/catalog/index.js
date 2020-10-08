@@ -23,7 +23,6 @@ export const actions = {
     try {
       const ceiling_catalog = await this.$axios.$get('admin/catalog')
       commit('SET_CEILING_CATALOG', ceiling_catalog)
-console.log(ceiling_catalog)
     } catch (e) {
       return e
     }
