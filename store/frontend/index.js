@@ -1,6 +1,7 @@
 export const state = () => ({
   ceiling_catalog: {},
   lightning_catalog: {},
+  component_catalog: {},
   other: [
     {title: 'Часто задаваемые вопросы', slug: 'faq', children: [], img: require("assets/img/other/01.jpg")},
     {title: 'Калькулятор стоимости', slug: 'calculator', children: [], img:  require("assets/img/other/02.jpg")},
@@ -19,6 +20,9 @@ export const mutations = {
   },
   SET_LIGHTNING_CATALOG(state, lightning_catalog) {
     state.lightning_catalog = lightning_catalog
+  },
+  SET_COMPONENT_CATALOG(state, component_catalog) {
+    state.component_catalog = component_catalog
   },
 }
 
@@ -39,6 +43,14 @@ export const actions = {
       return e
     }
   },
+  async fetchComponentCatalog({commit}) {
+    try {
+      const component_catalog = await this.$axios.$get('frontend/getComponentCatalog')
+      commit('SET_COMPONENT_CATALOG', component_catalog)
+    } catch (e) {
+      return e
+    }
+  },
 }
 
 
@@ -46,5 +58,6 @@ export const actions = {
 export const getters = {
   ceiling_catalog: state => state.ceiling_catalog,
   lightning_catalog: state => state.lightning_catalog,
+  component_catalog: state => state.component_catalog,
   other: state => state.other,
 }

@@ -22,7 +22,7 @@
           <div class="catalog__item">
 
 
-            <nuxt-link :to="'/ceilings_catalog/' + catalog.slug" class="catalog__item-photo ibg">
+            <nuxt-link :to="'/lightnings_catalog/' + catalog.slug" class="catalog__item-photo ibg">
               <img v-if="catalog.images.length" :src="path + catalog.images[0].path" alt=""/>
             </nuxt-link>
 

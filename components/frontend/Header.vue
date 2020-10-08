@@ -128,7 +128,8 @@
     methods: {
       ...mapActions({
         fetchCeilingCatalog: 'frontend/fetchCeilingCatalog',
-        fetchLightningCatalog: 'frontend/fetchLightningCatalog'
+        fetchLightningCatalog: 'frontend/fetchLightningCatalog',
+        fetchComponentCatalog: 'frontend/fetchComponentCatalog'
       }),
       handleScroll(event, el) {
         if (window.scrollY > 50) {
@@ -182,6 +183,7 @@
       ...mapGetters({
         ceilings_catalog: 'frontend/ceiling_catalog',
         lightning_catalog: 'frontend/lightning_catalog',
+        component_catalog: 'frontend/component_catalog',
         other: 'frontend/other',
       }),
 
@@ -202,7 +204,7 @@
             title: 'Освещение',
             isActive: false,
             submenu:  this.lightning_catalog,
-            href: '/lightning_catalog'
+            href: '/lightnings_catalog'
 
           },
 
@@ -215,8 +217,8 @@
           {
             title: 'Комплектующие',
             isActive: false,
-            submenu: '',
-            href: '/component_catalog'
+            submenu:  this.component_catalog,
+            href: '/components_catalog'
           },
           {
             title: 'Дополнительно',
@@ -229,6 +231,7 @@
     mounted() {
       this.fetchCeilingCatalog()
       this.fetchLightningCatalog()
+      this.fetchComponentCatalog()
 
       window.addEventListener('resize', this.mobileStyleToggle);
       this.mobileStyleToggle()

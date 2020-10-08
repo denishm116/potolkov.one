@@ -11,7 +11,7 @@
           </li>
         </ul>
       </nav>
-      <h2 class="catalog__title title">Каталог натяжных потолков</h2>
+      <h2 class="catalog__title title">Комплектующие для натяжных потолков</h2>
       <p class="catalog__text">
         На сегодняшний день существует огромнейший выбор натяжных потолков на любой вкус и кошелек, и мы, компания
         "Господин Потолков", можем предложить Вам любое решение из существующих. Это и классические
@@ -25,7 +25,7 @@
 
 
 
-            <nuxt-link  :to="'/ceilings_catalog/' + catalog.slug" class="catalog__item-photo ibg">
+            <nuxt-link  :to="'/comonents_catalog/' + catalog.slug" class="catalog__item-photo ibg">
               <img :src="path + catalog.images[0].path" alt=""/>
             </nuxt-link>
 
@@ -47,7 +47,7 @@
   export default {
     computed: {
       ...mapGetters({
-        allCatalog: 'frontend/ceiling_catalog'
+        allCatalog: 'frontend/component_catalog'
       }),
       path() {
         return process.env.baseURL + 'storage/'
