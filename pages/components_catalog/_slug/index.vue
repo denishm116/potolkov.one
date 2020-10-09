@@ -7,30 +7,26 @@
             <a href="" class="breadcrumbs__link">Главная</a>
           </li>
           <li>
-            <span>Хлебные крошки</span>
+            <span>Хлебные крошки2</span>
           </li>
         </ul>
       </nav>
-      <h2 class="catalog__title title">Каталог натяжных потолков (Сын)</h2>
+      <h2 class="catalog__title title">{{children.title}}</h2>
       <p class="catalog__text">
-        На сегодняшний день существует огромнейший выбор натяжных потолков на любой вкус и кошелек, и мы, компания
-        "Господин Потолков", можем предложить Вам любое решение из существующих. Это и классические
-        белые, матовые, глянцевые и сатиновые потолки, цветные потолки, которые также могут быть разных фактур. Это и
-        многоуровневые потолки с подсветкой и без, и современные парящие потолки, и резные потолки Apply, и
-        технологичные потолки DoubleVision, изображение на которых меняется в зависимости от
-        освещения.
+        {{children.description}}
       </p>
       <div class="catalog__row">
-        <div class="catalog__column" v-for="(catalog, index) in children">
-          <div class="catalog__item">
+        <div class="catalog__column" v-for="(catalog, index) in children.children">
 
-            <nuxt-link :to="$route.params.slug + '/' + catalog.ceiling.slug" class="catalog__item-photo ibg">
+          <div class="catalog__item">
+<!--{{catalog}}11-->
+            <nuxt-link :to="$route.params.slug + '/' + catalog.slug" class="catalog__item-photo ibg">
               <img :src="path " alt=""/>
             </nuxt-link>
 
             <a href="#" class="catalog__item-title">{{catalog.title}}</a>
           </div>
-          <nuxt-child></nuxt-child>
+<!--          <nuxt-child></nuxt-child>-->
         </div>
 
 
@@ -58,16 +54,13 @@
     methods: {
       async fetchCeiling() {
         const response = await this.$axios.$get('frontend/getChildren/' + this.$route.params.slug)
+        this.children = response
 
-        this.children = response[0].children
       },
-      test() {
 
-      }
     },
     mounted() {
       this.fetchCeiling()
-      this.test()
     },
 
   }

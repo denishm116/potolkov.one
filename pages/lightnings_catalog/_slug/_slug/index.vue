@@ -7,26 +7,28 @@
             <a href="" class="breadcrumbs__link">Главная</a>
           </li>
           <li>
-            <span>Хлебные крошки2</span>
+            <span>Хлебные крошки1</span>
           </li>
         </ul>
       </nav>
       <h2 class="catalog__title title">{{children.title}}</h2>
       <p class="catalog__text">
+
         {{children.description}}
+        {{children}}
       </p>
       <div class="catalog__row">
-        <div class="catalog__column" v-for="(catalog, index) in children.children">
+        <div class="catalog__column" v-for="(ceiling, index) in children.lightnings">
 
           <div class="catalog__item">
-<!--{{catalog}}11-->
-            <nuxt-link :to="$route.params.slug + '/' + catalog.slug" class="catalog__item-photo ibg">
+            {{ceiling}}
+            <nuxt-link :to="$route.params.slug + '/' + ceiling.slug" class="catalog__item-photo ibg">
               <img :src="path " alt=""/>
             </nuxt-link>
 
-            <a href="#" class="catalog__item-title">{{catalog.title}}</a>
+            <a href="#" class="catalog__item-title">{{ceiling.title}}</a>
           </div>
-<!--          <nuxt-child></nuxt-child>-->
+          <!--          <nuxt-child></nuxt-child>-->
         </div>
 
 
@@ -39,29 +41,31 @@
 <script>
 
   export default {
+
     data: () => {
       return {
         children: [],
+        title: '',
+        description: ''
       }
-
     },
-    computed: {
 
+    computed: {
       path() {
         return process.env.baseURL + 'storage/'
       }
     },
+
     methods: {
       async fetchCeiling() {
-        const response = await this.$axios.$get('frontend/getLightningChildren/' + this.$route.params.slug)
-        this.children = response
-
-      },
-
+        const children = await this.$axios.$get('frontend/getLightningChildren/' + this.$route.params.slug)
+        this.children = children
+       },
     },
+
     mounted() {
       this.fetchCeiling()
-    },
+     },
 
   }
 </script>

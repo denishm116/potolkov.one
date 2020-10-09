@@ -105,7 +105,7 @@
                 {
                     title: 'Комплектующие',
                     icon: 'mdi-email-open',
-                    to: '/admin/components',
+                    to: '/admin/component',
                 },
                 {
                     title: 'Помощь',

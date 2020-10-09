@@ -4,7 +4,7 @@
       <v-col>
         <v-card class="pa-5">
           <ul>
-            <h2>Список потолков</h2>
+            <h2>Список элементов'</h2>
             <li v-for="item in items">
 
               <a :href="item.slug" @click.prevent="itemDelete(item.slug)">

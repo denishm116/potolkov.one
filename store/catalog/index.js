@@ -8,21 +8,13 @@ export const mutations = {
   SET_CEILING_CATALOG(state, ceiling_catalog) {
     state.ceiling_catalog = ceiling_catalog
   },
-  ADD_CEILING_CATEGORY(state, ceiling_catalog) {
-    state.ceiling_catalog = ceiling_catalog
-  },
   SET_LIGHTNING_CATALOG(state, lightning_catalog) {
-    state.lightning_catalog = lightning_catalog
-  },
-  ADD_LIGHTNING_CATEGORY(state, lightning_catalog) {
     state.lightning_catalog = lightning_catalog
   },
   SET_COMPONENT_CATALOG(state, component_catalog) {
     state.component_catalog = component_catalog
   },
-  ADD_COMPONENT_CATEGORY(state, component_catalog) {
-    state.component_catalog = component_catalog
-  }
+
 }
 
 export const actions = {
@@ -37,8 +29,7 @@ export const actions = {
 
   async ADD_CEILING_CATEGORY({commit, dispatch}, params) {
     try {
-      const ceiling_category = await this.$axios.$post('admin/catalog', params)
-      commit('ADD_CEILING_CATEGORY', ceiling_category)
+      await this.$axios.$post('admin/catalog', params)
       dispatch('FETCH_CEILING_CATALOG')
     } catch (e) {
       return e
@@ -57,7 +48,6 @@ export const actions = {
   async ADD_LIGHTNING_CATEGORY({commit, dispatch}, params) {
     try {
       const lightning_category = await this.$axios.$post('admin/lightning_catalog', params)
-      commit('ADD_LIGHTNING_CATEGORY', lightning_category)
       dispatch('FETCH_LIGHTNING_CATALOG')
     } catch (e) {
       return e
@@ -76,7 +66,6 @@ export const actions = {
   async ADD_COMPONENT_CATEGORY({commit, dispatch}, params) {
     try {
       const component_category = await this.$axios.$post('admin/component_catalog', params)
-      commit('ADD_COMPONENT_CATEGORY', component_category)
       dispatch('FETCH_COMPONENT_CATALOG')
     } catch (e) {
       return e
