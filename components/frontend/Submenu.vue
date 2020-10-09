@@ -3,17 +3,17 @@
   <ul class="sub-header-menu__list" :style="showStyle">
     <li v-for="(catalogItem, index) in catalog" class="sub-header-menu__item">
       <div v-if="catalogItem.children.length">
-        <a :href="parentLink + '/' + catalogItem.slug" class="sub-header-menu__link" v-on:click="showMenu">
+        <a :href="parentCatalog + '/' + catalogItem.slug" class="sub-header-menu__link" v-on:click="showMenu">
           {{catalogItem.title}}
         </a>
         <span class="menu__arrow sub-arrow" @click="collapseMenu($event)"></span>
         <Submenu :catalog="catalogItem.children" class="children_wrapper" v-if="catalogItem.depth === 0"
-                 :parentLink="parentLink"></Submenu>
+                 :parentCatalog="parentCatalog + '/' + $route.params.slug "></Submenu>
       </div>
 
 
       <div class="" v-else>
-        <a :href="parentLink + '/' + $route.params.slug + '/'+ catalogItem.slug"
+        <a :href="parentCatalog + '/'    + catalogItem.slug"
            class="sub-header-menu__link">
           {{catalogItem.title}}
         </a>
@@ -28,7 +28,7 @@
 
   export default {
     name: 'Submenu',
-    props: ['catalog', 'parentLink'],
+    props: ['catalog', 'parentCatalog'],
     data() {
       return {
 

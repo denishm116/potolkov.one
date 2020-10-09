@@ -1,7 +1,7 @@
 <template>
   <div>
-    <CategoryForms :allCatalog="allCatalog" :slug="slug" @textData="textData" :clrForm="clrForm"
-                   @fetchCatalog="fetchCatalog"></CategoryForms>
+    <CategoryItemForms :items="items" :catalog="catalog" :slug="slug" @textData="textData" :clrForm="clrForm"
+                   @fetchItems="fetchItems"></CategoryItemForms>
 
     <AddImageComponent @imageData="imageData" :show="clearImageField"></AddImageComponent>
 
@@ -15,19 +15,19 @@
 
 <script>
   import AddImageComponent from "@/components/partials/AddImageComponent"
-  import CategoryForms from "@/components/partials/CategoryForms"
+  import CategoryItemForms from "@/components/partials/CategoryItemForms"
 
   export default {
 
     props: [
-      'allCatalog', 'slug', 'addingCategory'
+      'items', 'slug', 'addingItem', 'catalog'
     ],
     components: {
-      AddImageComponent, CategoryForms
+      AddImageComponent, CategoryItemForms
     },
     data() {
       return {
-        newCategory: {
+        newItem: {
           title: '',
           parent_id: '',
           description: '',
@@ -39,25 +39,26 @@
       }
     },
     methods: {
-      fetchCatalog() {
-        this.$emit('fetchCatalog')
+      fetchItems() {
+        this.$emit('fetchItems')
       },
       saveCategory() {
-        console.log(this.addingCategory)
+
         try {
-          this.$store.dispatch('catalog/' + this.addingCategory,  this.newCategory)
-          this.fetchCatalog()
+          this.$store.dispatch('catalogItems/' + this.addingItem,  this.newItem)
+          this.fetchItems()
           this.clearForm()
           this.clearImageField = false
+          this.clrForm = false
         } catch (e) {
           return e
         }
       },
       imageData(imageData) {
-        this.newCategory.files = imageData
+        this.newItem.files = imageData
       },
-      textData(newCategory) {
-        this.newCategory = newCategory
+      textData(newItem) {
+        this.newItem = newItem
       },
       clearForm() {
         this.clrForm = false;

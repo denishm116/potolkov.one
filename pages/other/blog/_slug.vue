@@ -59,7 +59,6 @@
                 </div>
               </div>
             </div>
-
             <div class="mt-8 tiny-bold">SUBTITLE • FOCUS</div>
 
             <p class="mt-4 text-ellipsis-2l">{{item.content}}</p>

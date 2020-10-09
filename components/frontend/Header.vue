@@ -54,7 +54,7 @@
                     @click="collapseMenu($event)"></span>
 
               <Submenu :catalog="menuItem.submenu" class="submenu_display"
-                       :parentLink=menuItem.href @updateParent="showMenu"></Submenu>
+                       :parentCatalog=menuItem.href @updateParent="showMenu"></Submenu>
 
             </li>
           </ul>

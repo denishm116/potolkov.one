@@ -24,7 +24,7 @@
     },
     methods: {
       async getData() {
-        const catalog = await this.$axios.$get('admin/ceilings/' + this.$route.params.slug)
+        const catalog = await this.$axios.$get('admin/catalogItems/' + this.$route.params.slug)
         this.data = catalog[0]
 
       }

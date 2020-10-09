@@ -53,21 +53,14 @@
     },
     methods: {
       async fetchCeiling() {
-
         const response = await this.$axios.$get('frontend/getChildren/' + this.$route.params.slug)
         this.children = response
-// console.log(response)
-//         response.forEach(item => {
-//           this.children.push(item)
-//         })
-        console.log(this.children)
+
       },
 
     },
     mounted() {
       this.fetchCeiling()
-
-      // console.log(this.children)
     },
 
   }

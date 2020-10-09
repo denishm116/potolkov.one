@@ -40,41 +40,31 @@
 <script>
 
   export default {
+
     data: () => {
       return {
         children: [],
         title: '',
         description: ''
-
       }
-
     },
-    computed: {
 
+    computed: {
       path() {
         return process.env.baseURL + 'storage/'
       }
     },
+
     methods: {
       async fetchCeiling() {
-
         const children = await this.$axios.$get('frontend/getChildren/' + this.$route.params.slug)
         this.children = children
-        console.log(this.children)
-        // response.forEach(item => {
-        //   this.children.push(item)
-        // })
-
-      },
-
-
+       },
     },
+
     mounted() {
       this.fetchCeiling()
-      console.log(this.titleName)
-
-      // console.log(this.children)
-    },
+     },
 
   }
 </script>
