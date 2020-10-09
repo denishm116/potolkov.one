@@ -2,12 +2,17 @@ export const state = () => ({
   ceiling_catalog: {},
   lightning_catalog: {},
   component_catalog: {},
+  ceiling_catalog_item: {},
 })
 
 export const mutations = {
   SET_CEILING_CATALOG(state, ceiling_catalog) {
     state.ceiling_catalog = ceiling_catalog
   },
+  SET_CEILING_CATALOG_ITEM(state, ceiling_catalog_item) {
+    state.ceiling_catalog_item = ceiling_catalog_item
+  },
+
   SET_LIGHTNING_CATALOG(state, lightning_catalog) {
     state.lightning_catalog = lightning_catalog
   },
@@ -26,12 +31,22 @@ export const actions = {
       return e
     }
   },
-
   async ADD_CEILING_CATEGORY({commit, dispatch}, params) {
     try {
       await this.$axios.$post('admin/catalog', params)
       dispatch('FETCH_CEILING_CATALOG')
     } catch (e) {
+      return e
+    }
+  },
+  async FETCH_CEILING_CATALOG_ITEM({commit, state}, params) {
+
+    try {
+      const ceiling_catalog_item = await this.$axios.$get('admin/catalog/' + params)
+
+      commit('SET_CEILING_CATALOG_ITEM', ceiling_catalog_item)
+    } catch (e) {
+
       return e
     }
   },
@@ -76,6 +91,8 @@ export const actions = {
 
 export const getters = {
   CEILING_CATALOG: state => state.ceiling_catalog,
+  CEILING_CATALOG_ITEM: state => state.ceiling_catalog_item,
+
   LIGHTNING_CATALOG: state => state.lightning_catalog,
   COMPONENT_CATALOG: state => state.component_catalog,
 }

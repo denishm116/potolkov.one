@@ -1,24 +1,25 @@
 <template>
 
-    <div class="bg-grey pa-5">
+  <div class="bg-grey pa-5">
 
-      <v-row no-gutters>
-        <v-col>
+    <v-row no-gutters>
+      <v-col>
         <span class="grey--text text--darken-3 text-right text-uppercase text-lg-h5 font-weight-bold ">Потолки:
         редактирование категории</span>
-        </v-col>
-      </v-row>
+      </v-col>
+    </v-row>
 
-      <CategoryEditor :categoryInit="category"></CategoryEditor>
+    <CategoryEditor :categoryInit="category" :catalogInit="CEILING_CATALOG"></CategoryEditor>
 
 
-
-    </div>
+  </div>
 
 </template>
 
 <script>
   import CategoryEditor from "@/components/partials/CategoryEditor"
+  import {mapGetters, mapActions} from 'vuex'
+
   export default {
     layout: 'admin',
     components: {
@@ -26,25 +27,31 @@
     },
     data() {
       return {
-        category: ''
+
       }
     },
-    validate() {
-      return true;
+    // validate() {
+    //   return true;
+    // },
+    computed: {
+      ...mapGetters({
+        CEILING_CATALOG: 'catalog/CEILING_CATALOG',
+        CEILING_CATALOG_ITEM: 'catalog/CEILING_CATALOG_ITEM'
+      }),
+      category() {
+        return this.CEILING_CATALOG_ITEM
+      }
     },
     methods: {
-      async getData() {
-        const category = await this.$axios.$get('admin/catalog/' + this.$route.params.slug)
-        this.category = category[0]
-
-      }
+      ...mapActions({
+        FETCH_CEILING_CATALOG: 'catalog/FETCH_CEILING_CATALOG',
+        FETCH_CEILING_CATALOG_ITEM: 'catalog/FETCH_CEILING_CATALOG_ITEM',
+      }),
     },
     mounted() {
-      this.getData()
-
+      this.FETCH_CEILING_CATALOG()
+      this.FETCH_CEILING_CATALOG_ITEM(this.$route.params.slug)
     },
-
-
   }
 </script>
 

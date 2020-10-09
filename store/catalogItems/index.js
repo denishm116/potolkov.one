@@ -1,7 +1,8 @@
 export const state = () => ({
   ceilings: {},
   lightnings: {},
-  components: {}
+  components: {},
+
 })
 
 export const mutations = {
@@ -35,6 +36,7 @@ export const actions = {
       return e
     }
   },
+
   async FETCH_LIGHTNINGS({commit, state}) {
     try {
       const lightnings =  await this.$axios.$get('admin/lightnings')
