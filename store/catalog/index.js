@@ -4,7 +4,6 @@ export const state = () => ({
   component_catalog: {},
   ceiling_catalog_item: {},
 })
-
 export const mutations = {
   SET_CEILING_CATALOG(state, ceiling_catalog) {
     state.ceiling_catalog = ceiling_catalog
@@ -19,9 +18,7 @@ export const mutations = {
   SET_COMPONENT_CATALOG(state, component_catalog) {
     state.component_catalog = component_catalog
   },
-
 }
-
 export const actions = {
   async FETCH_CEILING_CATALOG({commit, state}) {
     try {
@@ -40,16 +37,15 @@ export const actions = {
     }
   },
   async FETCH_CEILING_CATALOG_ITEM({commit, state}, params) {
-
     try {
       const ceiling_catalog_item = await this.$axios.$get('admin/catalog/' + params)
-
       commit('SET_CEILING_CATALOG_ITEM', ceiling_catalog_item)
     } catch (e) {
-
       return e
     }
   },
+
+
   async FETCH_LIGHTNING_CATALOG({commit}) {
     try {
       const lightning_catalog = await this.$axios.$get('admin/lightning_catalog')

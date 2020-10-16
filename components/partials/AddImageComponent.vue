@@ -17,8 +17,8 @@
               <clipper-basic
                 class="my-clipper"
                 :src="file.uploadFileData"
-                :ref="'clipper' + file.key"
-                :preview="'my-preview' + file.key"
+                :ref="'clipper' + index"
+                :preview="'my-preview' + index"
                 :corner="true"
                 :init-width="100"
                 :init-height="100"
@@ -28,13 +28,13 @@
               {{file.displayFileName}}
             </v-col>
             <v-col>
-              <clipper-preview :name="'my-preview' + file.key" class="my-clipper">
+              <clipper-preview :name="'my-preview' + index" class="my-clipper">
                 <div class="placeholder" slot="placeholder">preview area</div>
               </clipper-preview>
 
             </v-col>
 
-            <v-radio label="Сделать основной" :value="file.key"></v-radio>
+            <v-radio label="Сделать основной" :value="index"></v-radio>
 
           </v-row>
         </v-radio-group>
@@ -67,7 +67,7 @@
       return {
         imageData: [],
         formData: [],
-        mainImageRadio: ''
+        mainImageRadio: 0,
       }
     },
     computed: {
@@ -94,7 +94,7 @@
         }
         this.$emit('imageData', this.imageData);
       },
-      onFileChange(event) {
+     onFileChange(event) {
         if (event.target.files && event.target.files.length) {
           let files = event.target.files
           for (let i = 0; i < files.length; i++) {
@@ -115,14 +115,18 @@
             this.formData.push(temp)
           }
         }
+
+        setTimeout(this.sendImageData, 500);
       },
       onButtonClick() {
         this.$refs.fupload.click();
+
       },
       calcSize(size) {
         return Math.round(size / 1024);
       },
-    }
+    },
+
   }
 </script>
 

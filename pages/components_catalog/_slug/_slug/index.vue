@@ -14,10 +14,11 @@
       <h2 class="catalog__title title">{{children.title}}</h2>
       <p class="catalog__text">
 
-        {{'description'}}
+        {{children.description}}
+        {{children}}
       </p>
       <div class="catalog__row">
-        <div class="catalog__column" v-for="(ceiling, index) in children.ceiling">
+        <div class="catalog__column" v-for="(ceiling, index) in children.components">
 
           <div class="catalog__item">
             {{ceiling}}
@@ -57,8 +58,9 @@
 
     methods: {
       async fetchCeiling() {
-        const children = await this.$axios.$get('frontend/getChildren/' + this.$route.params.slug)
+        const children = await this.$axios.$get('frontend/getComponentChildren/' + this.$route.params.slug)
         this.children = children
+        console.log(this.children)
        },
     },
 

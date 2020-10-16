@@ -11,22 +11,19 @@
           </li>
         </ul>
       </nav>
-      <h2 class="catalog__title title">Комплектующие для натяжных потолков</h2>
+      <h2 class="catalog__title title">Каталог Освещения</h2>
       <p class="catalog__text">
-        На сегодняшний день существует огромнейший выбор натяжных потолков на любой вкус и кошелек, и мы, компания
-        "Господин Потолков", можем предложить Вам любое решение из существующих. Это и классические
-        белые, матовые, глянцевые и сатиновые потолки, цветные потолки, которые также могут быть разных фактур. Это и
-        многоуровневые потолки с подсветкой и без, и современные парящие потолки, и резные потолки Apply, и
-        технологичные потолки DoubleVision, изображение на которых меняется в зависимости от освещения.
+        Есть масса способов украсить натяжной потолок. Один из них - это освещение. Еще несколько лет
+        назад под освещением воспринималась только люстра, сегодня же, помимо люстры, потолок, и комнату в целом, могут украшать: точечные светодиодные светильники (споты),
+        светодиодная подсветка по периметру потолка, и новинка последних сезонов - световые линии.
       </p>
       <div class="catalog__row">
-        <div class="catalog__column" v-for="(catalog, index) in allCatalog">
+        <div class="catalog__column" v-for="(catalog, index) in component_catalog">
           <div class="catalog__item">
 
 
-
-            <nuxt-link  :to="'/comonents_catalog/' + catalog.slug" class="catalog__item-photo ibg">
-              <img :src="path + catalog.images[0].path" alt=""/>
+            <nuxt-link :to="'/components_catalog/' + catalog.slug" class="catalog__item-photo ibg">
+              <img v-if="catalog.images.length" :src="path + catalog.images[0].path" alt=""/>
             </nuxt-link>
 
             <a href="#" class="catalog__item-title">{{catalog.title}}</a>
@@ -47,19 +44,15 @@
   export default {
     computed: {
       ...mapGetters({
-        allCatalog: 'frontend/component_catalog'
+        component_catalog: 'frontend/component_catalog'
       }),
       path() {
         return process.env.baseURL + 'storage/'
       }
     },
-    methods: {
+    methods: {},
 
-    },
-
-    generate: {
-
-    }
+    generate: {}
   }
 </script>
 

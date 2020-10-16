@@ -43,7 +43,7 @@
         this.$emit('fetchCatalog')
       },
       saveCategory() {
-        console.log(this.addingCategory)
+
         try {
           this.$store.dispatch('catalog/' + this.addingCategory,  this.newCategory)
           this.fetchCatalog()

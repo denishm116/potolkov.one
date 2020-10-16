@@ -57,7 +57,8 @@
     },
     methods: {
       async fetchCeiling() {
-        const ceiling = await this.$axios.$get('frontend/getCeilings/' + this.$route.params.slug)
+        const ceiling = await this.$axios.$get('frontend/getComponent/' + this.$route.params.slug)
+        console.log(ceiling)
         this.ceiling = ceiling
       },
 

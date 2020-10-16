@@ -53,7 +53,7 @@
     },
     methods: {
       async fetchCeiling() {
-        const response = await this.$axios.$get('frontend/getChildren/' + this.$route.params.slug)
+        const response = await this.$axios.$get('frontend/getComponentChildren/' + this.$route.params.slug)
         this.children = response
 
       },
