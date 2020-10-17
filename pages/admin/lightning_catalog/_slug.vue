@@ -1,44 +1,88 @@
 <template>
-  <div>
-    <h1>Название категории: {{data.title}}</h1>
-    <h3>Псевдоним: {{data.slug}}</h3>
-    <h3>Описание: {{data.description}}</h3>
 
-    <div v-for="image in data.images">
-      <img :src="path + image.path">
-    </div>
+  <div class="bg-grey pa-5">
+
+    <v-row no-gutters>
+      <v-col>
+        <span class="grey--text text--darken-3 text-right text-uppercase text-lg-h5 font-weight-bold ">Освещение:
+        редактирование категории {{LIGHTNING_CATALOG_ITEM.title}}</span>
+      </v-col>
+      <v-col class="d-flex justify-end">
+        <v-btn :color="buttonColor" :disabled="disabled" @click="saveChanges">Сохранить изменения</v-btn>
+      </v-col>
+    </v-row>
+
+    <CategoryEditor
+      :categoryInit="LIGHTNING_CATALOG_ITEM"
+      :catalogInit="LIGHTNING_CATALOG"
+      @changeImage="changeImage"
+      :slug="'lightning_catalog'"
+      :parentId="LIGHTNING_CATALOG_ITEM.parent_id"
+      @textChange="textChange"
+    ></CategoryEditor>
+
   </div>
+
 </template>
 
 <script>
+  import CategoryEditor from "@/components/partials/CategoryEditor"
+  import {mapGetters, mapActions} from 'vuex'
+
   export default {
     layout: 'admin',
+    components: {
+      CategoryEditor
+    },
     data() {
       return {
-        // path: process.env.baseUrl + '/storage/',
-        data: ''
+        editedEntity: {
+          title: '',
+          parent_id: '',
+          description: '',
+        },
+        disabled: true,
+        buttonColor: 'grey',
+        mainImage: '',
+        mainImageId: '',
       }
     },
-    validate() {
-      return true;
+
+    computed: {
+      ...mapGetters({
+        LIGHTNING_CATALOG: 'catalog/LIGHTNING_CATALOG',
+        LIGHTNING_CATALOG_ITEM: 'catalog/LIGHTNING_CATALOG_ITEM'
+      }),
+
     },
     methods: {
-      async getData() {
-        const catalog = await this.$axios.$get('admin/lightning_catalog/' + this.$route.params.slug)
-        this.data = catalog[0]
-
+      ...mapActions({
+        FETCH_LIGHTNING_CATALOG: 'catalog/FETCH_LIGHTNING_CATALOG',
+        FETCH_LIGHTNING_CATALOG_ITEM: 'catalog/FETCH_LIGHTNING_CATALOG_ITEM',
+      }),
+      changeImage() {
+        this.FETCH_LIGHTNING_CATALOG_ITEM(this.$route.params.slug)
+      },
+      textChange(textData) {
+        this.editedEntity = textData
+        this.disabled = false
+        this.buttonColor = 'error'
+      },
+      async saveChanges() {
+        try {
+          await this.$axios.$patch('admin/lightning_catalog/' + this.LIGHTNING_CATALOG_ITEM.id, this.editedEntity)
+          this.disabled = true
+        } catch (e) {
+          return e
+        }
       }
+
     },
     mounted() {
-      this.getData()
+      this.FETCH_LIGHTNING_CATALOG()
+      this.FETCH_LIGHTNING_CATALOG_ITEM(this.$route.params.slug)
 
     },
-    computed: {
-      path() {
-        return process.env.baseURL + 'storage/'
-      }
-    }
-
   }
 </script>
 

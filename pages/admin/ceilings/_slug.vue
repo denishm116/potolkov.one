@@ -1,44 +1,86 @@
 <template>
-  <div>
-    <h1>Название категории: {{data.title}}</h1>
-    <h3>Псевдоним: {{data.slug}}</h3>
-    <h3>Описание: {{data.description}}</h3>
 
-    <div v-for="image in data.images">
-      <img :src="path + image.path">
-    </div>
+  <div class="bg-grey pa-5">
+
+    <v-row no-gutters>
+      <v-col>
+        <span class="grey--text text--darken-3 text-right text-uppercase text-lg-h5 font-weight-bold ">Редактирование потолка: {{CEILING.title}}</span>
+      </v-col>
+      <v-col class="d-flex justify-end">
+        <v-btn :color="buttonColor" :disabled="disabled" @click="saveChanges">Сохранить изменения</v-btn>
+      </v-col>
+    </v-row>
+
+    <CategoryEditor
+      :categoryInit="CEILING"
+      :catalogInit="CEILING_CATALOG"
+      @changeImage="changeImage"
+      :slug="'ceilings'"
+      :parentId="CEILING.catalog_id"
+      @textChange="textChange"
+    ></CategoryEditor>
+
   </div>
+
 </template>
 
 <script>
+  import CategoryEditor from "@/components/partials/CategoryEditor"
+  import {mapGetters, mapActions} from 'vuex'
+
   export default {
     layout: 'admin',
+    components: {
+      CategoryEditor
+    },
     data() {
       return {
-        // path: process.env.baseUrl + '/storage/',
-        data: ''
+        editedEntity: {
+          title: '',
+          parent_id: '',
+          description: '',
+        },
+        disabled: true,
+        buttonColor: 'grey',
+        mainImage: '',
+        mainImageId: '',
       }
     },
-    validate() {
-      return true;
+
+    computed: {
+      ...mapGetters({
+        CEILING_CATALOG: 'catalog/CEILING_CATALOG',
+        CEILING: 'catalogItems/CEILING'
+      }),
+
     },
     methods: {
-      async getData() {
-        const catalog = await this.$axios.$get('admin/ceilings/' + this.$route.params.slug)
-        this.data = catalog[0]
-
+      ...mapActions({
+        FETCH_CEILING_CATALOG: 'catalog/FETCH_CEILING_CATALOG',
+        FETCH_CEILING: 'catalogItems/FETCH_CEILING',
+      }),
+      changeImage() {
+        this.FETCH_CEILING(this.$route.params.slug)
+      },
+      textChange(textData) {
+        this.editedEntity = textData
+        this.disabled = false
+        this.buttonColor = 'error'
+      },
+      async saveChanges() {
+        try {
+          await this.$axios.$patch('admin/ceilings/' + this.CEILING.id, this.editedEntity)
+          this.disabled = true
+        } catch (e) {
+          return e
+        }
       }
+
     },
     mounted() {
-      this.getData()
-
+      this.FETCH_CEILING_CATALOG()
+      this.FETCH_CEILING(this.$route.params.slug)
     },
-    computed: {
-      path() {
-        return process.env.baseURL + 'storage/'
-      }
-    }
-
   }
 </script>
 

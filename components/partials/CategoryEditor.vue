@@ -9,9 +9,9 @@
               outlined
               dense
               :error-messages="titleErrors"
+              v-model="editedEntity.title"
 
-              :value="category.title"
-              @change="changeText"
+              @change="textChange"
             ></v-text-field>
           </v-col>
           <v-col>
@@ -22,15 +22,16 @@
               item-value="id"
               dense
               outlined
-              :value="category.parent_id"
-              @change="changeText"
+              v-model="editedEntity.parent_id"
+
+              @change="textChange"
             ></v-select>
           </v-col>
         </v-row>
 
         <ClientOnly>
           <!-- Use the component in the right place of the template -->
-          <tiptap-vuetify :value="category.description" :extensions="extensions" @change="changeText"/>
+          <tiptap-vuetify v-model="editedEntity.description" :extensions="extensions" @input="textChange"/>
           <template #placeholder>
             Подождите капельку...
           </template>
@@ -138,7 +139,7 @@
 
   export default {
     props: [
-      'categoryInit', 'catalogInit', 'slug'
+      'categoryInit', 'catalogInit', 'slug', 'parentId'
     ],
     data() {
       return {
@@ -195,6 +196,14 @@
       category() {
         return this.categoryInit
       },
+      editedEntity() {
+        return {
+          title: this.category.title,
+          parent_id: this.category.parent_id,
+          description: this.category.description,
+        }
+
+      },
     },
 
     methods: {
@@ -203,8 +212,9 @@
         this.$emit('changeImage')
 
       },
-      changeText(event) {
-        console.log(event)
+      textChange() {
+
+       this.$emit('textChange', this.editedEntity)
       },
       async changeMainImage(id) {
         await this.$axios.$get('admin/' + this.slug + '/changeMainImage/' + id)
@@ -234,23 +244,23 @@
         window.location.reload(false);
       },
 
-      sendImageData() {
-        for (let prop in this.$refs) {
-          if (prop.substr(0, 7) === 'clipper') {
-            const canvas = this.$refs[prop][0].clip()
-            let main = 0;
-            if (+prop.substr(7, 1) === this.mainImageRadio)
-              main = 1
-            this.imageData.push(
-              {
-                image: canvas.toDataURL("image/jpeg", 1),
-                main: main
-              }
-            )
-          }
-        }
-        this.$emit('imageData', this.imageData);
-      },
+      // sendImageData() {
+      //   for (let prop in this.$refs) {
+      //     if (prop.substr(0, 7) === 'clipper') {
+      //       const canvas = this.$refs[prop][0].clip()
+      //       let main = 0;
+      //       if (+prop.substr(7, 1) === this.mainImageRadio)
+      //         main = 1
+      //       this.imageData.push(
+      //         {
+      //           image: canvas.toDataURL("image/jpeg", 1),
+      //           main: main
+      //         }
+      //       )
+      //     }
+      //   }
+      //   this.$emit('imageData', this.imageData);
+      // },
       onFileChange(event) {
         if (event.target.files && event.target.files.length) {
           let files = event.target.files
