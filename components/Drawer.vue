@@ -78,33 +78,38 @@
             miniVariant: false,
             items: [
                 {
-                    icon: 'mdi-view-dashboard',
+                    icon: 'mdi-cloud-download',
+                    title: 'Добавить объект',
+                    to: '/admin/objects/',
+                },
+                {
+                    icon: 'mdi-table-large',
                     title: 'Каталог потолков',
                     to: '/admin/catalog/',
                 },
                 {
-                    icon: 'mdi-calendar-multiple',
+                    icon: 'mdi-tab',
                     title: 'Добавить потолок',
                     to: '/admin/ceilings/',
                 },
                 {
                     title: 'Каталог освещения',
-                    icon: 'mdi-home-variant',
+                    icon: ' mdi-brightness-2',
                     to: '/admin/lightning_catalog/',
                 },
                 {
                     title: 'Светильники',
-                    icon: 'mdi-cash-multiple',
+                    icon: 'mdi-brightness-3',
                     to: '/admin/lightning',
                 },
                 {
                     title: 'Каталог комплектующих',
-                    icon: 'mdi-calendar',
+                    icon: 'mdi-check-all',
                     to: '/admin/component_catalog',
                 },
                 {
                     title: 'Комплектующие',
-                    icon: 'mdi-email-open',
+                    icon: 'mdi-check',
                     to: '/admin/component',
                 },
                 {

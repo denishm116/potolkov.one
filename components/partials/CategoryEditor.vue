@@ -108,7 +108,7 @@
 
               </v-col>
             </v-row>
-            <v-btn @click="addImages">Save</v-btn>
+            <v-btn @click="addImages">Сохранить</v-btn>
           </v-col>
         </v-row>
       </v-card>
@@ -185,13 +185,19 @@
         if (this.errors) return this.errors.title
       },
       catalog() {
-        return Array.from(this.catalogInit).map(cat => {
+        let arr = Array.from(this.catalogInit).map(cat => {
           return {
             'title': cat.depth ? '--' + cat.title : '' + cat.title,
             'id': cat.id,
             'slug': cat.slug,
           }
         })
+        arr.push({
+          'title': 'Без категории',
+          'id': 0,
+          'slug': 0,
+        })
+        return arr
       },
       category() {
         return this.categoryInit
@@ -207,24 +213,19 @@
     },
 
     methods: {
+      textChange() {
+        this.$emit('textChange', this.editedEntity)
+      },
+
       async deleteImage(id) {
         await this.$axios.$get('admin/' + this.slug + '/deleteImage/' + id)
         this.$emit('changeImage')
 
       },
-      textChange() {
 
-       this.$emit('textChange', this.editedEntity)
-      },
       async changeMainImage(id) {
         await this.$axios.$get('admin/' + this.slug + '/changeMainImage/' + id)
         this.$emit('changeImage')
-
-      },
-
-
-      textData() {
-
       },
 
       async addImages() {
@@ -244,23 +245,6 @@
         window.location.reload(false);
       },
 
-      // sendImageData() {
-      //   for (let prop in this.$refs) {
-      //     if (prop.substr(0, 7) === 'clipper') {
-      //       const canvas = this.$refs[prop][0].clip()
-      //       let main = 0;
-      //       if (+prop.substr(7, 1) === this.mainImageRadio)
-      //         main = 1
-      //       this.imageData.push(
-      //         {
-      //           image: canvas.toDataURL("image/jpeg", 1),
-      //           main: main
-      //         }
-      //       )
-      //     }
-      //   }
-      //   this.$emit('imageData', this.imageData);
-      // },
       onFileChange(event) {
         if (event.target.files && event.target.files.length) {
           let files = event.target.files
