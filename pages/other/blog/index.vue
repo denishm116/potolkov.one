@@ -23,7 +23,7 @@
             <div class="blog__item-date">
               04 Май 2020
             </div>
-            <a href="/blog/nazvanie_stati" class="blog__item-title">
+            <a href="blog/nazvanie_stati" class="blog__item-title">
               Ссылка на статью (slug)
             </a>
             <div class="blog__item-text">

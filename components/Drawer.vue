@@ -89,7 +89,7 @@
                 },
                 {
                     icon: 'mdi-tab',
-                    title: 'Добавить потолок',
+                    title: 'Потолки',
                     to: '/admin/ceilings/',
                 },
                 {
@@ -113,9 +113,9 @@
                     to: '/admin/component',
                 },
                 {
-                    title: 'Помощь',
-                    icon: 'mdi-help',
-                    to: '/components/notifications',
+                    title: 'Блог',
+                    icon: 'mdi-book-open',
+                    to: '/admin/blog',
                 },
             ],
         }),

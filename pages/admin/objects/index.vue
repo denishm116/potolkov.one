@@ -87,26 +87,35 @@
           <v-row>
             <v-col>
               Категория
-              <v-checkbox
-                :label="catalog.title"
-                :value="catalog.id"
-                v-for="(catalog, index) in CEILING_CATALOG"
-                :key="index"
-                v-model="formData.catalogs"
-                @change="textChange"
-              ></v-checkbox>
+              <v-row>
+                <v-col v-for="(catalog, index) in CEILING_CATALOG" :key="index">
+                  <v-checkbox
+                    :label="catalog.title"
+                    :value="catalog.id"
 
+                    :key="index"
+                    v-model="formData.catalogs"
+
+                  ></v-checkbox>
+                </v-col>
+              </v-row>
             </v-col>
+          </v-row>
+          <v-row>
             <v-col>
               Потолок
-              <v-checkbox
-                :label="ceiling.title"
-                :value="ceiling.id"
-                v-for="(ceiling, index) in CEILINGS"
-                :key="index"
-                v-model="formData.ceilings"
-                @change="textChange"
-              ></v-checkbox>
+              <v-row>
+                <v-col v-for="(ceiling, index) in CEILINGS" :key="index">
+                  <v-checkbox
+                    :label="ceiling.title"
+                    :value="ceiling.id"
+
+                    :key="index"
+                    v-model="formData.ceilings"
+                    @change="textChange"
+                  ></v-checkbox>
+                </v-col>
+              </v-row>
             </v-col>
           </v-row>
         </v-col>
@@ -119,19 +128,58 @@
         </v-col>
       </v-col>
     </v-row>
-    <v-card  class="mt-5 pa-5">
-      <v-row>
-        <v-col>
-          <div v-for="ourObject in OUR_OBJECTS">
-            <a :href="ourObject.slug" @click.prevent="itemDelete(ourObject.id)">
-              <v-icon>mdi-delete</v-icon>
-            </a>
-            <a :href="ourObject.id">{{ourObject.title}}</a>
-          </div>
-          Список объектов
-        </v-col>
-      </v-row>
+
+
+    <v-card class="pa-5">
+      <v-simple-table>
+        <template v-slot:default>
+          <thead>
+          <tr>
+            <th class="text-left">
+              Удалить
+            </th>
+            <th class="text-left">
+              Заголовок
+            </th>
+
+            <th class="text-left">
+              Категории
+            </th>
+
+            <th class="text-left">
+              Потолки
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr
+            v-for="item in OUR_OBJECTS"
+
+          >
+            <td>
+              <a small href="" @click.prevent="itemDelete(item.id)">
+                <v-icon>mdi-delete</v-icon>
+              </a>
+            </td>
+            <td><a :href="item.id">{{ item.title }}</a></td>
+
+            <td>
+              <span v-for="cats in item.catalogs">{{cats.title}}, </span>
+            </td>
+
+            <td>
+              <span v-for="cats in item.ceilings ">{{cats.title}}, </span>
+            </td>
+
+          </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+
     </v-card>
+
+
+
   </div>
 </template>
 
@@ -209,9 +257,10 @@
     methods: {
       async itemDelete(id) {
         await this.$axios.$delete('/admin/ourObject/' + id)
+        await this.FETCH_OUR_OBJECTS()
       },
-      saveChanges() {
-        this.ADD_OUR_OBJECT(this.formData)
+      async saveChanges() {
+        await this.ADD_OUR_OBJECT(this.formData)
         this.formData = {
           title: '',
           address: '',
@@ -223,6 +272,7 @@
           ceilings: [],
         }
         this.show = false
+        await this.FETCH_OUR_OBJECTS()
       },
       textChange() {
         this.disabled = false
@@ -244,10 +294,10 @@
         OUR_OBJECTS: 'our_objects/OUR_OBJECTS'
       })
     },
-    mounted() {
-      this.FETCH_CEILING_CATALOG()
-      this.FETCH_CEILINGS()
-      this.FETCH_OUR_OBJECTS()
+    async mounted() {
+      await this.FETCH_CEILING_CATALOG()
+      await this.FETCH_CEILINGS()
+      await this.FETCH_OUR_OBJECTS()
 
     }
 
