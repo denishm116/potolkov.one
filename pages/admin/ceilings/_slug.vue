@@ -55,6 +55,7 @@
 
     },
     methods: {
+
       ...mapActions({
         FETCH_CEILING_CATALOG: 'catalog/FETCH_CEILING_CATALOG',
         FETCH_CEILING: 'catalogItems/FETCH_CEILING',
@@ -77,9 +78,9 @@
       }
 
     },
-    mounted() {
-      this.FETCH_CEILING_CATALOG()
-      this.FETCH_CEILING(this.$route.params.slug)
+    async mounted() {
+      await this.FETCH_CEILING_CATALOG()
+      await this.FETCH_CEILING(this.$route.params.slug)
     },
   }
 </script>

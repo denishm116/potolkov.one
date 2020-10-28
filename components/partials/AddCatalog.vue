@@ -43,12 +43,10 @@
         this.$emit('fetchCatalog')
       },
       saveCategory() {
-
         try {
           this.$store.dispatch('catalog/' + this.addingCategory,  this.newCategory)
           this.fetchCatalog()
-          this.clearForm()
-          this.clearImageField = false
+          window.location.reload(false);
         } catch (e) {
           return e
         }
@@ -58,9 +56,6 @@
       },
       textData(newCategory) {
         this.newCategory = newCategory
-      },
-      clearForm() {
-        this.clrForm = false;
       },
       activeButton() {
         this.activeButtonVar = false

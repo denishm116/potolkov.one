@@ -71,9 +71,7 @@
     layout: 'admin',
     data() {
       return {
-        // status: this.$auth.user.status,
-
-        activeButtonVar: true
+         activeButtonVar: true
       }
     },
 

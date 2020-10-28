@@ -25,7 +25,7 @@
                 :ratio="265/180"
               >
               </clipper-basic>
-              {{file.displayFileName}}
+              {{ file.displayFileName }}
             </v-col>
             <v-col>
               <clipper-preview :name="'my-preview' + index" class="my-clipper">
@@ -54,109 +54,109 @@
 </template>
 
 <script>
-  import {clipperBasic, clipperPreview} from 'vuejs-clipper'
+import {clipperBasic, clipperPreview} from 'vuejs-clipper'
 
-  export default {
-    components: {
-      clipperBasic, clipperPreview
+export default {
+  components: {
+    clipperBasic, clipperPreview
+  },
+  props: [
+    'show'
+  ],
+  data() {
+    return {
+      imageData: [],
+      formData: [],
+      mainImageRadio: 0,
+    }
+  },
+  computed: {
+    readyToUpload() {
+      if (this.show)
+        return this.formData.length
     },
-    props: [
-      'show'
-    ],
-    data() {
-      return {
-        imageData: [],
-        formData: [],
-        mainImageRadio: 0,
-      }
-    },
-    computed: {
-      readyToUpload() {
-        if (this.show)
-          return this.formData.length
-      },
-    },
-    methods: {
-      sendImageData() {
-        for (let prop in this.$refs) {
-          if (prop.substr(0, 7) === 'clipper') {
-            const canvas = this.$refs[prop][0].clip()
-            let main = 0;
-            if (+prop.substr(7, 1) === this.mainImageRadio)
-              main = 1
-            this.imageData.push(
-              {
-                image: canvas.toDataURL("image/jpeg", 1),
-                main: main
-              }
-            )
-          }
-        }
-        this.$emit('imageData', this.imageData);
-      },
-     onFileChange(event) {
-        if (event.target.files && event.target.files.length) {
-          let files = event.target.files
-          for (let i = 0; i < files.length; i++) {
-            let temp = {
-              displayFileName: event.target.files[i].name +
-                " (" +
-                this.calcSize(files[i].size) +
-                "Kb)",
-              uploadFileData: '',
-              file: files[i],
-              key: i,
+  },
+  methods: {
+    sendImageData() {
+      for (let prop in this.$refs) {
+        if (prop.substr(0, 7) === 'clipper') {
+          const canvas = this.$refs[prop][0].clip()
+          let main = 0;
+          if (+prop.substr(7, 1) === this.mainImageRadio)
+            main = 1
+          this.imageData.push(
+            {
+              image: canvas.toDataURL("image/jpeg", 1),
+              main: main
             }
-            let reader = new FileReader();
-            reader.onload = e => {
-              temp.uploadFileData = e.target.result;
-            };
-            reader.readAsDataURL(files[i]);
-            this.formData.push(temp)
-          }
+          )
         }
+      }
+      this.$emit('imageData', this.imageData)
 
-        setTimeout(this.sendImageData, 500);
-      },
-      onButtonClick() {
-        this.$refs.fupload.click();
-
-      },
-      calcSize(size) {
-        return Math.round(size / 1024);
-      },
     },
+    onFileChange(event) {
+      if (event.target.files && event.target.files.length) {
+        let files = event.target.files
+        for (let i = 0; i < files.length; i++) {
+          let temp = {
+            displayFileName: event.target.files[i].name +
+              " (" +
+              this.calcSize(files[i].size) +
+              "Kb)",
+            uploadFileData: '',
+            file: files[i],
+            key: i,
+          }
+          let reader = new FileReader();
+          reader.onload = e => {
+            temp.uploadFileData = e.target.result;
+          };
+          reader.readAsDataURL(files[i]);
+          this.formData.push(temp)
+        }
+      }
 
-  }
+      setTimeout(this.sendImageData, 500);
+    },
+    onButtonClick() {
+      this.$refs.fupload.click();
+
+    },
+    calcSize(size) {
+      return Math.round(size / 1024);
+    },
+  },
+}
 </script>
 
 <style scoped>
-  .input-field-file {
-    display: none;
-  }
+.input-field-file {
+  display: none;
+}
 
-  .preview-image {
-    width: 60vw;
-    padding: 15px;
-    margin: 15px;
-    border: 1px solid #999;
-    border-radius: 5px;
-    box-shadow: 5px 6px 16px rgba(0, 0, 0, 0.15);
-  }
+.preview-image {
+  width: 60vw;
+  padding: 15px;
+  margin: 15px;
+  border: 1px solid #999;
+  border-radius: 5px;
+  box-shadow: 5px 6px 16px rgba(0, 0, 0, 0.15);
+}
 
-  .thumbs {
-    max-width: 150px;
-    margin: 15px;
-  }
+.thumbs {
+  max-width: 150px;
+  margin: 15px;
+}
 
-  .my-clipper {
-    width: 100%;
-    max-width: 300px;
-  }
+.my-clipper {
+  width: 100%;
+  max-width: 300px;
+}
 
-  .placeholder {
-    text-align: center;
-    padding: 20px;
-    background-color: lightgray;
-  }
+.placeholder {
+  text-align: center;
+  padding: 20px;
+  background-color: lightgray;
+}
 </style>

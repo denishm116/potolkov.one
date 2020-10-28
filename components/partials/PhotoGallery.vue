@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="projects__photo fotorama" data-width="100%" data-nav="thumbs" data-loop="false">
+    <div data-width="100%" data-nav="thumbs" data-loop="false">
 
-      <div class="lingalleryContainer">
+      <div class="lingalleryContainer px-5 mx-5">
         <div :style="lingalleryStyle" class="lingallery">
           <large-view
             id="largeView"
@@ -291,7 +291,7 @@
         // Add the recognizer to the manager
         hammerEl.add(Swipe)
         hammerEl.on('swipe', (e) => {
-          console.log(e)
+
         })
       },
       initLingallery() {

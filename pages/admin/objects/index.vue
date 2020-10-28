@@ -298,9 +298,7 @@
       await this.FETCH_CEILING_CATALOG()
       await this.FETCH_CEILINGS()
       await this.FETCH_OUR_OBJECTS()
-
     }
-
   }
 </script>
 

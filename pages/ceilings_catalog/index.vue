@@ -7,7 +7,7 @@
             <a href="" class="breadcrumbs__link">Главная</a>
           </li>
           <li>
-            <span>Хлебные крошки</span>
+            <span>Каталог натяжных потолков</span>
           </li>
         </ul>
       </nav>
@@ -24,49 +24,59 @@
           <div class="catalog__item">
 
 
-
-            <nuxt-link  :to="'/ceilings_catalog/' + catalog.slug" class="catalog__item-photo ibg">
-              <img v-if="catalog.images.length" :src="path + catalog.images[0].path" alt=""/>
+            <nuxt-link :to="'/ceilings_catalog/' + catalog.slug" class="catalog__item-photo ibg">
+              <img v-if="catalog.images.length" :src="PATH + catalog.mainImage" alt=""/>
             </nuxt-link>
 
-            <a href="#" class="catalog__item-title">{{catalog.title}}</a>
+            <a href="#" class="catalog__item-title">{{ catalog.title }}</a>
           </div>
-          <nuxt-child></nuxt-child>
+
         </div>
 
 
       </div>
 
     </div>
+    <projects :ourObjects="ourObjects" :width="1920" :title="'Наши работы'" v-if="ourObjects.length >= 1"></projects>
+
+    <v-read-also :articles="articles"></v-read-also>
   </section>
 </template>
 
 <script>
-  import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 
-  export default {
-    computed: {
-      ...mapGetters({
-        ceiling_catalog: 'frontend/ceiling_catalog'
-      }),
-      path() {
-        return process.env.baseURL + 'storage/'
-      }
-    },
-    methods: {
-
-    },
-
-    generate: {
-
+export default {
+  data() {
+    return {
+      articles: [],
+      ourObjects: []
     }
-  }
+  },
+  computed: {
+    ...mapGetters({
+      PATH: 'frontend/PATH',
+      ceiling_catalog: 'frontend/ceiling_catalog'
+    }),
+
+  },
+  methods: {
+    ...mapActions({
+      FETCH_CEILING_CATALOG: 'frontend/fetchCeilingCatalog',
+    }),
+  },
+  async mounted() {
+    await this.FETCH_CEILING_CATALOG()
+    this.ourObjects = await this.$axios.$get('frontend/ourObjects')
+    this.articles = await this.$axios.$get('frontend/articles')
+   }
+}
 </script>
 
 <style scoped>
-  .container {
-    max-width: 1370px;
-    margin: 0 auto;
-    width: 100%;
-  }
+.container {
+  max-width: 1370px;
+  margin: 0 auto;
+  width: 100%;
+}
 </style>

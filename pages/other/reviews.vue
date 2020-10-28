@@ -141,6 +141,11 @@
 </script>
 
 <style scoped>
+.container {
+  max-width: 1370px;
+  margin: 150px auto;
+  width: 100%;
 
+}
 
 </style>

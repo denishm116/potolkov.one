@@ -7,7 +7,7 @@
       </v-col>
     </v-row>
 
-    <AddCatalogItem :items="LIGHTNINGS" :catalog="LIGHTNING_CATALOG" :slug="'lightning/'" :addingItem="'ADD_LIGHTNING'" @fetchItems="fetchItems"></AddCatalogItem>
+    <AddCatalogItem :items="LIGHTNINGS" :catalog="LIGHTNING_CATALOG" :slug="'lightnings/'" :addingItem="'ADD_LIGHTNING'" @fetchItems="fetchItems"></AddCatalogItem>
 
   </div>
 </template>

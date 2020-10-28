@@ -7,7 +7,7 @@
             <a href="" class="breadcrumbs__link">Главная</a>
           </li>
           <li>
-            <span>Хлебные крошки</span>
+            <span>Статьи о натяжных потолках</span>
           </li>
         </ul>
       </nav>
@@ -15,142 +15,24 @@
         Статьи о потолках
       </h2>
       <div class="blog__row">
-        <div class="blog__column">
+        <div class="blog__column" v-for="article in ARTICLES">
           <div class="blog__item">
-            <a href="" class="blog__item-photo ibg">
-              <img :src="require('assets/img/blog/01.jpg')" alt="">
+            <a :href="'blog/' + article.id" class="blog__item-photo ibg">
+              <img :src="PATH + article.mainImage" :alt="article.images[0].title">
+
             </a>
             <div class="blog__item-date">
               04 Май 2020
             </div>
-            <a href="blog/nazvanie_stati" class="blog__item-title">
-              Ссылка на статью (slug)
+            <a :href="'blog/' + article.id" class="blog__item-title">
+              {{ article.title }}
             </a>
             <div class="blog__item-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempo
-              iduntlabore et dolore magna aliqua.
+              {{ article.meta_description }}
             </div>
           </div>
         </div>
-        <div class="blog__column">
-          <div class="blog__item">
-            <a href="" class="blog__item-photo ibg">
-              <img :src="require('assets/img/blog/02.jpg')" alt="">
-            </a>
-            <div class="blog__item-date">
-              04 Май 2020
-            </div>
-            <a href="" class="blog__item-title">
-              Название статьи
-            </a>
-            <div class="blog__item-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempo
-              iduntlabore et dolore magna aliqua.
-            </div>
-          </div>
-        </div>
-        <div class="blog__column">
-          <div class="blog__item">
-            <a href="" class="blog__item-photo ibg">
-              <img :src="require('assets/img/blog/03.jpg')" alt="">
-            </a>
-            <div class="blog__item-date">
-              04 Май 2020
-            </div>
-            <a href="" class="blog__item-title">
-              Название статьи
-            </a>
-            <div class="blog__item-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempo
-              iduntlabore et dolore magna aliqua.
-            </div>
-          </div>
-        </div>
-        <div class="blog__column">
-          <div class="blog__item">
-            <a href="" class="blog__item-photo ibg">
-              <img :src="require('assets/img/blog/04.jpg')" alt="">
-            </a>
-            <div class="blog__item-date">
-              04 Май 2020
-            </div>
-            <a href="" class="blog__item-title">
-              Название статьи
-            </a>
-            <div class="blog__item-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempo
-              iduntlabore et dolore magna aliqua.
-            </div>
-          </div>
-        </div>
-        <div class="blog__column">
-          <div class="blog__item">
-            <a href="" class="blog__item-photo ibg">
-              <img :src="require('assets/img/blog/04.jpg')" alt="">
-            </a>
-            <div class="blog__item-date">
-              04 Май 2020
-            </div>
-            <a href="" class="blog__item-title">
-              Название статьи
-            </a>
-            <div class="blog__item-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempo
-              iduntlabore et dolore magna aliqua.
-            </div>
-          </div>
-        </div>
-        <div class="blog__column">
-          <div class="blog__item">
-            <a href="" class="blog__item-photo ibg">
-              <img :src="require('assets/img/blog/01.jpg')" alt="">
-            </a>
-            <div class="blog__item-date">
-              04 Май 2020
-            </div>
-            <a href="" class="blog__item-title">
-              Название статьи
-            </a>
-            <div class="blog__item-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempo
-              iduntlabore et dolore magna aliqua.
-            </div>
-          </div>
-        </div>
-        <div class="blog__column">
-          <div class="blog__item">
-            <a href="" class="blog__item-photo ibg">
-              <img :src="require('assets/img/blog/02.jpg')" alt="">
-            </a>
-            <div class="blog__item-date">
-              04 Май 2020
-            </div>
-            <a href="" class="blog__item-title">
-              Название статьи
-            </a>
-            <div class="blog__item-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempo
-              iduntlabore et dolore magna aliqua.
-            </div>
-          </div>
-        </div>
-        <div class="blog__column">
-          <div class="blog__item">
-            <a href="" class="blog__item-photo ibg">
-              <img :src="require('assets/img/blog/03.jpg')" alt="">
-            </a>
-            <div class="blog__item-date">
-              04 Май 2020
-            </div>
-            <a href="" class="blog__item-title">
-              Название статьи
-            </a>
-            <div class="blog__item-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempo
-              iduntlabore et dolore magna aliqua.
-            </div>
-          </div>
-        </div>
+
       </div>
       <div class="pagging">
         <a href="" class="pagging__arrow">В начало</a>
@@ -169,13 +51,30 @@
 </template>
 
 <script>
-  export default {}
+import {mapGetters, mapActions} from 'vuex'
+
+export default {
+  computed: {
+    ...mapGetters({
+      ARTICLES: 'frontend/ARTICLES',
+      PATH: 'frontend/PATH'
+    })
+  },
+  methods: {
+    ...mapActions({
+      FETCH_ARTICLES: 'frontend/FETCH_ARTICLES'
+    })
+  },
+  mounted() {
+    this.FETCH_ARTICLES()
+  }
+}
 </script>
 
 <style scoped>
-  .container {
-    max-width: 1370px;
-    margin: 0 auto;
-    width: 100%;
-  }
+.container {
+  max-width: 1370px;
+  margin: 0 auto;
+  width: 100%;
+}
 </style>

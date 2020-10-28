@@ -190,19 +190,16 @@
       menu() {
         return [{
           title: 'Каталог потолков',
-          isActive: false,
           submenu: this.ceilings_catalog,
           href: '/ceilings_catalog'
         },
           {
             title: 'Цены',
-            isActive: false,
             submenu: '',
             href: '/price'
           },
           {
             title: 'Освещение',
-            isActive: false,
             submenu:  this.lightning_catalog,
             href: '/lightnings_catalog'
 
@@ -210,19 +207,16 @@
 
           {
             title: 'Фото',
-            isActive: false,
             submenu: '',
             href: '/photogallery'
           },
           {
             title: 'Комплектующие',
-            isActive: false,
             submenu:  this.component_catalog,
             href: '/components_catalog'
           },
           {
             title: 'Дополнительно',
-            isActive: false,
             submenu: this.other,
             href: '/other'
           }]

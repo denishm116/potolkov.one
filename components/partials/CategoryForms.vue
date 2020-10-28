@@ -3,23 +3,58 @@
     <v-row>
       <v-col>
         <v-card class="pa-5">
-          <ul>
-            <h2>Список категорий</h2>
-            <li v-for="cat in catalog">
-              <a :href="cat.slug" @click.prevent="itemUp(cat.slug)">
-                <v-icon>mdi-arrow-up-bold-circle</v-icon>
-              </a>
-              <a :href="cat.slug" @click.prevent="itemDown(cat.slug)">
-                <v-icon>mdi-arrow-down-bold-circle</v-icon>
-              </a>
-              <a :href="cat.slug" @click.prevent="itemDelete(cat.slug)">
-                <v-icon>mdi-delete</v-icon>
-              </a>
-              <a :href="cat.slug" @click.prevent="goTo(cat.slug)">
-                {{ cat.title}}
-              </a>
-            </li>
-          </ul>
+          <v-simple-table>
+            <template v-slot:default>
+              <thead>
+              <tr>
+                <th class="text-left">
+                 Удалить
+                </th>
+                <th class="text-left">
+                 Заголовок
+                </th>
+                <th class="text-left">
+                  Вверх
+                </th>
+                <th class="text-left">
+                  Вниз
+                </th>
+
+
+              </tr>
+              </thead>
+              <tbody>
+              <tr
+                v-for="item in catalog"
+
+              >
+                <td>
+
+
+                  <a small href="" @click.prevent="itemDelete(item.id)">
+                    <v-icon>mdi-delete</v-icon>
+                  </a>
+                </td>
+
+                <td><a :href="item.id">{{ item.title }}</a></td>
+
+                <td> <a :href="item.slug" @click.prevent="itemUp(item.slug)">
+                  <v-icon>mdi-arrow-up-bold-circle</v-icon>
+                </a>
+
+                </td>
+
+                <td>  <a :href="item.slug" @click.prevent="itemDown(item.slug)">
+                  <v-icon>mdi-arrow-down-bold-circle</v-icon>
+                </a>
+
+                </td>
+
+              </tr>
+              </tbody>
+            </template>
+          </v-simple-table>
+
         </v-card>
       </v-col>
     </v-row>

@@ -301,7 +301,7 @@ export default {
         }
       }
       await this.$axios.$post('admin/ourObject/addImages', {entity: this.OUR_OBJECT.id, images: this.imageData})
-      // window.location.reload(false);
+      window.location.reload(false);
     },
 
     onFileChange(event) {

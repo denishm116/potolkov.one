@@ -38,7 +38,7 @@
             <v-col>
               <v-text-field
                 @change="textChange"
-                label="Descrption Meta"
+                label="Meta Descrption"
                 outlined
                 dense
                 v-model="article.meta_description"
@@ -92,12 +92,8 @@
                         {{ image.main ? 'основное фото' : 'сделать основным' }}
                       </v-btn>
                     </v-col>
-
-
                   </v-row>
                 </v-card-title>
-
-
                 <v-card-actions>
                   <v-btn
                     color="orange lighten-2"

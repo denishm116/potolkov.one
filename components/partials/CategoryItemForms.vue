@@ -3,19 +3,46 @@
     <v-row>
       <v-col>
         <v-card class="pa-5">
-          <ul>
-            <h2>Список элементов'</h2>
-            <li v-for="item in items">
+          <v-simple-table>
+            <template v-slot:default>
+              <thead>
+              <tr>
+                <th class="text-left">
+                  Удалить
+                </th>
+                <th class="text-left">
+                  Заголовок
+                </th>
+                <th class="text-left">
+                  Каталог родитель
+                </th>
 
-              <a :href="item.slug" @click.prevent="itemDelete(item.slug)">
-                <v-icon>mdi-delete</v-icon>
-              </a>
-              <a :href="item.slug" @click.prevent="goTo(item.slug)">
-                {{ item.title}}
-              </a>
-            </li>
-          </ul>
+
+              </tr>
+              </thead>
+              <tbody>
+              <tr
+                v-for="item in items"
+
+              >
+                <td>
+
+
+                  <a small href="" @click.prevent="itemDelete(item.id)">
+                    <v-icon>mdi-delete</v-icon>
+                  </a>
+                </td>
+
+                <td><a :href="item.id">{{ item.title }}</a></td>
+                <td>{{ item.catalog.title }}</td>
+
+              </tr>
+              </tbody>
+            </template>
+          </v-simple-table>
+
         </v-card>
+
       </v-col>
     </v-row>
 

@@ -8,12 +8,12 @@
         </a>
         <span class="menu__arrow sub-arrow" @click="collapseMenu($event)"></span>
         <Submenu :catalog="catalogItem.children" class="children_wrapper" v-if="catalogItem.depth === 0"
-                 :parentCatalog="parentCatalog + '/' + $route.params.slug "></Submenu>
+                 :parentCatalog="parentCatalog + '/' + catalogItem.slug "></Submenu>
       </div>
 
 
       <div class="" v-else>
-        <a :href="parentCatalog + '/'    + catalogItem.slug"
+        <a :href="parentCatalog + '/' + catalogItem.slug"
            class="sub-header-menu__link">
           {{catalogItem.title}}
         </a>
@@ -31,8 +31,6 @@
     props: ['catalog', 'parentCatalog'],
     data() {
       return {
-
-
         displayNone: {
           display: 'none',
           transition: 'all 0.3s'

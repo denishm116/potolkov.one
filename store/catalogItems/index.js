@@ -55,7 +55,7 @@ export const actions = {
   },
   async FETCH_CEILING({commit, state}, params) {
     try {
-      const ceiling =  await this.$axios.$get('admin/ceilings/' + params)
+      const ceiling = await this.$axios.$get('admin/ceilings/' + params)
       commit('CEILING', ceiling)
     } catch (e) {
       return e

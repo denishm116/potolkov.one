@@ -6,7 +6,6 @@
         <span class="grey--text text--darken-3 text-right text-uppercase text-lg-h5 font-weight-bold ">Добавление ПОТОЛКА</span>
       </v-col>
     </v-row>
-
     <AddCatalogItem :items="CEILINGS" :catalog="CEILING_CATALOG" :slug="'ceilings/'" :addingItem="'ADD_CEILING'" @fetchItems="fetchItems"></AddCatalogItem>
 
   </div>
