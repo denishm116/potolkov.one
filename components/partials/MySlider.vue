@@ -31,7 +31,7 @@
           <div class="testi-card__info">
             <div class="testi-card__wrap">
               <h3 class="testi-card__title">{{review.name}}</h3>
-              <span class="testi-card__date">26.08.2020</span>
+              <span class="testi-card__date">{{review.date}}</span>
             </div>
             <div class="testi-card__text">
               {{review.description}}
@@ -74,6 +74,7 @@
 </template>
 
 <script>
+
   export default {
     props: {
       reviews: {

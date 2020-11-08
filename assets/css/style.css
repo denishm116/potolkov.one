@@ -179,31 +179,17 @@ body.lock {
 }
 
 .btn {
-  display: block;
   padding: 0px 0px;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
-  font-size: 0;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   background: #ff0000;
   font-size: 18px;
   color: #fff;
   font-family: "Geometria-Medium";
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 300px;
   flex: 0 0 300px;
   height: 60px;
   border-radius: 40px;
-  -webkit-transition: all 0.3s;
-  -o-transition: all 0.3s;
   transition: all 0.3s;
 }
 
@@ -277,14 +263,7 @@ textarea.input {
 }
 
 .option {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
-  font-size: 0;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   position: relative;
   cursor: pointer;
@@ -292,17 +271,25 @@ textarea.input {
   padding-top: 5px;
   line-height: 16px;
   margin-bottom: 10px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 300;
   white-space: nowrap;
+  transition: .2s;
 }
 
 .option:last-child {
+
   margin-bottom: 0px;
 }
 
 .option input {
-  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  z-index: 5;
+  transition: .2s;
+  /*display: none;*/
 }
 
 .option:before {
@@ -506,7 +493,9 @@ body.ie .ibg img {
 
 .title {
   font-size: 41px;
+  text-transform: uppercase;
   font-family: "Geometria-Bold";
+
 }
 
 @media (max-width: 479.98px) {
@@ -603,12 +592,12 @@ body.ie .ibg img {
 @media (max-width: 479.98px) {
   .pagging__arrow {
     font-size: 0;
-    height: 30px;
-    width: 30px;
+    height: 20px;
+    width: 20px;
     border-radius: 50%;
     background: #ff0000;
     position: relative;
-  display: none;
+
   }
 
   .pagging__arrow:before, .pagging__arrow:after {
@@ -671,6 +660,10 @@ body.ie .ibg img {
 @media (max-width: 479.98px) {
   .pagging-list li {
     margin: 0px 5px;
+  }
+  .pagging__link {
+    width: 15px;
+    height: 15px;
   }
 }
 
@@ -787,10 +780,6 @@ body.ie .ibg img {
 .footer {
   background: #333;
   padding: 40px 15px;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
   font-size: 0;
 }
@@ -806,10 +795,6 @@ body.ie .ibg img {
 }
 
 .footer__body {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
   font-size: 0;
   margin: 0px -20px;
@@ -817,8 +802,6 @@ body.ie .ibg img {
 
 .footer__column {
   padding: 0px 20px;
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 25%;
   flex: 0 0 25%;
 }
 
@@ -993,6 +976,7 @@ body.ie .ibg img {
 }
 
 .catalog__text {
+  max-width: 100%;
   font-size: 18px;
   line-height: 30px;
   margin: 0px 0px 35px 0px;
@@ -1262,7 +1246,8 @@ body.ie .ibg img {
   display: -webkit-flex;
   display: flex;
   font-size: 0;
-  margin: 0px 0px 20px 0px;
+  margin: 0px 10px 30px 0px;
+
 }
 
 .form__radiobuttons .option {
@@ -1347,9 +1332,7 @@ body.ie .ibg img {
   }
 
   .form__radiobuttons {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
+
     flex-direction: column;
     margin: 0px 0px 20px 0px;
   }
@@ -1426,8 +1409,15 @@ body.ie .ibg img {
 }
 
 .info__item {
-  padding: 40px 0px 40px 0px;
+  padding: 10px 0px 10px 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
 }
+
+
 
 .info__label {
   font-size: 24px;
@@ -1493,6 +1483,10 @@ body.ie .ibg img {
     -ms-flex: 0 0 100%;
     flex: 0 0 100%;
     margin: 0px 0px 40px 0px;
+  }
+
+  .info__item div {
+    padding: 8px 0;
   }
 }
 
@@ -1589,8 +1583,8 @@ body.ie .ibg img {
 .price__form-btn:before {
   content: url(../img/price/calculator.png);
   position: absolute;
-  right: 15px;
-  bottom: -5px;
+  right: 23px;
+  bottom: -3px;
   display: block;
   max-width: 80px;
 }
@@ -1609,15 +1603,11 @@ body.ie .ibg img {
   }
 
   .price .options .price__column {
-    -webkit-box-flex: 0;
-    -ms-flex: 0 0 33.333%;
     flex: 0 0 33.333%;
     margin: 0px 0px 30px 0px;
   }
 
   .price .options .price__column:nth-child(1) {
-    -webkit-box-flex: 0;
-    -ms-flex: 0 0 100%;
     flex: 0 0 100%;
   }
 }
@@ -1811,15 +1801,18 @@ body.ie .ibg img {
 }
 
 .order__form-input {
+
   margin: 0px 0px 25px 0px;
 }
 
 .order__form-input input {
+  background: #fff;
   width: 100%;
 }
 
 .order__form-btn {
   width: 100%;
+  color: #fff;
 }
 
 .order__form-btn:hover {
@@ -2714,7 +2707,7 @@ body.ie .ibg img {
   }
 }
 
-.map {
+.map1 {
   padding: 70px 0px 100px 0px;
   background: #f2f2f2;
 }
@@ -2726,18 +2719,10 @@ body.ie .ibg img {
 }
 
 .map__item {
-  padding: 0px 0px 41% 0px;
+  /*padding: 0px 0px 41% 0px;*/
   position: relative;
-  -webkit-box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.2);
-  box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.2);
-}
 
-.map__item iframe {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
+  box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 991.98px) {
@@ -2751,12 +2736,13 @@ body.ie .ibg img {
 }
 
 @media (max-width: 576px) {
-  .map {
+  .map1 {
     padding: 40px 0px 70px 0px;
   }
 }
 
 .commun {
+  position: relative;
   padding: 60px 0px;
   background: url("../img/commun/bg.jpg") 0 0/cover no-repeat;
 }
@@ -2784,6 +2770,7 @@ body.ie .ibg img {
 }
 
 .commun__form-input input {
+  background: #fff;
   width: 100%;
 }
 
@@ -2792,6 +2779,7 @@ body.ie .ibg img {
   -webkit-box-flex: 0;
   -ms-flex: 0 0 375px;
   flex: 0 0 375px;
+  color: #fff;
 }
 
 .commun__form-btn:hover {

@@ -37,9 +37,9 @@
       }
 
     },
-    mounted() {
-      this.FETCH_CEILINGS()
-      this.FETCH_CEILING_CATALOG()
+    async mounted() {
+      await this.FETCH_CEILINGS()
+      await this.FETCH_CEILING_CATALOG()
     },
     computed: {
       ...mapGetters({

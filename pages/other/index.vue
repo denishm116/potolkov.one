@@ -23,11 +23,11 @@
           <div class="catalog__item">
 
 
-            <a :href="otherItem.slug" class="catalog__item-photo ibg">
+            <a :href="'/other/' + otherItem.slug" class="catalog__item-photo ibg">
               <img :src="otherItem.img" alt="" class="shadow">
             </a>
 
-            <a href="#" class="catalog__item-title">{{otherItem.title}}</a>
+            <a :href="'/other/' + otherItem.slug" class="catalog__item-title">{{otherItem.title}}</a>
           </div>
           <nuxt-child></nuxt-child>
         </div>

@@ -48,6 +48,7 @@ export const mutations = {
 }
 
 export const actions = {
+
   async fetchCeilingCatalog({commit}) {
     try {
       const ceiling_catalog = await this.$axios.$get('frontend/getCeilingCatalog')

@@ -37,9 +37,9 @@
       Header, Auth, Footer, Communicate
     },
     mounted() {
-     for (let i = 0; i < this.$el.getElementsByClassName('v-application--wrap').length; i++) {
-       this.$el.getElementsByClassName('v-application--wrap')[i].style = "min-height: 0;"
-     }
+     // for (let i = 0; i < this.$el.getElementsByClassName('v-application--wrap').length; i++) {
+     //   this.$el.getElementsByClassName('v-application--wrap')[i].style = "min-height: 0;"
+     // }
 
     }
 

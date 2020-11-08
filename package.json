@@ -22,6 +22,7 @@
     "tiptap-vuetify": "^2.24.0",
     "vue-rx": "^6.2.0",
     "vue-trix": "github:hanhdt/vue-trix",
+    "vue-yandex-maps": "^0.10.9",
     "vuejs-clipper": "^3.0.2",
     "yarn": "^1.22.5"
   },

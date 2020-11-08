@@ -28,7 +28,7 @@
                 <td>
 
 
-                  <a small href="" @click.prevent="itemDelete(item.id)">
+                  <a small href="" @click.prevent="itemDelete(item.slug)">
                     <v-icon>mdi-delete</v-icon>
                   </a>
                 </td>

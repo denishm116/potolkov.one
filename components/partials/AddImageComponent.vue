@@ -40,16 +40,7 @@
         </v-radio-group>
       </v-col>
     </v-row>
-    <!--    <v-card-->
-    <!--      class="d-inline-flex pa-2"-->
-    <!--      outlined-->
-    <!--      tile-->
-    <!--      v-for="(thumb, index) in formData" :key="index"-->
-    <!--    >-->
-    <!--      <div class="thumbs">-->
-    <!--        <v-img :src="thumb"></v-img>-->
-    <!--      </div>-->
-    <!--    </v-card>-->
+
   </div>
 </template>
 
@@ -77,7 +68,7 @@ export default {
     },
   },
   methods: {
-    sendImageData() {
+   sendImageData() {
       for (let prop in this.$refs) {
         if (prop.substr(0, 7) === 'clipper') {
           const canvas = this.$refs[prop][0].clip()
@@ -92,10 +83,10 @@ export default {
           )
         }
       }
-      this.$emit('imageData', this.imageData)
+    this.$emit('imageData', this.imageData)
 
     },
-    onFileChange(event) {
+  onFileChange(event) {
       if (event.target.files && event.target.files.length) {
         let files = event.target.files
         for (let i = 0; i < files.length; i++) {
@@ -113,20 +104,20 @@ export default {
             temp.uploadFileData = e.target.result;
           };
           reader.readAsDataURL(files[i]);
-          this.formData.push(temp)
+        this.formData.push(temp)
         }
       }
-
-      setTimeout(this.sendImageData, 500);
+     setTimeout(this.sendImageData, 1000);
     },
+
     onButtonClick() {
       this.$refs.fupload.click();
-
     },
     calcSize(size) {
       return Math.round(size / 1024);
     },
   },
+
 }
 </script>
 

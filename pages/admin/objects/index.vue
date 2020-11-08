@@ -86,44 +86,54 @@
 
           <v-row>
             <v-col>
-              Категория
+              Категории
               <v-row>
-                <v-col v-for="(catalog, index) in CEILING_CATALOG" :key="index">
-                  <v-checkbox
-                    :label="catalog.title"
-                    :value="catalog.id"
 
-                    :key="index"
-                    v-model="formData.catalogs"
+                <v-col  v-for="(catalog, index) in CEILING_CATALOG" :key="index" md="3">
+                  <v-sheet
+                    color="white"
+                    elevation="5"
+                    class="pa-2"
+                  >
+                    <v-checkbox
+                      :label="catalog.title"
+                      :value="catalog.id"
 
-                  ></v-checkbox>
+                      :key="index"
+                      v-model="formData.catalogs"
+
+                    ></v-checkbox>
+                    <v-row v-if="catalog.ceilings.length">
+                      <v-subheader>Потолки в категории {{catalog.title}}
+                      </v-subheader>
+                      <v-col v-for="(ceiling, index) in catalog.ceilings" :key="index">
+                        <v-checkbox
+                          :label="ceiling.title"
+                          :value="ceiling.id"
+
+                          :key="index"
+                          v-model="formData.ceilings"
+                          @change="textChange"
+                        ></v-checkbox>
+                      </v-col>
+
+                    </v-row>
+                  </v-sheet>
                 </v-col>
+<!--{{CEILING_CATALOG}}-->
+
               </v-row>
             </v-col>
           </v-row>
           <v-row>
-            <v-col>
-              Потолок
-              <v-row>
-                <v-col v-for="(ceiling, index) in CEILINGS" :key="index">
-                  <v-checkbox
-                    :label="ceiling.title"
-                    :value="ceiling.id"
 
-                    :key="index"
-                    v-model="formData.ceilings"
-                    @change="textChange"
-                  ></v-checkbox>
-                </v-col>
-              </v-row>
-            </v-col>
           </v-row>
         </v-col>
       </v-row>
     </v-card>
     <v-row>
       <v-col>
-        <v-col class="d-flex justify-end">
+        <v-col class="d-flex justify-start">
           <v-btn :color="buttonColor" :disabled="disabled" @click="saveChanges">Сохранить</v-btn>
         </v-col>
       </v-col>
@@ -164,11 +174,11 @@
             <td><a :href="item.id">{{ item.title }}</a></td>
 
             <td>
-              <span v-for="cats in item.catalogs">{{cats.title}}, </span>
+              <span v-for="cats in item.catalogs">{{ cats.title }}, </span>
             </td>
 
             <td>
-              <span v-for="cats in item.ceilings ">{{cats.title}}, </span>
+              <span v-for="cats in item.ceilings ">{{ cats.title }}, </span>
             </td>
 
           </tr>
@@ -179,127 +189,130 @@
     </v-card>
 
 
-
   </div>
 </template>
 
 <script>
-  import {
-    TiptapVuetify,
-    Heading,
-    Bold,
-    Italic,
-    Strike,
-    Underline,
-    Code,
-    Paragraph,
-    BulletList,
-    OrderedList,
-    ListItem,
-    Link,
-    Blockquote,
-    HardBreak,
-    HorizontalRule,
-    History
-  } from 'tiptap-vuetify'
-  import AddImageComponent from "../../../components/partials/AddImageComponent"
-  import {mapGetters, mapActions} from 'vuex'
+import {
+  TiptapVuetify,
+  Heading,
+  Bold,
+  Italic,
+  Strike,
+  Underline,
+  Code,
+  Paragraph,
+  BulletList,
+  OrderedList,
+  ListItem,
+  Link,
+  Blockquote,
+  HardBreak,
+  HorizontalRule,
+  History
+} from 'tiptap-vuetify'
+import AddImageComponent from "../../../components/partials/AddImageComponent"
+import {mapGetters, mapActions} from 'vuex'
 
-  export default {
-    components: {
-      AddImageComponent,
-      TiptapVuetify
-    },
-    layout: 'admin',
-    data() {
-      return {
-        show: true,
-        extensions: [
-          History,
-          Blockquote,
-          Link,
-          Underline,
-          Strike,
-          Italic,
-          ListItem,
-          BulletList,
-          OrderedList,
-          [
-            Heading,
-            {
-              options: {
-                levels: [1, 2, 3]
-              }
+export default {
+  components: {
+    AddImageComponent,
+    TiptapVuetify
+  },
+  layout: 'admin',
+  data() {
+    return {
+      show: true,
+      extensions: [
+        History,
+        Blockquote,
+        Link,
+        Underline,
+        Strike,
+        Italic,
+        ListItem,
+        BulletList,
+        OrderedList,
+        [
+          Heading,
+          {
+            options: {
+              levels: [1, 2, 3]
             }
-          ],
-          Bold,
-          Link,
-          Code,
-          HorizontalRule,
-          Paragraph,
-          HardBreak
+          }
         ],
-        disabled: true,
-        buttonColor: 'grey',
-        formData: {
-          title: '',
-          address: '',
-          square: '',
-          description: '',
-          price: '',
-          images: [],
-          catalogs: [],
-          ceilings: [],
+        Bold,
+        Link,
+        Code,
+        HorizontalRule,
+        Paragraph,
+        HardBreak
+      ],
+      disabled: true,
+      buttonColor: 'orange',
+      formData: {
+        title: '',
+        address: '',
+        square: '',
+        description: '',
+        price: '',
+        images: [],
+        catalogs: [],
+        ceilings: [],
 
-        }
       }
-    },
-    methods: {
-      async itemDelete(id) {
-        await this.$axios.$delete('/admin/ourObject/' + id)
-        await this.FETCH_OUR_OBJECTS()
-      },
-      async saveChanges() {
-        await this.ADD_OUR_OBJECT(this.formData)
-        this.formData = {
-          title: '',
-          address: '',
-          square: '',
-          description: '',
-          price: '',
-          images: [],
-          catalogs: [],
-          ceilings: [],
-        }
-        this.show = false
-        await this.FETCH_OUR_OBJECTS()
-      },
-      textChange() {
-        this.disabled = false
-      },
-      imageData(data) {
-        this.formData.images = data
-      },
-      ...mapActions({
-        ADD_OUR_OBJECT: 'our_objects/ADD_OUR_OBJECT',
-        FETCH_OUR_OBJECTS: 'our_objects/FETCH_OUR_OBJECTS',
-        FETCH_CEILING_CATALOG: 'catalog/FETCH_CEILING_CATALOG',
-        FETCH_CEILINGS: 'catalogItems/FETCH_CEILINGS',
-      }),
-    },
-    computed: {
-      ...mapGetters({
-        CEILINGS: 'catalogItems/CEILINGS',
-        CEILING_CATALOG: 'catalog/CEILING_CATALOG',
-        OUR_OBJECTS: 'our_objects/OUR_OBJECTS'
-      })
-    },
-    async mounted() {
-      await this.FETCH_CEILING_CATALOG()
-      await this.FETCH_CEILINGS()
-      await this.FETCH_OUR_OBJECTS()
     }
+  },
+  methods: {
+
+    async itemDelete(id) {
+      await this.$axios.$delete('/admin/ourObject/' + id)
+      await this.FETCH_OUR_OBJECTS()
+    },
+    async saveChanges() {
+      await this.ADD_OUR_OBJECT(this.formData)
+      window.location.reload(false);
+      // this.formData = {
+      //   title: '',
+      //   address: '',
+      //   square: '',
+      //   description: '',
+      //   price: '',
+      //   images: [],
+      //   catalogs: [],
+      //   ceilings: [],
+      // }
+      // this.show = false
+      // this.disabled = true
+      // await this.FETCH_OUR_OBJECTS()
+
+    },
+    textChange() {
+      this.disabled = false
+    },
+    imageData(data) {
+      this.formData.images = data
+    },
+    ...mapActions({
+      ADD_OUR_OBJECT: 'our_objects/ADD_OUR_OBJECT',
+      FETCH_OUR_OBJECTS: 'our_objects/FETCH_OUR_OBJECTS',
+      FETCH_CEILING_CATALOG: 'catalog/FETCH_CEILING_CATALOG',
+      FETCH_CEILINGS: 'catalogItems/FETCH_CEILINGS',
+    }),
+  },
+  computed: {
+    ...mapGetters({
+      CEILINGS: 'catalogItems/CEILINGS',
+      CEILING_CATALOG: 'catalog/CEILING_CATALOG',
+      OUR_OBJECTS: 'our_objects/OUR_OBJECTS'
+    })
+  },
+  async mounted() {
+    await this.FETCH_CEILING_CATALOG()
+    await this.FETCH_CEILINGS()
+    await this.FETCH_OUR_OBJECTS()
   }
+}
 </script>
 
 <style scoped>

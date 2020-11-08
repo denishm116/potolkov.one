@@ -1,335 +1,378 @@
 <template>
   <div class="container">
 
-  <section class="photos sect-mt">
-    <div class='container'>
-      <nav class="breadcrumbs">
-        <ul class="breadcrumbs__list">
-          <li>
-            <a href="" class="breadcrumbs__link">Главная</a>
-          </li>
-          <li>
-            <span>Хлебные крошки</span>
-          </li>
-        </ul>
-      </nav>
-      <div class="photos__title title">
-        Фото натяжных потолков
+    <section class="photos sect-mt">
+      <div class='container'>
+        <nav class="breadcrumbs">
+          <ul class="breadcrumbs__list">
+            <li>
+              <a href="" class="breadcrumbs__link">Главная</a>
+            </li>
+            <li>
+              <span>Фото натяжных потолков</span>
+            </li>
+          </ul>
+        </nav>
+        <h1 class="photos__title title">
+          Фото натяжных потолков - наши работы
+        </h1>
+        <div class="photos__row">
+          <div class="photos__column" v-for="object in objects">
+            <div class="photos__item"  @click="openPopup(object.id)">
+              <a href="#" class="photos__item-photo ibg">
+                <img :src="PATH + object.mainImage" alt=""/>
+              </a>
+              <a href="#" class="photos__item-title" @click="openPopup(object.id)">
+                {{ object.title }}
+              </a>
+              <div class="photos__item-wrap">
+                <div class="photos__item-date">16.09.2020</div>
+                <a href="#" class="photos__item-adress">{{ object.address }}</a>
+              </div>
+              <div class="photos__item-text">
+                <span v-html="object.description.slice(0, 250)"></span>
+
+
+              </div>
+            </div>
+          </div>
+
+          <div class="project_wrapper_wrapper" v-if="showBig">
+            <div class="wrapper_pos">
+              <div class="project_wrapper">
+                <v-project
+                  :ourObject="OUR_OBJECT"
+                  :width="1920"
+                ></v-project>
+                <div class="close_button">
+                  <v-btn
+                    @click="showBig = false"
+                    fab
+                    x-small
+                    dark
+
+                  >
+                    <v-icon>mdi-close</v-icon>
+                  </v-btn>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+        <div v-if="objectsComp.length">
+          <v-paginator :objects="objectsComp" :objectsPerPage="9" @paginatedObjects="paginatedObjects"></v-paginator>
+        </div>
+
       </div>
-      <div class="photos__row">
-        <div class="photos__column">
-          <div class="photos__item">
-            <a href="#" class="photos__item-photo ibg">
-              <img :src="require('assets/img/photos/01.png')" alt="" />
-            </a>
-            <a href="#" class="photos__item-title">
-              Тип потолка
-            </a>
-            <div class="photos__item-wrap">
-              <div class="photos__item-date">16.09.2020</div>
-              <a href="#" class="photos__item-adress">г. Москва, ул. Название, д 00</a>
-            </div>
-            <div class="photos__item-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-
-            </div>
-          </div>
-        </div>
-        <div class="photos__column">
-          <div class="photos__item">
-            <a href="#" class="photos__item-photo ibg">
-              <img :src="require('assets/img/photos/01.png')" alt="" />
-            </a>
-            <a href="#" class="photos__item-title">
-              Тип потолка
-            </a>
-            <div class="photos__item-wrap">
-              <div class="photos__item-date">16.09.2020</div>
-              <a href="#" class="photos__item-adress">г. Москва, ул. Название, д 00</a>
-            </div>
-            <div class="photos__item-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-
-            </div>
-          </div>
-        </div>
-        <div class="photos__column">
-          <div class="photos__item">
-            <a href="#" class="photos__item-photo ibg">
-              <img :src="require('assets/img/photos/01.png')" alt="" />
-            </a>
-            <a href="#" class="photos__item-title">
-              Тип потолка
-            </a>
-            <div class="photos__item-wrap">
-              <div class="photos__item-date">16.09.2020</div>
-              <a href="#" class="photos__item-adress">г. Москва, ул. Название, д 00</a>
-            </div>
-            <div class="photos__item-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-
-            </div>
-          </div>
-        </div>
-        <div class="photos__column">
-          <div class="photos__item">
-            <a href="#" class="photos__item-photo ibg">
-              <img :src="require('assets/img/photos/01.png')" alt="" />
-            </a>
-            <a href="#" class="photos__item-title">
-              Тип потолка
-            </a>
-            <div class="photos__item-wrap">
-              <div class="photos__item-date">16.09.2020</div>
-              <a href="#" class="photos__item-adress">г. Москва, ул. Название, д 00</a>
-            </div>
-            <div class="photos__item-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-
-            </div>
-          </div>
-        </div>
-        <div class="photos__column">
-          <div class="photos__item">
-            <a href="#" class="photos__item-photo ibg">
-              <img :src="require('assets/img/photos/01.png')" alt="" />
-            </a>
-            <a href="#" class="photos__item-title">
-              Тип потолка
-            </a>
-            <div class="photos__item-wrap">
-              <div class="photos__item-date">16.09.2020</div>
-              <a href="#" class="photos__item-adress">г. Москва, ул. Название, д 00</a>
-            </div>
-            <div class="photos__item-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-
-            </div>
-          </div>
-        </div>
-        <div class="photos__column">
-          <div class="photos__item">
-            <a href="#" class="photos__item-photo ibg">
-              <img :src="require('assets/img/photos/01.png')" alt="" />
-            </a>
-            <a href="#" class="photos__item-title">
-              Тип потолка
-            </a>
-            <div class="photos__item-wrap">
-              <div class="photos__item-date">16.09.2020</div>
-              <a href="#" class="photos__item-adress">г. Москва, ул. Название, д 00</a>
-            </div>
-            <div class="photos__item-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
+    </section>
   </div>
 </template>
 
 <script>
-    export default {
+import {mapGetters, mapActions} from 'vuex'
+import vProject from '@/components/frontend/partials/vProject'
+import vPaginator from '@/components/frontend/partials/vPaginator'
 
+export default {
+  data() {
+    return {
+      showBig: false,
+      objects: [],
+      objectsComp: [],
     }
+
+  },
+  computed: {
+    // objectsComp() {
+    //   return this.OUR_OBJECTS
+    // },
+    ...mapGetters({
+      OUR_OBJECTS: 'frontend/OUR_OBJECTS',
+      OUR_OBJECT: 'frontend/OUR_OBJECT',
+      PATH: 'frontend/PATH'
+    })
+  },
+  methods: {
+    objectsInit() {
+      this.objectsComp = this.OUR_OBJECTS.map(item => {return item})
+      console.log(this.objectsComp)
+    },
+    paginatedObjects(data) {
+      this.objects = data
+    },
+    async openPopup(id) {
+      await this.FETCH_OUR_OBJECT(id)
+      this.showBig = true
+    },
+    ...mapActions({
+      FETCH_OUR_OBJECTS: 'frontend/FETCH_OUR_OBJECTS',
+      FETCH_OUR_OBJECT: 'frontend/FETCH_OUR_OBJECT',
+    })
+  },
+  async mounted() {
+    await this.FETCH_OUR_OBJECTS()
+    await this.objectsInit()
+    console.log(this.OUR_OBJECTS)
+  },
+  components: {
+    vProject, vPaginator
+  }
+}
 </script>
 
 <style scoped>
-  .container {
-    max-width: 1270px;
-    margin: 0 auto;
-    width: 100%;
-  }
-  .photos {
-    padding: 0px 0px 100px 0px;
-    margin: 150px 0 0 0;
+
+.close_button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.project_wrapper_wrapper {
+  z-index: 9999;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  background: rgba(0, 0, 0, 0.6);
+  transition: 0.2s;
+  /*height: 100%;*/
+  width: 100%;
+  max-height: 100%;
+
+}
+
+.wrapper_pos {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+
+  padding: 5px;
+  margin: 0 auto;
+  display: flex;
+  overflow: auto;
+  align-items: center;
+  justify-content: center;
+
+  align-content: center;
+}
+
+.project_wrapper {
+  position: relative;
+  /*top: 0;*/
+  /*left: 0;*/
+  /*margin-left:-25%;*/
+  /*right: 0;*/
+  /*bottom: 0;*/
+  max-width: 1370px;
+  background: #ffffff;
+  padding: 35px;
+  margin: 0 auto;
+  width: 100%;
+
+  overflow: hidden;
+}
+
+@media (max-width: 1070px) {
+
+  .wrapper_pos {
+    position: fixed;
+    overflow: auto;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+
+    align-content: center;
   }
 
-  .photos__title {
-    margin: 0px 0px 30px 0px;
+  .project_wrapper {
+    padding: 15px;
+    height: 100%;
+    overflow: auto;
   }
 
+}
+
+.container {
+  max-width: 1370px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.photos {
+  padding: 0px 0px 100px 0px;
+  margin: 150px 0 0 0;
+}
+
+.photos__title {
+  margin: 0px 0px 30px 0px;
+}
+
+.photos__row {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  font-size: 0;
+  margin: 10px -40px;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.photos__column {
+  padding: 0px 40px;
+
+  flex: 0 0 33%;
+  margin: 0px 0px 35px 0px;
+}
+
+.photos__item-photo {
+  display: block;
+  padding: 0px 0px 75% 0px;
+  margin: 0px 0px 25px 0px;
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+@media (min-width: 992px) {
+  .photos__item-photo:hover {
+    -moz-transform: scale(1.03);
+    -ms-transform: scale(1.03);
+    -webkit-transform: scale(1.03);
+    -o-transform: scale(1.03);
+    transform: scale(1.03);
+  }
+}
+
+.photos__item-title {
+  font-size: 18px;
+  display: block;
+  font-family: "Geometria-Bold";
+  text-transform: uppercase;
+  color: #333;
+  margin: 0px 0px 7px 0px;
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+@media (min-width: 992px) {
+  .photos__item-title:hover {
+    color: #ff0000;
+  }
+}
+
+.photos__item-wrap {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  font-size: 0;
+  margin: 0px 0px 30px 0px;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.photos__item-date {
+  font-size: 16px;
+  margin: 0px 20px 0px 0px;
+}
+
+.photos__item-adress {
+  display: block;
+  font-size: 16px;
+  color: #333;
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  padding: 0px 0px 0px 20px;
+  background: url("../../assets/img/photos/icon.png") 0 3px no-repeat;
+}
+
+@media (min-width: 992px) {
+  .photos__item-adress:hover {
+    color: #ff0000;
+  }
+}
+
+.photos__item-text {
+  font-size: 16px;
+}
+
+@media (max-width: 1382px) {
   .photos__row {
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    font-size: 0;
-    margin: 0px -40px;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
+    margin: 0px -15px;
   }
 
   .photos__column {
-    padding: 0px 40px;
-    -webkit-box-flex: 0;
-    -ms-flex: 0 0 33.333333%;
-    flex: 0 0 33.333333%;
-    margin: 0px 0px 35px 0px;
+    padding: 0px 15px;
   }
+}
 
-  .photos__item-photo {
-    display: block;
-    padding: 0px 0px 75% 0px;
-    margin: 0px 0px 25px 0px;
-    -webkit-transition: all 0.3s;
-    -o-transition: all 0.3s;
-    transition: all 0.3s;
-  }
-
-  @media (min-width: 992px) {
-    .photos__item-photo:hover {
-      -moz-transform: scale(1.03);
-      -ms-transform: scale(1.03);
-      -webkit-transform: scale(1.03);
-      -o-transform: scale(1.03);
-      transform: scale(1.03);
-    }
-  }
-
-  .photos__item-title {
-    font-size: 18px;
-    display: block;
-    font-family: "Geometria-Bold";
-    text-transform: uppercase;
-    color: #333;
-    margin: 0px 0px 7px 0px;
-    -webkit-transition: all 0.3s;
-    -o-transition: all 0.3s;
-    transition: all 0.3s;
-  }
-
-  @media (min-width: 992px) {
-    .photos__item-title:hover {
-      color: #ff0000;
-    }
+@media (max-width: 991.98px) {
+  .photos {
+    padding: 0px 0px 70px 0px;
   }
 
   .photos__item-wrap {
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    font-size: 0;
-    margin: 0px 0px 30px 0px;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    margin: 0px 0px 20px 0px;
   }
 
   .photos__item-date {
-    font-size: 16px;
-    margin: 0px 20px 0px 0px;
+    margin: 0px 0px 10px 0px;
   }
 
   .photos__item-adress {
-    display: block;
-    font-size: 16px;
-    color: #333;
-    -webkit-transition: all 0.3s;
-    -o-transition: all 0.3s;
-    transition: all 0.3s;
-    padding: 0px 0px 0px 20px;
-    background: url("../../assets/img/photos/icon.png") 0 3px no-repeat;
+    font-size: 14px;
+    padding: 0px 0px 0px 15px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .photos {
+    padding: 0px 0px 50px 0px;
   }
 
-  @media (min-width: 992px) {
-    .photos__item-adress:hover {
-      color: #ff0000;
-    }
+  .photos__row {
+    margin: 0px -10px;
   }
 
-  .photos__item-text {
-    font-size: 16px;
+  .photos__column {
+    padding: 0px 10px;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+  }
+}
+
+@media (max-width: 479.98px) {
+  .photos {
+    padding: 0px 0px 30px 0px;
   }
 
-  @media (max-width: 1382px) {
-    .photos__row {
-      margin: 0px -15px;
-    }
-
-    .photos__column {
-      padding: 0px 15px;
-    }
+  .photos__column {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
   }
-
-  @media (max-width: 991.98px) {
-    .photos {
-      padding: 0px 0px 70px 0px;
-    }
-
-    .photos__item-wrap {
-      -webkit-box-orient: vertical;
-      -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-      flex-direction: column;
-      -webkit-box-align: start;
-      -ms-flex-align: start;
-      align-items: flex-start;
-      margin: 0px 0px 20px 0px;
-    }
-
-    .photos__item-date {
-      margin: 0px 0px 10px 0px;
-    }
-
-    .photos__item-adress {
-      font-size: 14px;
-      padding: 0px 0px 0px 15px;
-    }
-  }
-
-  @media (max-width: 767.98px) {
-    .photos {
-      padding: 0px 0px 50px 0px;
-    }
-
-    .photos__row {
-      margin: 0px -10px;
-    }
-
-    .photos__column {
-      padding: 0px 10px;
-      -webkit-box-flex: 0;
-      -ms-flex: 0 0 50%;
-      flex: 0 0 50%;
-    }
-  }
-
-  @media (max-width: 479.98px) {
-    .photos {
-      padding: 0px 0px 30px 0px;
-    }
-
-    .photos__column {
-      -webkit-box-flex: 0;
-      -ms-flex: 0 0 100%;
-      flex: 0 0 100%;
-    }
-  }
+}
 
 </style>

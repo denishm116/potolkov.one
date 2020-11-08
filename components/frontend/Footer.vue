@@ -1,116 +1,45 @@
 <template>
-    <footer class="footer">
-      <a href="" data-da="footer__wrap,first,1800" class="footer__logo">
-        <img src="~/assets/img/logo.png" alt=""/>
-      </a>
-      <div class='container'>
-        <div class="footer__wrap"></div>
-        <div class="footer__body">
-          <div class="footer__column">
-            <h3 class="footer__title">По фактуре</h3>
-            <ul class="footer__list">
-              <li>
-                <a href="" class="footer__link">
-                  Матовые
-                </a>
-              </li>
-              <li>
-                <a href="" class="footer__link">
-                  Сатиновые
-                </a>
-              </li>
-              <li>
-                <a href="" class="footer__link">
-                  Глянцевые
-                </a>
-              </li>
-              <li>
-                <a href="" class="footer__link">
-                  Тканевые
-                </a>
-              </li>
-            </ul>
+
+  <footer class="footer">
+    <div class='container'>
+      <div class="footer__text footer-col">
+        <p>© 2009-{{ new Date().getFullYear() }} Господин Потолков</p>
+        <p>г. Краснодар, ул. им. 40-летия Победы, 33/6</p>
+        <p>+7 (999) 631-45-41, <a href="mailto:info@potolkov.shop" class="footer__text">info@potolkov.shop</a></p>
+      </div>
+      <div class="footer-col footer-logo">
+        <a href="/">
+          <img src="~/assets/img/logo.png" alt=""/>
+        </a>
+      </div>
+      <div class="footer-social  footer-col">
+
+        <div class="footer-social-icons">
+          <div>
+            <a href="https://vk.com/potolki_eysk"><img src="~/assets/img/icons/01.svg" alt="ВКонтакте"
+                                                       class="social_image"/></a>
           </div>
-          <div class="footer__column">
-            <h3 class="footer__title">По фактуре</h3>
-            <ul class="footer__list">
-              <li>
-                <a href="" class="footer__link">
-                  Матовые
-                </a>
-              </li>
-              <li>
-                <a href="" class="footer__link">
-                  Сатиновые
-                </a>
-              </li>
-              <li>
-                <a href="" class="footer__link">
-                  Глянцевые
-                </a>
-              </li>
-              <li>
-                <a href="" class="footer__link">
-                  Тканевые
-                </a>
-              </li>
-            </ul>
+          <div>
+            <a href="https://ok.ru/profile/561793328279"><img src="~/assets/img/icons/02.svg" alt="Однокласники"
+                                                              class="social_image"/></a>
           </div>
-          <div class="footer__column">
-            <h3 class="footer__title">По фактуре</h3>
-            <ul class="footer__list">
-              <li>
-                <a href="" class="footer__link">
-                  Матовые
-                </a>
-              </li>
-              <li>
-                <a href="" class="footer__link">
-                  Сатиновые
-                </a>
-              </li>
-              <li>
-                <a href="" class="footer__link">
-                  Глянцевые
-                </a>
-              </li>
-              <li>
-                <a href="" class="footer__link">
-                  Тканевые
-                </a>
-              </li>
-            </ul>
+          <div>
+
+
+            <a href="https://www.instagram.com/gospodinpotolkov/"><img src="~/assets/img/icons/03.svg"
+                                                                       alt="instagram" class="social_image"/></a>
           </div>
-          <div class="footer__column">
-            <h3 class="footer__title">По фактуре</h3>
-            <ul class="footer__list">
-              <li>
-                <a href="" class="footer__link">
-                  Матовые
-                </a>
-              </li>
-              <li>
-                <a href="" class="footer__link">
-                  Сатиновые
-                </a>
-              </li>
-              <li>
-                <a href="" class="footer__link">
-                  Глянцевые
-                </a>
-              </li>
-              <li>
-                <a href="" class="footer__link">
-                  Тканевые
-                </a>
-              </li>
-            </ul>
+          <div>
+
+
+            <a href="https://www.facebook.com/profile.php?id=100033774094645"><img src="~/assets/img/icons/04.svg"
+                                                                                   alt="Facebook"
+
+                                                                                   class="social_image"/></a>
           </div>
         </div>
-      </div>
-      <div class="footer__contacts" data-da="footer__wrap,last,1800">
         <div class="footer__contacts-call">
-          <a href="tel:+79883676791" class="footer__contacts-call-link">
+          <a href="tel:+79996314541" class="footer__contacts-call-link">
             <svg class="tel" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                  xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 480.56 480.56"
                  xml:space="preserve">
@@ -131,17 +60,178 @@
 
 				</svg>
           </a>
-          <span class="footer__contacts-call-num">+7-988-367-67-91</span>
+          <a href="tel:+79996314541"><span class="footer__contacts-call-num">+7 (999) 631-45-41</span></a>
         </div>
-        <a href="" class="footer__contacts-order">Заказать звонок</a>
       </div>
-    </footer>
+    </div>
+  </footer>
 </template>
 
 <script>
-  export default {}
+export default {}
 </script>
 
 <style scoped>
 
+.footer-col {
+  margin: 10px auto;
+}
+
+.social_image {
+  transition: all 0.3s;
+}
+
+.social_image:hover {
+  transform: rotate(360deg);
+}
+
+.footer-social-icons div {
+  width: 20px;
+  height: 20px;
+}
+
+.footer-social-icons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-social img {
+  display: block;
+  max-height: 20px;
+}
+
+.footer-logo a {
+  margin: 20px auto;
+}
+
+.footer-social {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.footer__text {
+  line-height: 2;
+
+  color: white;
+  font-size: 14px;
+}
+
+.container {
+  max-width: 1270px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
 </style>
+
+<!--      <div class='container'>-->
+<!--        <div class="footer__wrap">-->
+<!--          -->
+<!--        </div>-->
+<!--        <div class="footer__body">-->
+<!--          <div class="footer__column">-->
+<!--            <h3 class="footer__title">По фактуре</h3>-->
+<!--            <ul class="footer__list">-->
+<!--              <li>-->
+<!--                <a href="" class="footer__link">-->
+<!--                  Матовые-->
+<!--                </a>-->
+<!--              </li>-->
+<!--              <li>-->
+<!--                <a href="" class="footer__link">-->
+<!--                  Сатиновые-->
+<!--                </a>-->
+<!--              </li>-->
+<!--              <li>-->
+<!--                <a href="" class="footer__link">-->
+<!--                  Глянцевые-->
+<!--                </a>-->
+<!--              </li>-->
+<!--              <li>-->
+<!--                <a href="" class="footer__link">-->
+<!--                  Тканевые-->
+<!--                </a>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </div>-->
+<!--          <div class="footer__column">-->
+<!--            <h3 class="footer__title">По фактуре</h3>-->
+<!--            <ul class="footer__list">-->
+<!--              <li>-->
+<!--                <a href="" class="footer__link">-->
+<!--                  Матовые-->
+<!--                </a>-->
+<!--              </li>-->
+<!--              <li>-->
+<!--                <a href="" class="footer__link">-->
+<!--                  Сатиновые-->
+<!--                </a>-->
+<!--              </li>-->
+<!--              <li>-->
+<!--                <a href="" class="footer__link">-->
+<!--                  Глянцевые-->
+<!--                </a>-->
+<!--              </li>-->
+<!--              <li>-->
+<!--                <a href="" class="footer__link">-->
+<!--                  Тканевые-->
+<!--                </a>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </div>-->
+<!--          <div class="footer__column">-->
+<!--            <h3 class="footer__title">По фактуре</h3>-->
+<!--            <ul class="footer__list">-->
+<!--              <li>-->
+<!--                <a href="" class="footer__link">-->
+<!--                  Матовые-->
+<!--                </a>-->
+<!--              </li>-->
+<!--              <li>-->
+<!--                <a href="" class="footer__link">-->
+<!--                  Сатиновые-->
+<!--                </a>-->
+<!--              </li>-->
+<!--              <li>-->
+<!--                <a href="" class="footer__link">-->
+<!--                  Глянцевые-->
+<!--                </a>-->
+<!--              </li>-->
+<!--              <li>-->
+<!--                <a href="" class="footer__link">-->
+<!--                  Тканевые-->
+<!--                </a>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </div>-->
+<!--          <div class="footer__column">-->
+<!--            <h3 class="footer__title">По фактуре</h3>-->
+<!--            <ul class="footer__list">-->
+<!--              <li>-->
+<!--                <a href="" class="footer__link">-->
+<!--                  Матовые-->
+<!--                </a>-->
+<!--              </li>-->
+<!--              <li>-->
+<!--                <a href="" class="footer__link">-->
+<!--                  Сатиновые-->
+<!--                </a>-->
+<!--              </li>-->
+<!--              <li>-->
+<!--                <a href="" class="footer__link">-->
+<!--                  Глянцевые-->
+<!--                </a>-->
+<!--              </li>-->
+<!--              <li>-->
+<!--                <a href="" class="footer__link">-->
+<!--                  Тканевые-->
+<!--                </a>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->

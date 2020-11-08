@@ -19,7 +19,7 @@
 </template>
 
 <script>
-
+// import vuePaginate from 'vuejs-paginate'
 import vProject from '@/components/frontend/partials/vProject'
 import vPaginator from '@/components/frontend/partials/vPaginator'
 

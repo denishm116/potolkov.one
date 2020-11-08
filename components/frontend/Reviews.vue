@@ -24,32 +24,36 @@ export default {
       reviews: [
         {
           id: 0,
-          name: 'Иван Петров',
-          date: '',
-          url: 'https://picsum.photos/900/600/?image=0',
+          name: 'Александр Червяков',
+          date: '2.06.2020',
+          // url: "/assets/img/reviews/review01.jpg",
+          url: require('~/assets/img/reviews/review01.jpg'),
           isActive: false,
-          description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi'
+          description: 'В нашей семье с появлением дочери, вопрос безопасности (предметов быта и отделочных материалов в том числе) встал  на первое место! Поэтому, когда делали ремонт в детской, сделали выбор в пользу потолка качества «Премиум», к нашему счастью долго искать не пришлось, в компании «Господин потолков» полотна для потолка только «Премиум» качества, ещё и фотопечать высокого качества, которая не тускнеет со временем! Оперативно и качественно - рекомендуем!'
         },
         {
           id: 1,
-          name: 'Дима Гнол',
-          date: '',
-          url: 'https://picsum.photos/900/600/?image=1',
+          name: 'Андрей Максименко',
+          date: '19.07.2020',
+          url: require('~/assets/img/reviews/review02.jpg'),
           isActive: false,
-          description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi'
+          description: 'Недавно купил себе в квартиру в Краснодаре, и, когда делал ремонт - встал вопрос потолков. Долго искал фирму, которая смогла бы оправдать критерий «цена-качество». К сожалению, был печальный опыт. Переживал, что опять попаду на «шабашников». Но мои опасения не оправдались и это порадовало. У ребят низкие цены, все качественно и в короткие сроки! Теперь за потолками только к ним!'
         },
         {
           id: 2,
-          name: 'Жора Интуицин',
-          date: '',
-          url: 'https://picsum.photos/900/600/?image=2',
+          name: 'Юлия Завадская',
+          date: '16.09.2020',
+          url: require('~/assets/img/reviews/review03.jpg'),
           isActive: false,
-          description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi'
+          description: 'Не хотелось классический потолок, а хотелось что-то не стандартное, что подошло бы к моему интерьеру! Обратилась в компанию, после консультации решили делать «перфорированный потолок». Просто бомба! Такой красоты у меня еще не было! А подсветка создаёт эффект невесомости потолка. Я очень довольна проделанной работой компании «Господин потолков». Всё отлично от консультации менеджера до результата. Ещё и светильник в подарок! Следующие потолки только здесь буду заказывать!'
         },
 
       ]
     }
-  }
+  },
+   mounted() {
+    console.log(this.$route.query)
+   }
 
 }
 </script>

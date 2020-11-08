@@ -10,16 +10,15 @@
           <div class="moments__wrap">
             <div class="moments__item">
               <h3 class="moments__item-title">
-                БЕЗОПАСНО
+                Безопасность
               </h3>
               <p class="moments__item-text">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                irure
-                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                pariatur.
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                При установке потолков мы используем только полимерно-композитные баллоны, которые:<br>
+                1. Безопасны - полностью исключают возможность взрыва;<br>
+                2. Экологически безвредны;<br>
+                <br>
+
+                Все композитные балоны прошли необходимые проверки и имеют сертификаты безопасности.<br>
 
 
               </p>
@@ -30,17 +29,13 @@
           <div class="moments__wrap">
             <div class="moments__item">
               <h3 class="moments__item-title">
-                ЧИСТО И АККУРАТНО
+                Честность
 
               </h3>
               <p class="moments__item-text">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                irure
-                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                pariatur.
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                Многие компании указывают в рекламе и на своих сайтах нереальные цены, которые далеки от
+                действительности. Так сказать работают "на дурака".<br>Мы уважаем своих заказчиков и во всех своих
+                материалах указываем честные цены с установкой, без скрытых комиссий и подвохов.
 
 
               </p>
@@ -51,16 +46,16 @@
           <div class="moments__wrap">
             <div class="moments__item">
               <h3 class="moments__item-title">
-                ЭКОЛОГИЧНО
+                Экологичность
               </h3>
               <p class="moments__item-text">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                irure
-                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                pariatur.
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                Натяжные потолки ПВХ выполненные из высококачественных материалов:<br>
+                1. Абсолютно безопасны для здоровья человека;<br>
+                2. Такие полотна разрешено использовать в детских и медицинских учреждениях.<br>
+
+                Важно!<br>
+                - Уточните у продавца срок гаранти!
+                - Не пользуйтесь некачественной продукцией!
 
 
               </p>
@@ -71,16 +66,14 @@
           <div class="moments__wrap">
             <div class="moments__item">
               <h3 class="moments__item-title">
-                Без запаха
+               Мастерство
               </h3>
               <p class="moments__item-text">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                irure
-                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                pariatur.
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                Компания "Господин Потолков" уже 11 лет на рынке. За эти годы мы приобрели огромный опыт и профессионализм.<br>
+
+                У нас нет "текучки" кадров, все монтажники проходят регулярныые курсы повышения квалификации и имеют соответствующиее сертификаты.<br>
+                Высокое качество материалов и мастерсво реализации позволяют нам давать такие большие гарнтийные сроки.<br>
+
 
 
               </p>
@@ -94,15 +87,13 @@
 </template>
 
 <script>
-    export default {
-
-    }
+export default {}
 </script>
 
 <style scoped>
-  .container {
-    max-width: 1370px;
-    margin: 0 auto;
-    width: 100%;
-  }
+.container {
+  max-width: 1370px;
+  margin: 0 auto;
+  width: 100%;
+}
 </style>

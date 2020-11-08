@@ -15,8 +15,7 @@
               полотна
             </h5>
             <p class="why__item-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+              Наши потолки произведены на высококачественном европейском оборудовании и с соблюдением всех норм сан-эпидемиологического надзора. Наши потолки не навредят вашему здоровью и комфорту
             </p>
           </div>
         </div>
@@ -26,12 +25,10 @@
               <img src="~/assets/img/why/02.png" alt=""/>
             </div>
             <h5 class="why__item-title">
-              Гарантия от
-              производителя
+              Гарантия 10 лет
             </h5>
             <p class="why__item-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+             Благодаря высочайшему качеству материалов и производственного оборудования мы даем гарантию на полотна - 10 лет. На светильники и другие компллектующие - гарантия - 2 года.
             </p>
           </div>
         </div>
@@ -45,8 +42,7 @@
               по договору
             </h5>
             <p class="why__item-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+              Мы обязательно заключаем с Вами договор, в котором прописаны все наши обязательства по монтажу, гарантийные обязательства, содержится подробный расчет и комлектация Вашего заказа.
             </p>
           </div>
         </div>
@@ -56,12 +52,11 @@
               <img src="~/assets/img/why/04.png" alt=""/>
             </div>
             <h5 class="why__item-title">
-              Безопасный
+              Безопасный и чистый
               монтаж
             </h5>
             <p class="why__item-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+              При монтаже мы используем сертифицированные полимерно-композитные баллоны, исключающие неконтроллируемое возгорание.
             </p>
           </div>
         </div>
@@ -71,12 +66,10 @@
               <img src="~/assets/img/why/05.png" alt=""/>
             </div>
             <h5 class="why__item-title">
-              Отсуствие
-              швов
+              Любая сложность
             </h5>
             <p class="why__item-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+              Многолетный опыт работы позволяет нам выполнять работы любой сложности и любого объема в заранее оговоренные сроки!
             </p>
           </div>
         </div>
@@ -86,12 +79,10 @@
               <img src="~/assets/img/why/06.png" alt=""/>
             </div>
             <h5 class="why__item-title">
-              Рассрочка
-              оплаты
+              Система скидок
             </h5>
             <p class="why__item-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+              Мы любим своих заказчиков и не скупимся на скидки! Однозначно вы получите скидку при объемном заказе.
             </p>
           </div>
         </div>

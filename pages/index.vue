@@ -5,7 +5,7 @@
 
 
     <Calculator></Calculator>
-    <Stocks></Stocks>
+<!--    <Stocks></Stocks>-->
     <Order></Order>
 
     <Why></Why>

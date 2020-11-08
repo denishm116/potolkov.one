@@ -15,12 +15,12 @@
         </ul>
       </nav>
       <h2 class="catalog__title title">{{child.title}}</h2>
-      <p class="catalog__text">
-<span v-html="child.description"></span>
+      <div class="catalog__text">
+<p v-html="child.description"></p>
 
-      </p>
+      </div>
       <div class="catalog__row">
-        <div class="catalog__column" v-for="(ceiling, index) in child.ceiling">
+        <div class="catalog__column" v-for="(ceiling, index) in child.ceilings">
 
           <div class="catalog__item">
 
@@ -65,8 +65,10 @@ import {mapGetters} from 'vuex'
         this.articles = await this.$axios.$get('frontend/articlesForCatalog/' + this.$route.params.slug)
        },
     },
-    mounted() {
-      this.fetchEntity()
+   async mounted() {
+      await this.fetchEntity()
+
+
      },
     components: {
       Projects, vReadAlso

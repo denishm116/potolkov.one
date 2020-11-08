@@ -11,7 +11,7 @@
           <div class="projects__info">
             <div class="projects__info-block projects-info-block">
               <div class="projects-info-block__icon">
-                <img :src="require('assets/img/projects/icons/01.png')" alt=""/>
+                <img :src="require('assets/img/projects/icons/06.png')" alt=""/>
               </div>
               <div class="projects-info-block__text">
                 <span>{{ ourObject.title }}</span>
@@ -31,7 +31,7 @@
                 </div>
                 <div class="projects__flex">
                   <div class="projects-info-block__icon">
-                    <img :src="require('assets/img/projects/icons/02.png')" alt=""/>
+                    <img :src="require('assets/img/projects/icons/04.png')" alt=""/>
                   </div>
                   <div>
                     <div class="projects-info-block__text">
@@ -43,7 +43,7 @@
             </div>
             <div class="projects__info-block projects-info-block">
               <div class="projects-info-block__icon">
-                <img :src="require('assets/img/projects/icons/03.png')" alt=""/>
+                <img :src="require('assets/img/projects/icons/05.png')" alt=""/>
               </div>
               <div class="projects-info-block__text">
                 <span>Категории</span>

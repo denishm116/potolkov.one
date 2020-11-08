@@ -34,8 +34,10 @@ export default {
     './plugins/mixins/user',
     './plugins/axios',
     './plugins/scroll',
+
     { src: './plugins/vuejs-clipper.js', ssr: false },
-    { src: './plugins/TiptapVuetify', mode: 'client' }
+    { src: './plugins/TiptapVuetify', mode: 'client' },
+    { src: './plugins/ymapPlugin',  mode: 'client' }
 
   ],
   auth: {
@@ -66,7 +68,6 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/auth',
-
   ],
   env: {
     baseURL:

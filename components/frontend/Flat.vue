@@ -12,14 +12,14 @@
             <div v-for="(room, index) in flat">
               <div :class="['livingroom_title', {active_title: room.isActive}]"
                    :style="{ top: room.top + '%', right: room.right + '%' }">
-                <p>{{ room.title }}</p>
-                <p>{{ room.square }} м<sup>2</sup></p>
+                <p class="flat-text">{{ room.title }}</p>
+                <p class="flat-text">{{ room.square }} м<sup>2</sup></p>
               </div>
             </div>
 
             <svg viewBox="0 0 586 471" class="flat">
               <path :class="[room.class, {display: room.isActive}, {display_click: tmpClass}]"
-                    @mouseover="mouseOver(index)"
+                    @mouseover="click(index)"
                     @mouseleave="mouseLeave(index)" @click="click(index)"
                     :d="room.d" :fill="room.fill" v-for="(room, index) in flat"></path>
             </svg>
@@ -32,25 +32,26 @@
           <div class="info__item">
             <div class="info__label">Цена с установкой и стоимостью комплектующих
             </div>
-
-
-
-              <div>
-            <span class="info__title">{{ dispalyClick !== '' ? flat[dispalyClick].title : flat[0].title }}
-            </span>
-
-                <span
-                  class="info__subtitle">{{
-                    dispalyClick !== '' ? flat[dispalyClick].sub_title : flat[0].sub_title
-                  }}</span>
-
-                <p class="info__text">{{
-                    dispalyClick !== '' ? flat[dispalyClick].description : flat[0].description
-                  }}</p>
-                <span class="info__subtitle" style="text-transform: none">Итого: {{
-                    dispalyClick !== '' ? flat[dispalyClick].price : flat[0].price
-                  }} р.</span>
-              </div>
+            <div>
+              <p class="info__title">{{ dispalyClick !== '' ? flat[dispalyClick].title : flat[0].title }}
+              </p>
+            </div>
+            <div>
+              <p
+                class="info__subtitle">{{
+                  dispalyClick !== '' ? flat[dispalyClick].sub_title : flat[0].sub_title
+                }}</p>
+            </div>
+            <div>
+              <p class="info__text">{{
+                  dispalyClick !== '' ? flat[dispalyClick].description : flat[0].description
+                }}</p>
+            </div>
+            <div>
+              <p class="info__subtitle" style="text-transform: none">Итого: {{
+                  dispalyClick !== '' ? flat[dispalyClick].price : flat[0].price
+                }} р.</p>
+            </div>
 
           </div>
         </div>
@@ -69,9 +70,9 @@ export default {
         {
           id: 0,
           title: 'Гостиная комната',
-          sub_title: 'Белый глянцевый потолок',
-          description: 'Общая площадь - 16 кв.м. Также в комнате установлено 8 точечных светильников GX-53, карниз для штор, потолочная вставка - плинтус, люстра.',
-          price: 2540,
+          sub_title: 'Белый матовый потолок',
+          description: 'Общая площадь - 16 кв.м. Также в гостиной установлено 8 точечных светильников Gx53, карниз для штор, потолочная вставка - плинтус по периметру.',
+          price: 11260,
           square: 16,
           d: 'm 227.62552,9.6305864 0.12292,217.5234336 96.17797,0.5947 0.35052,62.41012 252.11767,0.26 -1.42034,-280.396433 z',
           right: 15,
@@ -85,9 +86,9 @@ export default {
           id: 1,
           title: 'Кухня',
           sub_title: 'Белый глянцевый потолок',
-          description: 'Общая площадь - 11,5 кв.м. На кухне ывполнена фотопецать площадью 1,5 кв.м. Также на кухне 4 точечных светильника GX-53, потолочная вставка - плинтус, люстра.',
-          price: 1540,
-          square: 11,
+          description: 'Общая площадь - 11,5 кв.м. На кухне выполнена фотопечать (UF) 1,5 кв. м, также установлена 1 люстра, потолочная вставка - плинтус по периметру.. Также на кухне 4 точечных светильника GX-53, потолочная вставка - плинтус, люстра.',
+          price: 6570,
+          square: 11.5,
           d: 'm 324.62316,295.92232 0.68568,165.83796 252.03844,-0.4408 -0.78364,-165.78898 z',
           right: 18,
           top: 72,
@@ -98,9 +99,9 @@ export default {
         {
           id: 2,
           title: 'Прихожая',
-          sub_title: 'Белый глянцевый потолок',
-          description: '',
-          price: 540,
+          sub_title: 'Бежевый глянцевый потолок (L-501)',
+          description: 'Общая площадь - 8 кв.м. Также в прихожей установлено 4 точечных светильника Gx53, потолочная вставка - плинтус по периметру.',
+          price: 4370,
           square: 8,
           d: 'M 317.85574,461.71853 H 227.04971 V 345.76941 H 125.48047 V 233.67186 h 190.27979 z',
           right: 50,
@@ -113,9 +114,9 @@ export default {
           id: 3,
           title: 'Ванная',
           sub_title: 'Белый глянцевый потолок',
-          description: '',
+          description: 'Общая площадь - 10 кв.м. Также в ванной установлено 6 точечных светильников Gx53, потолочная вставка - плинтус по периметру.',
           price: 2540,
-          square: 16,
+          square: 6,
           d: 'M 219.79156,461.51074 H 9.9741177 V 352.83441 l 209.6534323,-0.098 z',
           right: 74,
           top: 78,
@@ -127,9 +128,9 @@ export default {
           id: 4,
           title: 'Гардероб',
           sub_title: 'Белый глянцевый потолок',
-          description: '',
-          price: 999,
-          square: 3,
+          description: 'Общая площадь — 3,5 кв.м. Также в гардеробной установлено 2 точечных светильника Gx53, потолочная вставка - плинтус по периметру.',
+          price: 1810,
+          square: 3.5,
           d: 'm 119.87211,347.1091 -109.9161137,0.11246 -0.00391,-113.54451 109.7683002,0.004 z',
           right: 80,
           top: 55,
@@ -141,9 +142,9 @@ export default {
           id: 5,
           title: 'Спальня',
           sub_title: 'Белый глянцевый потолок',
-          description: '',
-          price: 2540,
-          square: 16,
+          description: 'Общая площадь - 12 кв.м. Также в спальне установлена 1 люстра, потолочная вставка - плинтус по периметру.',
+          price: 4360,
+          square: 12,
           d: 'M 10.575162,226.68283 220.89062,226.65473 220.99196,9.0486227 10.064007,9.623147 Z',
           right: 70,
           top: 17,
@@ -206,6 +207,19 @@ export default {
   display: none;
   pointer-events: none;
 }
+
+@media (max-width: 576px) {
+  .livingroom_title {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 350px) {
+  .livingroom_title {
+    font-size: 0.5rem;
+  }
+}
+
 
 .active_title {
   display: block

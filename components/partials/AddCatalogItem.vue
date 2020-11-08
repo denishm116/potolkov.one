@@ -39,6 +39,9 @@
       }
     },
     methods: {
+      savedObj() {
+        this.$emit('savedObject')
+      },
       fetchItems() {
         this.$emit('fetchItems')
       },
@@ -50,6 +53,7 @@
           this.clearForm()
           this.clearImageField = false
           this.clrForm = false
+          this.savedObj()
         } catch (e) {
           return e
         }

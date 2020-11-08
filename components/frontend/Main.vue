@@ -1,73 +1,157 @@
 <template>
-  <section class="main">
-    <div class="container">
-      <div class="main__column">
-        <h1 class="main__title animate__animated animate__bounce">
-          <span>НАТЯЖНЫЕ ПОТОЛКИ </span>в Краснодаре
-        </h1>
-        <div class="main__text">
-          Больше 12 лет мы - специалисты компании "Господин Потолков" трудимся во благо комфорта и красоты жителей
-          Крснодарского края. От всей души делимся с Вами своими знаниями и трудолюбием. В каждом квадратном метре натянутого нами потолка частичка нашей души!
+  <v-app>
+
+
+    <section class="main">
+      <div class="container">
+        <div class="main__column">
+          <h1 class="main__title animate__animated animate__bounce">
+            <span>НАТЯЖНЫЕ ПОТОЛКИ </span>в Краснодаре
+          </h1>
+          <div class="main__text">
+            Больше 11 лет мы - специалисты компании "Господин Потолков" трудимся во благо комфорта и красоты жителей
+            Крснодарского края. От всей души делимся с Вами своими знаниями и трудолюбием. В каждом квадратном метре
+            натянутого нами потолка частичка нашей души!
+          </div>
+          <div class="main__wrap">
+            <a href="/ceilings_catalog/" class="main__btn btn">Перейти в каталог</a>
+            <span class="main__label">Создайте свой уютный уголок</span>
+          </div>
         </div>
-        <div class="main__wrap">
-          <a href="" class="main__btn btn">Перейти в каталог</a>
-          <span class="main__label">Создайте свой уютный уголок</span>
+        <div class="main__column">
+          <form action="#" class="main__form form">
+            <h3 class="form__title">Узнайте цену на
+              натяжной потолок</h3>
+            <div>
+
+
+              <v-radio-group
+                row
+                v-model="radio"
+              >
+
+                <v-radio
+                  label="Матовый"
+                  color="red"
+                  value="1"
+                ></v-radio>
+                <v-spacer></v-spacer>
+                <v-radio
+                  label="Глянцевый"
+                  color="red"
+                  value="2"
+                ></v-radio>
+                <v-spacer></v-spacer>
+                <v-radio
+                  label="Сатиновый"
+                  color="red"
+                  value="3"
+                ></v-radio>
+
+              </v-radio-group>
+
+
+            </div>
+
+            <h4 class="form__subtitle">
+              Площадь потолка, м2
+            </h4>
+            <div class="form__input">
+              <input autocomplete="off" type="number" @input="calculate" class="input" v-model="val"/>
+            </div>
+            <div class="form__info">
+              <h5 class="form__info-title">Ваша цена сегодня</h5>
+              <span>{{ price }} ₽</span>
+            </div>
+            <div class="form__num">
+              <input type="tel" name="form[]" placeholder="Ваш номер телефона" class="input">
+              <button class="form__btn btn" type="submit">Заказть звонок</button>
+            </div>
+            <div class="form__root">
+              <div class="check" :class="{'active': active}" @click="checked">
+                Перезвонить в ближайшее время
+                <input type="checkbox" value="1" name="form[]" checked>
+              </div>
+            </div>
+          </form>
+
         </div>
       </div>
-      <div class="main__column">
-        <form action="#" class="main__form form">
-          <h3 class="form__title">Узнайте цену на
-            натяжной потолок</h3>
-          <div class="form__radiobuttons options">
-            <div class="option active">
-              <input type="radio" value="1" name="form[type]"/>
-              Белый
-            </div>
-            <div class="option">
-              <input type="radio" value="2" name="form[type]"/>
-              Цветной
-            </div>
-            <div class="option">
-              <input type="radio" value="3" name="form[type]"/>
-              Фотопечать
-            </div>
-          </div>
-
-          <h4 class="form__subtitle">
-            Площадь потолка, м2
-          </h4>
-          <div class="form__input">
-            <input autocomplete="off" type="text" name="form[]" placeholder="10" class="input"/>
-          </div>
-          <div class="form__info">
-            <h5 class="form__info-title">Ваша цена сегодня</h5>
-            <span>8 379 ₽</span>
-          </div>
-          <div class="form__num">
-            <input type="tel" name="form[]" placeholder="Ваш номер телефона" class="input">
-            <button class="form__btn btn" type="submit">Заказть звонок</button>
-          </div>
-          <div class="form__root">
-            <div class="check">
-              Согласен с политикой конфиденциальности
-              <input type="checkbox" value="1" name="form[]">
-            </div>
-          </div>
-        </form>
-
-      </div>
-    </div>
-  </section>
+    </section>
+  </v-app>
 </template>
 
 <script>
-  export default {}
+export default {
+  data() {
+    return {
+      active: true,
+      radio: '1',
+      val: 10,
+      price: 2800
+    }
+  },
+  computed: {
+    ceilings() {
+      return [
+        {
+          title: 'Матовый',
+          id: 0,
+          active: true
+        },
+        {
+          title: 'Глянцевый',
+          id: 1,
+          active: false
+        },
+        {
+          title: 'Сатиновый',
+          id: 2,
+          active: false
+        },
+      ]
+
+    }
+
+  },
+  methods: {
+    makeActive(id) {
+
+      this.ceilings.forEach((ceiling, i) => {
+        this.ceilings[i].active = false
+        if (ceiling.id == id) {
+          this.ceilings[i].active = true
+        }
+      })
+      console.log(this.ceilings)
+      console.log(this.radio)
+    },
+    calculate() {
+      this.price = this.val * 280
+    },
+    checked() {
+      this.active = !this.active
+    }
+  },
+  mounted() {
+    // for (let i = 0; i < this.$el.getElementsByClassName('v-application--wrap').length; i++) {
+    //   this.$el.getElementsByClassName('v-application--wrap')[i].style = "min-height: 0;"
+    // }
+
+  }
+}
 </script>
 
 <style scoped>
-  .container {
-    max-width: 1270px;
-    margin: 0 auto;
-    width: 100%;
-  }
+
+.main__btn, .form__btn {
+
+  color: #eaeaea;
+}
+
+.container {
+  max-width: 1270px;
+  margin: 0 auto;
+  width: 100%;
+}
 </style>

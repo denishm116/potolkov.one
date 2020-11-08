@@ -37,7 +37,7 @@ export const mutations = {
 
 export const actions = {
 
-  async FETCH_CEILINGS({commit, state}) {
+  async FETCH_CEILINGS({commit}) {
     try {
       const ceilings =  await this.$axios.$get('admin/ceilings')
       commit('SET_CEILINGS', ceilings)
