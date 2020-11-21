@@ -34,11 +34,9 @@ export default {
     './plugins/mixins/user',
     './plugins/axios',
     './plugins/scroll',
-
     { src: './plugins/vuejs-clipper.js', ssr: false },
     { src: './plugins/TiptapVuetify', mode: 'client' },
-    { src: './plugins/ymapPlugin',  mode: 'client' }
-
+    { src: './plugins/ymapPlugin',  ssr: false }
   ],
   auth: {
     strategies: {

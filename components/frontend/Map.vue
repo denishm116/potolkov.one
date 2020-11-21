@@ -43,10 +43,9 @@ export default {
         contentOffset: [-30, -35],
         contentLayout: '<div style="background: red; width: 170px; color: #FFFFFF; font-weight: bold; padding: 3px; border-radius: 3px; opacity: 0.5">$[properties.iconContent]</div>'
       },
-
     }
   },
-  mounted() {
+  async mounted() {
     this.isMounted = true
   }
 
