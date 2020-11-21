@@ -2,7 +2,7 @@
   <div>
     <div data-width="100%" data-nav="thumbs" data-loop="false">
 
-      <div class="lingalleryContainer px-5 mx-5">
+      <div class="lingalleryContainer">
         <div :style="lingalleryStyle" class="lingallery">
           <large-view
             id="largeView"
@@ -113,15 +113,12 @@
 </template>
 
 <script>
-  // import {HalfCircleSpinner} from 'epic-spinners'
-  // import Addons from '../../plugins/PhotoGallery/initAddons'
   import LargeView from "./LargeView"
   import PictureElement from "./PictureElement"
 
   const Hammer = () => import('hammerjs')
 
   export default {
-    // mixins: [Addons],
     directives: {
       swipe: {
         bind: async function (el, binding) {

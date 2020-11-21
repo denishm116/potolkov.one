@@ -29,7 +29,7 @@ export const actions = {
     async getData({commit}) {
        const data = await this.$axios.$get('user/getData')
         commit('SET_DATA', data)
-        console.log('IN STATE ' + data)
+
     }
 }
 

@@ -1,7 +1,7 @@
 <template>
   <section class="why">
     <div class='container'>
-      <h2 class="why__title title">
+      <h2 class="why__title  my-title">
         Почему выбирают нас?
       </h2>
       <div class="why__row">

@@ -4,7 +4,7 @@
 
     <div class="projects__row">
       <div class="projects__column">
-        <PhotoGallery :width="width" :items="items" :addons="{ enableLargeView: true }" class="px-5"></PhotoGallery>
+        <PhotoGallery :width="width" :items="items" :addons="{ enableLargeView: true }"></PhotoGallery>
       </div>
       <div class="projects__column">
         <div class="projects__flex__column">
@@ -64,18 +64,60 @@
               <div v-html="ourObject.description" class="hidden_description"
                    v-if="ourObject.description.length >= 450"></div>
               <span v-if="ourObject.description.length >= 450"
-                    v-html="ourObject.description.slice(0, 450) + `<a>... далее </a>`"></span>
+                    v-html="ourObject.description.slice(0, 450) + `... далее`"></span>
               <span v-else v-html="ourObject.description" style="padding-bottom: 2rem"></span>
             </div>
           </div>
           <div class="projects__buttons">
-            <a href="" class="projects__btn btn">Заказать замер</a>
-            <a href="" class="projects__btn btn tr">Каталог</a>
+            <a href="" class="projects__btn btn" @click.prevent="dialog = true">Заказать замер</a>
+            <a href="/ceilings_catalog" class="projects__btn btn tr">Каталог</a>
           </div>
         </div>
 
       </div>
     </div>
+
+
+    <v-dialog
+      v-model="dialog"
+      max-width="500"
+    >
+      <v-card>
+
+
+        <v-card-title class="headline">
+          <span>Стоимость</span>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="error"
+            fab
+            x-small
+            @click="dialog = false"
+          >
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+
+        <v-card-text>
+          <p>*Компания "Господин Потолков" гарантирует конфиденциальность Ваших персональных данных.
+          </p>
+
+          <div class="order__form-input">
+            <input autocomplete="off" type="text" v-model="userName"  placeholder="Ваше имя"
+                   class="input"/>
+          </div>
+          <div class="order__form-input">
+            <vPhoneInput @putPhone="getPhone"></vPhoneInput>
+          </div>
+          <button class="order__form-btn btn" @click.prevent="sendFormData">Заказать бесплатный звонок</button>
+        </v-card-text>
+
+     </v-card>
+      <emailSender :formData="formData"></emailSender>
+    </v-dialog>
+
+
+
 
   </div>
 
@@ -83,13 +125,20 @@
 
 <script>
 import PhotoGallery from "../../partials/PhotoGallery"
+import emailSender from '@/components/frontend/partials/emailSender'
+import vPhoneInput from '@/components/frontend/partials/vPhoneInput'
 
 export default {
   props: [
     'ourObject', 'width'
   ],
   data() {
-    return {}
+    return {
+      dialog: false,
+      formData: {},
+      phone: '',
+      userName: ''
+    }
   },
   computed: {
 
@@ -106,9 +155,21 @@ export default {
       })
     }
   },
-  methods: {},
+  methods: {
+    getPhone(phone) {
+      this.phone = phone
+    },
+    sendFormData() {
+      this.formData = {
+        userName: this.userName,
+        phone: this.phone,
+        formName: 'Выполнеенные проекты',
+      }
+      setTimeout(() => {if (this.dialog && this.phone) this.dialog = false}, 3000)
+    },
+  },
   components: {
-    PhotoGallery
+    PhotoGallery, emailSender, vPhoneInput
   }
 }
 </script>
@@ -148,5 +209,10 @@ export default {
   .description_hover {
     height: 100%;
   }
+}
+
+a {
+  cursor: pointer;
+  color: #ffffff;
 }
 </style>

@@ -6,18 +6,18 @@
         <nav class="breadcrumbs">
           <ul class="breadcrumbs__list">
             <li>
-              <a href="" class="breadcrumbs__link">Главная</a>
+              <a href="/" class="breadcrumbs__link">Главная</a>
             </li>
             <li>
               <span>Фото натяжных потолков</span>
             </li>
           </ul>
         </nav>
-        <h1 class="photos__title title">
+        <h1 class="photos__title my-title">
           Фото натяжных потолков - наши работы
         </h1>
         <div class="photos__row">
-          <div class="photos__column" v-for="object in objects">
+          <div class="photos__column" v-for="object in pagObjects">
             <div class="photos__item"  @click="openPopup(object.id)">
               <a href="#" class="photos__item-photo ibg">
                 <img :src="PATH + object.mainImage" alt=""/>
@@ -50,7 +50,7 @@
                     fab
                     x-small
                     dark
-
+color="red"
                   >
                     <v-icon>mdi-close</v-icon>
                   </v-btn>
@@ -62,7 +62,28 @@
 
         </div>
         <div v-if="objectsComp.length">
-          <v-paginator :objects="objectsComp" :objectsPerPage="9" @paginatedObjects="paginatedObjects"></v-paginator>
+          <div class="pagging">
+          <paginator
+            v-model="page"
+            :page-count="pageCount"
+            :margin-pages="2"
+            :page-range="3"
+            :click-handler="paginatedObjects"
+
+            :container-class="'pagging-list'"
+            :page-class="'page-item'"
+            :active-link-class="'active'"
+            :page-link-class="'pagging__link'"
+            :prev-class="'prev-next'"
+            :prev-link-class="'prev-next-link'"
+            :next-class="'prev-next'"
+            :next-link-class="'prev-next-link'"
+            :break-view-class="''"
+            :break-view-link-class="''"
+            :first-last-button="firstLastButton"
+            :hide-prev-next="true"
+          ></paginator>
+          </div>
         </div>
 
       </div>
@@ -73,7 +94,7 @@
 <script>
 import {mapGetters, mapActions} from 'vuex'
 import vProject from '@/components/frontend/partials/vProject'
-import vPaginator from '@/components/frontend/partials/vPaginator'
+import Paginator from '@/components/frontend/partials/Paginator'
 
 export default {
   data() {
@@ -81,13 +102,19 @@ export default {
       showBig: false,
       objects: [],
       objectsComp: [],
+      page: 1,
+      pagObjects: [],
+      objectsPerPage: 9
     }
 
   },
   computed: {
-    // objectsComp() {
-    //   return this.OUR_OBJECTS
-    // },
+    firstLastButton() {
+      return false
+    },
+    pageCount() {
+      return Math.ceil(this.OUR_OBJECTS.length / this.objectsPerPage)
+    },
     ...mapGetters({
       OUR_OBJECTS: 'frontend/OUR_OBJECTS',
       OUR_OBJECT: 'frontend/OUR_OBJECT',
@@ -97,10 +124,12 @@ export default {
   methods: {
     objectsInit() {
       this.objectsComp = this.OUR_OBJECTS.map(item => {return item})
-      console.log(this.objectsComp)
+
     },
-    paginatedObjects(data) {
-      this.objects = data
+    paginatedObjects(currentPage) {
+      let from = (currentPage - 1) * this.objectsPerPage
+      let to = from + this.objectsPerPage
+      this.pagObjects = this.OUR_OBJECTS.slice(from, to)
     },
     async openPopup(id) {
       await this.FETCH_OUR_OBJECT(id)
@@ -114,10 +143,10 @@ export default {
   async mounted() {
     await this.FETCH_OUR_OBJECTS()
     await this.objectsInit()
-    console.log(this.OUR_OBJECTS)
+    this.paginatedObjects(this.page)
   },
   components: {
-    vProject, vPaginator
+    vProject, Paginator
   }
 }
 </script>

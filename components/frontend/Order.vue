@@ -19,14 +19,13 @@
                 Закажите бесплатный обратный звонок
               </h3>
               <div class="order__form-input">
-                <input autocomplete="off" type="text" name="form[]" placeholder="Ваше имя"
+                <input autocomplete="off" type="text" v-model="userName"  placeholder="Ваше имя"
                        class="input"/>
               </div>
               <div class="order__form-input">
-                <input autocomplete="off" type="tel" name="form[]" placeholder="Ваш телефон"
-                       class="input"/>
+                <vPhoneInput @putPhone="getPhone"></vPhoneInput>
               </div>
-              <button class="order__form-btn btn">Заказать</button>
+              <button class="order__form-btn btn" @click.prevent="sendFormData">Заказать</button>
 
             </form>
 
@@ -38,11 +37,38 @@
       </div>
       <div class="confidential">*Компания "Господин Потолков" гарантирует конфиденциальность Ваших персональных данных.</div>
     </div>
+    <emailSender  :formData="formData"></emailSender>
   </section>
 </template>
 
 <script>
-export default {}
+import emailSender from '@/components/frontend/partials/emailSender'
+import vPhoneInput from '@/components/frontend/partials/vPhoneInput'
+
+export default {
+  components: {
+    emailSender, vPhoneInput
+  },
+  data() {
+    return {
+      formData: {},
+      phone: '',
+      userName: ''
+    }
+  },
+  methods: {
+    getPhone(phone) {
+      this.phone = phone
+    },
+    sendFormData() {
+      this.formData = {
+        userName: this.userName,
+        phone: this.phone,
+        formName: 'Форма с мужичком',
+      }
+    },
+  }
+}
 </script>
 
 <style scoped>

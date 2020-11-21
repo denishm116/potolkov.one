@@ -4,25 +4,19 @@
       <v-col>
         <section class="cattegory">
           <div class='container'>
-            <nav class="breadcrumbs">
-              <ul class="breadcrumbs__list">
-                <li>
-                  <a href="" class="breadcrumbs__link">Главная</a>
-                </li>
-                <li>
-                  <a href="/ceilings_catalog" class="breadcrumbs__link">Каталог натяжных потолков</a>
-                </li>
-                <li>
-                  <span>{{ ceiling.title }}</span>
-                </li>
-              </ul>
-            </nav>
-            <h2 class="cattegory__title title">{{ ceiling.title }}</h2>
+
+            <v-breadcrumbs
+              :second="{ name: 'Каталог натяжных потолков', to: '/ceilings_catalog', active: true }"
+              :third="{ name: breadcrumbThird.title, to: '/ceilings_catalog/' + breadcrumbThird.path, active: true }"
+              :forth="{ name: breadcrumbForth.title, to: '/ceilings_catalog/' + breadcrumbThird.path + '/' + breadcrumbForth.path, active: true }"
+              :fifth="{ name: ceiling.title, to: false, active: false }"
+            ></v-breadcrumbs>
+
+            <h1 class="cattegory__title my-title">{{ ceiling.title }}</h1>
             <div class="cattegory__row">
               <div class="article__info">
                 <div class="article__photo">
                   <PhotoGallery :width="width" :items="items" :addons="{ enableLargeView: true }"></PhotoGallery>
-
                 </div>
                 <div class="article__info-text">
                   <span v-html="ceiling.description"></span>
@@ -37,7 +31,6 @@
     </v-row>
 
 
-
     <projects :ourObjects="ourObjects" :width="1920" :title="'Наши работы'" v-if="ourObjects.length >= 1"></projects>
 
     <v-read-also :articles="articles"></v-read-also>
@@ -46,13 +39,79 @@
 </template>
 <script>
 import PhotoGallery from '@/components/partials/PhotoGallery'
-
+import vBreadcrumbs from '@/components/frontend/partials/vBreadcrumbs'
 import Projects from '@/components/frontend/Projects'
 import vReadAlso from '@/components/frontend/partials/vReadAlso'
-
-import {mapGetters} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 
 export default {
+
+  head() {
+    return {
+      title: `${this.asyncCatalog.title} - Господин Потолков`,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.asyncCatalog.title + ' - Компания Господин Потолков предлагает натяжные потолки в Краснодаре от 260 р. с установкой!'
+        },
+        {
+          'property': 'og:type',
+          'content': 'website',
+        },
+        {
+          'property': 'og:url',
+          'content': `https://potolkov.shop${this.$route.path}`,
+        },
+        {
+          'property': 'og:title',
+          'content': 'Натяжные потолки в Краснодаре от 260 р. - Господин Потолков',
+        },
+        {
+          'property': 'og:description',
+          'content': 'Компания Господин Потолков предлагает натяжные потолки в Краснодаре от 260 р. с установкой! 10 лет гарантии. Бесплатный замер.',
+        },
+        {
+          'property': 'og:site_name',
+          'content': 'potolkov.shop',
+        },
+        {
+          'property': 'og:locale',
+          'content': 'ru_RU',
+        },
+        {
+          'property': 'og:image',
+          'content': 'https://potolkov.shop/site-screen.jpg'
+        },
+        {
+          'property': 'og:image:alt',
+          'content': 'Натяжные потолки в Краснодаре от 260 р. - Господин Потолков'
+        },
+        {
+          'name': 'twitter:card',
+          'content': 'summary_large_image'
+        },
+        {
+          'name': 'twitter:title',
+          'content': 'Натяжные потолки в Краснодаре от 260 р. - Господин Потолков'
+        },
+        {
+          'name': 'twitter:description',
+          'content': 'Компания Господин Потолков предлагает натяжные потолки в Краснодаре от 260 р. с установкой! 10 лет гарантии. Бесплатный замер.'
+        },
+        {
+          'name': 'twitter:image:src',
+          'content': 'https://potolkov.shop/site-screen.jpg'
+        },
+      ]
+    }
+  },
+  async asyncData({params, $axios}) {
+    const asyncCatalog = await $axios.$get('frontend/getCeilings/' + params.slug)
+    return { asyncCatalog }
+  },
+
+
   data: () => {
     return {
       width: 1920,
@@ -61,18 +120,35 @@ export default {
       description: '',
       items: [{}],
       ourObjects: [],
-      articles: []
+      articles: [],
+      breadcrumbThird: {},
+      breadcrumbForth: {},
     }
   },
+
   computed: {
     ...mapGetters({
+      CEILINGS_CATALOG: 'frontend/ceiling_catalog',
       PATH: 'frontend/PATH'
     }),
-    obj() {
-      return this.ourObjects
-    }
   },
+
   methods: {
+    createBreadcrumbs() {
+      let splitedPath = this.$route.path.split('/')
+      this.breadcrumbThird = {
+        path: splitedPath[2],
+        title: this.CEILINGS_CATALOG.filter(item => item.slug == splitedPath[2])[0].title,
+      }
+      this.CEILINGS_CATALOG.forEach(item => {
+        if (item.slug == splitedPath[2]) {
+          this.breadcrumbForth = {
+            path: splitedPath[3],
+            title: item.children.filter(child => child.slug == splitedPath[3])[0].title
+          }
+        }
+      })
+    },
     itemsInit() {
       this.items = this.ceiling.images.map(item => {
         return {
@@ -89,13 +165,18 @@ export default {
       this.ourObjects = ourObjects
       this.articles = articles
     },
+    ...mapActions({
+      FETCH_CEILINGS_CATALOG: 'frontend/fetchCeilingCatalog',
+    }),
   },
   async mounted() {
+    await this.FETCH_CEILINGS_CATALOG
     await this.fetchEntity()
     await this.itemsInit()
+    await this.createBreadcrumbs()
   },
   components: {
-    Projects, PhotoGallery, vReadAlso
+    Projects, PhotoGallery, vReadAlso, vBreadcrumbs
   }
 }
 </script>

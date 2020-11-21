@@ -181,6 +181,8 @@ v-model="loginForm.email"
 <script>
 
   export default {
+
+
     data() {
       return {
         passwordShow: false,
@@ -195,6 +197,7 @@ v-model="loginForm.email"
         form: {
           name: '',
           email: '',
+          role: 'user',
           password: '',
           password_confirmation: '',
         },
@@ -218,10 +221,9 @@ v-model="loginForm.email"
 
 
     },
+
     methods: {
-
       async login() {
-
         try {
           await this.$axios.post('/auth/login', this.loginForm)
           this.$auth.login({data: this.loginForm})
@@ -230,12 +232,10 @@ v-model="loginForm.email"
           return e
         }
       },
-
       async register() {
         try {
           await this.$axios.post('/auth/register', this.form)
           this.$auth.login({data: this.form})
-
           this.$store.dispatch('authentication/authenticationWindow')
         } catch (e) {
         return e
@@ -243,7 +243,6 @@ v-model="loginForm.email"
       },
       changeForm() {
         this.registerButton = !this.registerButton
-
       },
 
     }

@@ -1,13 +1,3 @@
-/*!
- * ress.css • v2.0.4
- * MIT License
- * github.com/filipelinhares/ress
- */
-
-/* # =================================================================
-   # Global selectors
-   # ================================================================= */
-
 html {
   box-sizing: border-box;
   -webkit-text-size-adjust: 100%; /* Prevent adjustments of font size after orientation changes in iOS */
@@ -69,6 +59,7 @@ abbr[title] {
 
 a {
   background-color: transparent; /* Remove the gray background on active links in IE 10 */
+  color: inherit;
 }
 
 a:active,

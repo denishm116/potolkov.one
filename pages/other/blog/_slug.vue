@@ -15,9 +15,9 @@
             </li>
           </ul>
         </nav>
-        <h2 class="article__title title">
+        <h1 class="article__title my-title">
           {{ ARTICLE.title }}
-        </h2>
+        </h1>
         <div class="article__info">
           <div class="article__photo">
             <img :src="PATH + ARTICLE.mainImage" :alt="ARTICLE.title">
@@ -90,6 +90,72 @@ import {mapGetters, mapActions} from 'vuex'
 import HorizontalList from "@/components/partials/HorizontalList"
 
 export default {
+
+  head() {
+    return {
+      title: `${this.asyncCatalog.title} - Господин Потолков`,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.asyncCatalog.title + ' - Компания Господин Потолков предлагает натяжные потолки в Краснодаре от 260 р. с установкой!'
+        },
+        {
+          'property': 'og:type',
+          'content': 'website',
+        },
+        {
+          'property': 'og:url',
+          'content': `https://potolkov.shop${this.$route.path}`,
+        },
+        {
+          'property': 'og:title',
+          'content': 'Натяжные потолки в Краснодаре от 260 р. - Господин Потолков',
+        },
+        {
+          'property': 'og:description',
+          'content': 'Компания Господин Потолков предлагает натяжные потолки в Краснодаре от 260 р. с установкой! 10 лет гарантии. Бесплатный замер.',
+        },
+        {
+          'property': 'og:site_name',
+          'content': 'potolkov.shop',
+        },
+        {
+          'property': 'og:locale',
+          'content': 'ru_RU',
+        },
+        {
+          'property': 'og:image',
+          'content': 'https://potolkov.shop/site-screen.jpg'
+        },
+        {
+          'property': 'og:image:alt',
+          'content': 'Натяжные потолки в Краснодаре от 260 р. - Господин Потолков'
+        },
+        {
+          'name': 'twitter:card',
+          'content': 'summary_large_image'
+        },
+        {
+          'name': 'twitter:title',
+          'content': 'Натяжные потолки в Краснодаре от 260 р. - Господин Потолков'
+        },
+        {
+          'name': 'twitter:description',
+          'content': 'Компания Господин Потолков предлагает натяжные потолки в Краснодаре от 260 р. с установкой! 10 лет гарантии. Бесплатный замер.'
+        },
+        {
+          'name': 'twitter:image:src',
+          'content': 'https://potolkov.shop/site-screen.jpg'
+        },
+      ]
+    }
+  },
+  async asyncData({params, $axios}) {
+    const asyncCatalog = await $axios.$get('frontend/article/' + params.slug)
+    return { asyncCatalog }
+  },
+
   components: {
     HorizontalList
   },
@@ -139,10 +205,6 @@ export default {
             image: this.PATH + item.path,
           }
         })
-
-      console.log(this.ARTICLE)
-      console.log(this.PATH)
-
     },
   },
   async mounted() {

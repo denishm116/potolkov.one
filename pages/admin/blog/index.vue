@@ -178,32 +178,36 @@
             <v-col>
               Категория
               <v-row>
-                <v-col v-for="(catalog, index) in CEILING_CATALOG" :key="index">
-                  <v-checkbox
-                    :label="catalog.title"
-                    :value="catalog.id"
+                <v-col  v-for="(catalog, index) in CEILING_CATALOG" :key="index" md="3">
+                  <v-sheet
+                    color="white"
+                    elevation="5"
+                    class="pa-2"
+                  >
+                    <v-checkbox
+                      :label="catalog.title"
+                      :value="catalog.id"
 
-                    :key="index"
-                    v-model="newArticle.catalogs"
+                      :key="index"
+                      v-model="formData.catalogs"
 
-                  ></v-checkbox>
-                </v-col>
-              </v-row>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col>
-              Потолок
-              <v-row>
-                <v-col v-for="(ceiling, index) in CEILINGS" :key="index">
-                  <v-checkbox
-                    :label="ceiling.title"
-                    :value="ceiling.id"
+                    ></v-checkbox>
+                    <v-row v-if="catalog.ceilings.length">
+                      <v-subheader>Потолки в категории {{catalog.title}}
+                      </v-subheader>
+                      <v-col v-for="(ceiling, index) in catalog.ceilings" :key="index">
+                        <v-checkbox
+                          :label="ceiling.title"
+                          :value="ceiling.id"
 
-                    :key="index"
-                    v-model="newArticle.ceilings"
-                    @change="textChange"
-                  ></v-checkbox>
+                          :key="index"
+                          v-model="formData.ceilings"
+                          @change="textChange"
+                        ></v-checkbox>
+                      </v-col>
+
+                    </v-row>
+                  </v-sheet>
                 </v-col>
               </v-row>
             </v-col>

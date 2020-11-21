@@ -1,7 +1,7 @@
 <template>
-  <section class="info">
+  <section>
     <div class='container'>
-      <h2 class="price__title title">
+      <h2 class="price__title  my-title">
         Выберите помещение
       </h2>
       <div class="info__row">

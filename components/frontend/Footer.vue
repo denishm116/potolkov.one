@@ -68,7 +68,47 @@
 </template>
 
 <script>
-export default {}
+export default {
+  head() {
+    return {
+    __dangerouslyDisableSanitizers: ["script"],
+    script: [
+      {
+        innerHTML: JSON.stringify(this.structuredData),
+        type: "application/ld+json",
+        body: true
+      }
+    ]
+    }
+  },
+
+  data() {
+    return {
+      structuredData:  {
+        "@context": "http://schema.org",
+        "@type": "Organization",
+        "name" : "Господин Потолков",
+        "alternateName": "Натяжнае потолки - Господин Потолков",
+        "description": "Натяжные потолки в Краснодаре от 260 р.",
+        "url": "https://potolkov.shop",
+        "email": "info@potolkov.shop",
+        "legalName": "И.П. Завадская Ю.А.",
+        "logo": "https://potolkov.shop/logo.png",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "RU",
+          "addressLocality": "Краснодар",
+          "addressRegion": "Краснодарский край",
+          "postalCode": "350000",
+          "streetAddress": "ул. им. 40-летия Победы, 33/6"
+        },
+        "telephone": "+7 (999) 631-45-41",
+        "sameAs" : ["https://vk.com/potolki_eysk", "https://ok.ru/profile/561793328279",
+          "https://www.instagram.com/gospodinpotolkov/", "https://www.facebook.com/profile.php?id=100033774094645"]
+      }
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -127,111 +167,3 @@ export default {}
   flex-wrap: wrap;
 }
 </style>
-
-<!--      <div class='container'>-->
-<!--        <div class="footer__wrap">-->
-<!--          -->
-<!--        </div>-->
-<!--        <div class="footer__body">-->
-<!--          <div class="footer__column">-->
-<!--            <h3 class="footer__title">По фактуре</h3>-->
-<!--            <ul class="footer__list">-->
-<!--              <li>-->
-<!--                <a href="" class="footer__link">-->
-<!--                  Матовые-->
-<!--                </a>-->
-<!--              </li>-->
-<!--              <li>-->
-<!--                <a href="" class="footer__link">-->
-<!--                  Сатиновые-->
-<!--                </a>-->
-<!--              </li>-->
-<!--              <li>-->
-<!--                <a href="" class="footer__link">-->
-<!--                  Глянцевые-->
-<!--                </a>-->
-<!--              </li>-->
-<!--              <li>-->
-<!--                <a href="" class="footer__link">-->
-<!--                  Тканевые-->
-<!--                </a>-->
-<!--              </li>-->
-<!--            </ul>-->
-<!--          </div>-->
-<!--          <div class="footer__column">-->
-<!--            <h3 class="footer__title">По фактуре</h3>-->
-<!--            <ul class="footer__list">-->
-<!--              <li>-->
-<!--                <a href="" class="footer__link">-->
-<!--                  Матовые-->
-<!--                </a>-->
-<!--              </li>-->
-<!--              <li>-->
-<!--                <a href="" class="footer__link">-->
-<!--                  Сатиновые-->
-<!--                </a>-->
-<!--              </li>-->
-<!--              <li>-->
-<!--                <a href="" class="footer__link">-->
-<!--                  Глянцевые-->
-<!--                </a>-->
-<!--              </li>-->
-<!--              <li>-->
-<!--                <a href="" class="footer__link">-->
-<!--                  Тканевые-->
-<!--                </a>-->
-<!--              </li>-->
-<!--            </ul>-->
-<!--          </div>-->
-<!--          <div class="footer__column">-->
-<!--            <h3 class="footer__title">По фактуре</h3>-->
-<!--            <ul class="footer__list">-->
-<!--              <li>-->
-<!--                <a href="" class="footer__link">-->
-<!--                  Матовые-->
-<!--                </a>-->
-<!--              </li>-->
-<!--              <li>-->
-<!--                <a href="" class="footer__link">-->
-<!--                  Сатиновые-->
-<!--                </a>-->
-<!--              </li>-->
-<!--              <li>-->
-<!--                <a href="" class="footer__link">-->
-<!--                  Глянцевые-->
-<!--                </a>-->
-<!--              </li>-->
-<!--              <li>-->
-<!--                <a href="" class="footer__link">-->
-<!--                  Тканевые-->
-<!--                </a>-->
-<!--              </li>-->
-<!--            </ul>-->
-<!--          </div>-->
-<!--          <div class="footer__column">-->
-<!--            <h3 class="footer__title">По фактуре</h3>-->
-<!--            <ul class="footer__list">-->
-<!--              <li>-->
-<!--                <a href="" class="footer__link">-->
-<!--                  Матовые-->
-<!--                </a>-->
-<!--              </li>-->
-<!--              <li>-->
-<!--                <a href="" class="footer__link">-->
-<!--                  Сатиновые-->
-<!--                </a>-->
-<!--              </li>-->
-<!--              <li>-->
-<!--                <a href="" class="footer__link">-->
-<!--                  Глянцевые-->
-<!--                </a>-->
-<!--              </li>-->
-<!--              <li>-->
-<!--                <a href="" class="footer__link">-->
-<!--                  Тканевые-->
-<!--                </a>-->
-<!--              </li>-->
-<!--            </ul>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->

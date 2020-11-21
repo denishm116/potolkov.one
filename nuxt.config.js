@@ -52,8 +52,8 @@ export default {
       }
     },
     redirect: {
-      login: '/auth/login',
-      home: '/',
+      login: '/login',
+      home: '/admin',
     },
   },
   components: true,
@@ -64,7 +64,6 @@ export default {
   ],
 
   modules: [
-
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/auth',

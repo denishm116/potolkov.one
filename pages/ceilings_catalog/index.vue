@@ -1,17 +1,12 @@
 <template>
   <section class="catalog">
     <div class='container'>
-      <nav class="breadcrumbs">
-        <ul class="breadcrumbs__list">
-          <li>
-            <a href="" class="breadcrumbs__link">Главная</a>
-          </li>
-          <li>
-            <span>Каталог натяжных потолков</span>
-          </li>
-        </ul>
-      </nav>
-      <h2 class="catalog__title title">Каталог натяжных потолков</h2>
+
+      <v-breadcrumbs
+        :second="{name: 'Каталог натяжных потолков', to: false, active: false}"
+      ></v-breadcrumbs>
+
+      <h1 class="catalog__title my-title">Каталог натяжных потолков</h1>
       <p class="catalog__text">
         На сегодняшний день существует огромнейший выбор натяжных потолков на любой вкус и кошелек, и мы, компания
         "Господин Потолков", можем предложить Вам любое решение из существующих. Это и классические
@@ -28,7 +23,7 @@
               <img v-if="catalog.images.length" :src="PATH + catalog.mainImage" alt=""/>
             </nuxt-link>
 
-            <a href="#" class="catalog__item-title">{{ catalog.title }}</a>
+            <nuxt-link :to="'/ceilings_catalog/' + catalog.slug" class="catalog__item-title">{{ catalog.title }}</nuxt-link>
           </div>
 
         </div>
@@ -44,15 +39,81 @@
 </template>
 
 <script>
+
 import {mapGetters, mapActions} from 'vuex'
+import vBreadcrumbs from '@/components/frontend/partials/vBreadcrumbs'
 
 export default {
+
+  head() {
+    return {
+      title: 'Каталог натяжных потолков - Господин Потолков',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Каталог натяжных потолков - Компания Господин Потолков предлагает натяжные потолки в Краснодаре от 260 р. с установкой!'
+        },
+        {
+          'property':  'og:type',
+          'content':  'website',
+        },
+        {
+          'property':  'og:url',
+          'content':  `https://potolkov.shop${this.$route.path}`,
+        },
+        {
+          'property':  'og:title',
+          'content':  'Натяжные потолки в Краснодаре от 260 р. - Господин Потолков',
+        },
+        {
+          'property':  'og:description',
+          'content': 'Компания Господин Потолков предлагает натяжные потолки в Краснодаре от 260 р. с установкой! 10 лет гарантии. Бесплатный замер.',
+        },
+        {
+          'property':  'og:site_name',
+          'content': 'potolkov.shop',
+        },
+        {
+          'property':  'og:locale',
+          'content': 'ru_RU',
+        },
+        {
+          'property':  'og:image',
+          'content': 'https://potolkov.shop/site-screen.jpg'
+        },
+        {
+          'property':  'og:image:alt',
+          'content': 'Натяжные потолки в Краснодаре от 260 р. - Господин Потолков'
+        },
+        {
+          'name':  'twitter:card',
+          'content': 'summary_large_image'
+        },
+        {
+          'name':  'twitter:title',
+          'content': 'Натяжные потолки в Краснодаре от 260 р. - Господин Потолков'
+        },
+        {
+          'name':  'twitter:description',
+          'content': 'Компания Господин Потолков предлагает натяжные потолки в Краснодаре от 260 р. с установкой! 10 лет гарантии. Бесплатный замер.'
+        },
+        {
+          'name':  'twitter:image:src',
+          'content': 'https://potolkov.shop/site-screen.jpg'
+        },
+
+      ]
+    }
+  },
+
   data() {
     return {
       articles: [],
       ourObjects: []
     }
   },
+
   computed: {
     ...mapGetters({
       PATH: 'frontend/PATH',
@@ -60,16 +121,22 @@ export default {
     }),
 
   },
+
   methods: {
     ...mapActions({
       FETCH_CEILING_CATALOG: 'frontend/fetchCeilingCatalog',
     }),
   },
+
   async mounted() {
     await this.FETCH_CEILING_CATALOG()
     this.ourObjects = await this.$axios.$get('frontend/ourObjects')
     this.articles = await this.$axios.$get('frontend/articles')
-   }
+   },
+
+  components: {
+    vBreadcrumbs
+  }
 }
 </script>
 

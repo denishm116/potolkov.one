@@ -22,9 +22,11 @@
     props: [
       'items', 'slug', 'addingItem', 'catalog'
     ],
+
     components: {
       AddImageComponent, CategoryItemForms
     },
+
     data() {
       return {
         newItem: {
@@ -38,6 +40,7 @@
         clrForm: true,
       }
     },
+
     methods: {
       savedObj() {
         this.$emit('savedObject')
@@ -46,7 +49,6 @@
         this.$emit('fetchItems')
       },
       saveCategory() {
-
         try {
           this.$store.dispatch('catalogItems/' + this.addingItem,  this.newItem)
           this.fetchItems()

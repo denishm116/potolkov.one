@@ -4,14 +4,14 @@
       <nav class="breadcrumbs">
         <ul class="breadcrumbs__list">
           <li>
-            <a href="" class="breadcrumbs__link">Главная</a>
+            <a href="/" class="breadcrumbs__link">Главная</a>
           </li>
           <li>
             <span>Цены на натяжные потолки и услуги</span>
           </li>
         </ul>
       </nav>
-      <h1 class="table__title title">
+      <h1 class="table__title my-title">
         Цены на натяжные потолки и услуги
       </h1>
 

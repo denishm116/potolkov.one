@@ -5,14 +5,14 @@
         <nav class="breadcrumbs">
           <ul class="breadcrumbs__list">
             <li>
-              <a href="" class="breadcrumbs__link">Главная</a>
+              <a href="/" class="breadcrumbs__link">Главная</a>
             </li>
             <li>
               <span>Ремонт натяжных потолков.</span>
             </li>
           </ul>
         </nav>
-        <h2 class="article__title title">
+        <h2 class="article__title my-title">
           Ремонт натяжных потолков.
         </h2>
         <div class="article__info">

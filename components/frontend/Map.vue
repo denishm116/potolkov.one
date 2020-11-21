@@ -1,7 +1,7 @@
 <template>
   <section class="map1">
     <div class='container'>
-      <h2 class="map__title title">
+      <h2 class="map__title  my-title">
         МЫ НАХОДИМСЯ
       </h2>
       <div class="map__item">

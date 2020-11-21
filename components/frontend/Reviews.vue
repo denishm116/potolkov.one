@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <div class='container'>
-      <h2 class="about__title title">Что о нас говорят?</h2>
+      <h2 class="about__title  my-title">Что о нас говорят?</h2>
 
       <section class="slider">
         <MySlider
@@ -52,7 +52,7 @@ export default {
     }
   },
    mounted() {
-    console.log(this.$route.query)
+
    }
 
 }

@@ -30,9 +30,11 @@
 
   export default {
     layout: 'admin',
+
     components: {
       CategoryEditor
     },
+
     data() {
       return {
         editedEntity: {
@@ -54,8 +56,8 @@
       }),
 
     },
-    methods: {
 
+    methods: {
       ...mapActions({
         FETCH_CEILING_CATALOG: 'catalog/FETCH_CEILING_CATALOG',
         FETCH_CEILING: 'catalogItems/FETCH_CEILING',
@@ -81,6 +83,7 @@
     async mounted() {
       await this.FETCH_CEILING_CATALOG()
       await this.FETCH_CEILING(this.$route.params.slug)
+      console.log(this.CEILING_CATALOG)
     },
   }
 </script>

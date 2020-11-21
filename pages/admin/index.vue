@@ -4,7 +4,7 @@
     <v-row no-gutters
     >
       <v-col>
-        <span class="grey--text text--darken-3 text-right text-uppercase text-lg-h5 font-weight-bold ">Добавить объект</span>
+        <span class="grey--text text--darken-3 text-right text-uppercase text-lg-h5 font-weight-bold ">Что добавляем?</span>
       </v-col>
       <v-col class="justify-content-end text-right hidden-md-and-down">
         <span class="grey--text text--darken-3 text-lg-subtitle-1">Дата регистрации: {{localeDate}}</span>
@@ -18,18 +18,15 @@
           class="mx-auto"
 
         >
-          <v-subheader>Профиль</v-subheader>
+          <v-subheader>Объекты</v-subheader>
 
 
           <v-card-actions right>
 
-            <v-btn class="ma-5"
-                   color="access accent-4"
-                   @click="saveData()"
-                   :disabled="activeButtonVar"
+            <nuxt-link :to="'/admin/objects'"
             >
-              Сохранить
-            </v-btn>
+              Добавить объект
+            </nuxt-link>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -41,20 +38,17 @@
           class="mx-auto"
 
         >
-          <v-subheader>Дополнительно</v-subheader>
+          <v-subheader>Статьи</v-subheader>
 
-          {{$auth.user}}<br>
-          {{formData}}<br>
-
+<!--          {{$auth.user}}<br>-->
+<!--          {{$auth.loggedIn}}<br>-->
 
           <v-card-actions right>
-            <v-spacer></v-spacer>
-            <v-btn
-              color="access accent-4"
 
+            <nuxt-link :to="'/admin/blog'"
             >
-              Сохранить
-            </v-btn>
+              Добавить статью
+            </nuxt-link>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -78,15 +72,10 @@
     methods: {
       async saveData() {
         const data = await this.$axios.$post('user/update', this.formData)
-        await console.log(data, this.formData)
       },
       activeButton() {
         this.activeButtonVar = false
       }
-    },
-    mounted() {
-
-
     },
     computed: {
       localeDate() {
@@ -99,15 +88,6 @@
         // Вы НЕ должны устанавливать формат даты самостоятельно
         return (new Date()).toLocaleDateString()
       },
-      formData() {
-        return {
-          // status: this.status,
-          // name: this.$auth.user.name,
-          // last_name: this.$auth.user.last_name,
-          // email: this.$auth.user.email,
-          // phone: this.$auth.user.phone,
-        }
-      }
     },
   }
 </script>
@@ -122,11 +102,7 @@
 
   .container {
     margin: 0;
-
     display: flex;
-    /*justify-content: center;*/
-    /*align-items: center;*/
-    /*text-align: center;*/
   }
 
   .title {

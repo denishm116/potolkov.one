@@ -1,7 +1,7 @@
 <template>
   <section class="moments">
     <div class='container'>
-      <h2 class="moments__title title">
+      <h2 class="moments__title  my-title">
         Очень важные моменты
         в нашей работе
       </h2>

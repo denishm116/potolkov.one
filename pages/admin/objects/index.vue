@@ -120,7 +120,6 @@
                     </v-row>
                   </v-sheet>
                 </v-col>
-<!--{{CEILING_CATALOG}}-->
 
               </v-row>
             </v-col>

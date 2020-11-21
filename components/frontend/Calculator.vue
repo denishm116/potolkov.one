@@ -2,75 +2,73 @@
 
   <section class="price">
     <div class='container'>
-      <h2 class="price__title title">
+      <h2 class="price__title  my-title">
         Рассчитайте стоимость Вашего потолка
       </h2>
-      <v-app>
-        <form action="#" class="price__form">
-          <div class="price__row">
-            <div class="price__column">
-              <div class="price__input">
-                <div class="price__input-title">Площадь потолка, м2</div>
-                <input autocomplete="off" type="number" class="input" v-model="square">
-              </div>
+      <form action="#" class="price__form">
+        <div class="price__row">
+          <div class="price__column">
+            <div class="price__input">
+              <div class="price__input-title">Площадь потолка, м2</div>
+              <input autocomplete="off" type="number" class="input" v-model="square">
             </div>
-            <div class="price__column">
-              <div class="price__input">
-                <div class="price__input-title">Количество углов</div>
-                <input autocomplete="off" type="number" class="input" v-model="corners">
-              </div>
+          </div>
+          <div class="price__column">
+            <div class="price__input">
+              <div class="price__input-title">Количество углов</div>
+              <input autocomplete="off" type="number" class="input" v-model="corners">
             </div>
-            <div class="price__column">
-              <div class="price__input">
-                <div class="price__input-title">Кол-во точек света</div>
-                <input autocomplete="off" type="number" class="input" v-model="lightnings">
-              </div>
+          </div>
+          <div class="price__column">
+            <div class="price__input">
+              <div class="price__input-title">Кол-во точек света</div>
+              <input autocomplete="off" type="number" class="input" v-model="lightnings">
             </div>
-            <div class="price__column">
-              <div class="price__input">
-                <div class="price__input-title">Карниз для штор (метры)</div>
-                <input autocomplete="off" type="number" class="input" v-model="rails">
-              </div>
+          </div>
+          <div class="price__column">
+            <div class="price__input">
+              <div class="price__input-title">Карниз для штор (метры)</div>
+              <input autocomplete="off" type="number" class="input" v-model="rails">
+            </div>
+          </div>
+        </div>
+
+        <div class="price__row options">
+
+          <div class="price__column">
+            <div class="price__form-title">Максимальная ширина потолка</div>
+          </div>
+
+          <div class="price__column" v-for="(item, index) in width">
+            <div class="option" :class="{'active': width[index].active}" @click="changeWidth(index)">
+              {{ item.title }}
             </div>
           </div>
 
-          <div class="price__row options">
 
-            <div class="price__column">
-              <div class="price__form-title">Максимальная ширина потолка</div>
+        </div>
+
+
+        <div class="price__row options">
+          <div class="price__column">
+            <div class="price__form-title">Цвет</div>
+          </div>
+          <div class="price__column" v-for="(item, index) in color">
+            <div class="option" :class="{'active': color[index].active}" @click="changeColor(index)">
+              {{ item.title }}
             </div>
-
-            <div class="price__column" v-for="(item, index) in width">
-              <div class="option" :class="{'active': width[index].active}" @click="changeWidth(index)">
-                {{ item.title }}
-              </div>
-            </div>
-
-
           </div>
 
+          <button class="price__form-btn btn" @click.prevent="calculate">Рассчитать</button>
+        </div>
+      </form>
 
-          <div class="price__row options">
-            <div class="price__column">
-              <div class="price__form-title">Цвет</div>
-            </div>
-            <div class="price__column" v-for="(item, index) in color">
-              <div class="option" :class="{'active': color[index].active}" @click="changeColor(index)">
-                {{ item.title }}
-              </div>
-            </div>
-
-            <button class="price__form-btn btn" @click.prevent="calculate">Рассчитать</button>
-          </div>
-        </form>
-      </v-app>
     </div>
     <v-dialog
       v-model="dialog"
       max-width="500"
     >
       <v-card>
-
 
         <v-card-title class="headline">
           <span>Стоимость</span>
@@ -100,21 +98,32 @@
         <v-card-actions>
 
           <div class="form__num popup_submit_button">
-            <input type="tel" placeholder="Ваш номер телефона" class="input" @input="errorMessage = ''" v-model="phone">
-            <button class="form__btn btn" @click="order">Бесплатный замер</button>
+            <vPhoneInput @putPhone="getPhone"></vPhoneInput>
+            <button class="form__btn btn" @click="sendFormData">Бесплатный замер</button>
           </div>
 
         </v-card-actions>
       </v-card>
+      <emailSender  :formData="formData"></emailSender>
     </v-dialog>
   </section>
 
 </template>
 
 <script>
+import emailSender from '@/components/frontend/partials/emailSender'
+import vPhoneInput from '@/components/frontend/partials/vPhoneInput'
+import vBreadcrumbs from '@/components/frontend/partials/vBreadcrumbs'
+
 export default {
+
+  components: {
+    emailSender, vPhoneInput, vBreadcrumbs
+  },
+
   data() {
     return {
+      formData: {},
       phone: '',
       errorMessage: '',
       dialog: false,
@@ -163,11 +172,15 @@ export default {
 
     }
   },
-  computed: {},
   methods: {
-    order() {
-      if (!this.phone) {
-  this.errorMessage = 'Введите номер телефона. \n Компания "Господин Потолков" гарантирует конфиденциальность Ваших персональных данных.'
+    getPhone(phone) {
+      this.phone = phone
+    },
+    sendFormData() {
+      this.formData = {
+        userName: 'Неизвестно',
+        phone: this.phone,
+        formName: 'Большой калькулятор',
       }
     },
     calculate() {
@@ -237,12 +250,6 @@ export default {
       })
     },
   },
-  mounted() {
-    // for (let i = 0; i < this.$el.getElementsByClassName('v-application--wrap').length; i++) {
-    //   this.$el.getElementsByClassName('v-application--wrap')[i].style = "min-height: 0;"
-    // }
-
-  }
 }
 </script>
 
@@ -273,7 +280,7 @@ export default {
 }
 
 .container {
-  max-width: 1370px;
+  max-width: 1270px;
   margin: 0 auto;
   width: 100%;
 }

@@ -1,32 +1,28 @@
 <template>
   <section class="catalog">
     <div class='container'>
-      <nav class="breadcrumbs">
-        <ul class="breadcrumbs__list">
-          <li>
-            <a href="" class="breadcrumbs__link">Главная</a>
-          </li>
-          <li>
-            <span>Хлебные крошки2</span>
-          </li>
-        </ul>
-      </nav>
-      <h2 class="catalog__title title">{{children.title}}</h2>
+
+      <v-breadcrumbs
+        :second="{ name: 'Каталог освещения', to: '/lightnings_catalog', active: true }"
+        :third="{ name: children.title, to: false, active: false }"
+      ></v-breadcrumbs>
+
+      <h1 class="catalog__title my-title">{{ children.title }}</h1>
       <p class="catalog__text">
-        {{children.description}}
+        <span v-html="children.description"></span>
       </p>
       <div class="catalog__row">
         <div class="catalog__column" v-for="(catalog, index) in children.children">
 
           <div class="catalog__item">
-<!--{{catalog}}11-->
+            <!--{{catalog}}11-->
             <nuxt-link :to="$route.params.slug + '/' + catalog.slug" class="catalog__item-photo ibg">
-              <img :src="path " alt=""/>
+              <img :src="PATH + catalog.mainImage " alt=""/>
             </nuxt-link>
 
-            <a href="#" class="catalog__item-title">{{catalog.title}}</a>
+            <nuxt-link :to="$route.params.slug + '/' + catalog.slug" class="catalog__ite my-title">{{ catalog.title }}</nuxt-link>
           </div>
-<!--          <nuxt-child></nuxt-child>-->
+          <!--          <nuxt-child></nuxt-child>-->
         </div>
 
 
@@ -38,38 +34,112 @@
 
 <script>
 
-  export default {
-    data: () => {
-      return {
-        children: [],
-      }
+import {mapGetters} from "vuex";
+import vBreadcrumbs from '@/components/frontend/partials/vBreadcrumbs'
+import Projects from "@/components/frontend/Projects";
+import vReadAlso from "@/components/frontend/partials/vReadAlso";
 
+export default {
+
+  head() {
+    return {
+      title: `${this.asyncCatalog.title} - Господин Потолков`,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.asyncCatalog.title + ' - Компания Господин Потолков предлагает натяжные потолки в Краснодаре от 260 р. с установкой!'
+        },
+        {
+          'property': 'og:type',
+          'content': 'website',
+        },
+        {
+          'property': 'og:url',
+          'content': `https://potolkov.shop${this.$route.path}`,
+        },
+        {
+          'property': 'og:title',
+          'content': 'Натяжные потолки в Краснодаре от 260 р. - Господин Потолков',
+        },
+        {
+          'property': 'og:description',
+          'content': 'Компания Господин Потолков предлагает натяжные потолки в Краснодаре от 260 р. с установкой! 10 лет гарантии. Бесплатный замер.',
+        },
+        {
+          'property': 'og:site_name',
+          'content': 'potolkov.shop',
+        },
+        {
+          'property': 'og:locale',
+          'content': 'ru_RU',
+        },
+        {
+          'property': 'og:image',
+          'content': 'https://potolkov.shop/site-screen.jpg'
+        },
+        {
+          'property': 'og:image:alt',
+          'content': 'Натяжные потолки в Краснодаре от 260 р. - Господин Потолков'
+        },
+        {
+          'name': 'twitter:card',
+          'content': 'summary_large_image'
+        },
+        {
+          'name': 'twitter:title',
+          'content': 'Натяжные потолки в Краснодаре от 260 р. - Господин Потолков'
+        },
+        {
+          'name': 'twitter:description',
+          'content': 'Компания Господин Потолков предлагает натяжные потолки в Краснодаре от 260 р. с установкой! 10 лет гарантии. Бесплатный замер.'
+        },
+        {
+          'name': 'twitter:image:src',
+          'content': 'https://potolkov.shop/site-screen.jpg'
+        },
+      ]
+    }
+  },
+  async asyncData({params, $axios}) {
+    const asyncCatalog = await $axios.$get('frontend/getLightningChildren/' + params.slug)
+    return { asyncCatalog }
+  },
+
+
+  data: () => {
+    return {
+      children: [],
+    }
+  },
+
+  computed: {
+    ...mapGetters({
+      PATH: 'frontend/PATH'
+    }),
+  },
+
+  methods: {
+    async fetchCeiling() {
+      const response = await this.$axios.$get('frontend/getLightningChildren/' + this.$route.params.slug)
+      this.children = response
     },
-    computed: {
+  },
 
-      path() {
-        return process.env.baseURL + 'storage/'
-      }
-    },
-    methods: {
-      async fetchCeiling() {
-        const response = await this.$axios.$get('frontend/getLightningChildren/' + this.$route.params.slug)
-        this.children = response
+  mounted() {
+    this.fetchCeiling()
+  },
 
-      },
-
-    },
-    mounted() {
-      this.fetchCeiling()
-    },
-
+  components: {
+   vBreadcrumbs
   }
+}
 </script>
 
 <style scoped>
-  .container {
-    max-width: 1370px;
-    margin: 0 auto;
-    width: 100%;
-  }
+.container {
+  max-width: 1370px;
+  margin: 0 auto;
+  width: 100%;
+}
 </style>

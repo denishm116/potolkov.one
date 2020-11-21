@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <section>
 
     <div class="slider__block">
 
@@ -70,7 +70,7 @@
         <v-icon dark>mdi-chevron-right</v-icon>
       </v-btn>
     </div>
-  </v-app>
+  </section>
 </template>
 
 <script>
@@ -108,7 +108,9 @@
 </script>
 
 <style scoped>
-
+section {
+  position: relative;
+}
 
 
 

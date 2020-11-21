@@ -16,25 +16,25 @@
                 <th class="text-left">
                   Каталог родитель
                 </th>
-
-
               </tr>
               </thead>
               <tbody>
               <tr
                 v-for="item in items"
-
               >
                 <td>
-
-
                   <a small href="" @click.prevent="itemDelete(item.slug)">
                     <v-icon>mdi-delete</v-icon>
                   </a>
                 </td>
 
-                <td><a :href="item.id">{{ item.title }}</a></td>
-                <td>{{ item.catalog.title }}</td>
+                <td>
+                  <a v-if="item.catalog || item.component_catalog || item.lightning_catalog" :href="slug + item.slug">{{ item.title }}</a>
+                  <a v-else :href="slug + item.id">{{ item.title }}</a>
+                </td>
+                <td v-if="item.catalog">{{ item.catalog.title }}</td>
+                <td v-if="item.component_catalog">{{ item.component_catalog.title }}</td>
+                <td v-if="item.lightning_catalog">{{ item.lightning_catalog.title }}</td>
 
               </tr>
               </tbody>
@@ -95,121 +95,121 @@
 </template>
 
 <script>
-  import {
-    TiptapVuetify,
-    Heading,
-    Bold,
-    Italic,
-    Strike,
-    Underline,
-    Code,
-    Paragraph,
-    BulletList,
-    OrderedList,
-    ListItem,
-    Link,
-    Blockquote,
-    HardBreak,
-    HorizontalRule,
-    History
-  } from 'tiptap-vuetify'
+import {
+  TiptapVuetify,
+  Heading,
+  Bold,
+  Italic,
+  Strike,
+  Underline,
+  Code,
+  Paragraph,
+  BulletList,
+  OrderedList,
+  ListItem,
+  Link,
+  Blockquote,
+  HardBreak,
+  HorizontalRule,
+  History
+} from 'tiptap-vuetify'
 
-  export default {
-    props: [
-      'items', 'slug', 'clrForm', 'catalog'
-    ],
-    components: {
-      TiptapVuetify
+export default {
+  props: [
+    'items', 'slug', 'clrForm', 'catalog'
+  ],
+  components: {
+    TiptapVuetify
+  },
+  data() {
+    return {
+      newItem: {
+        title: '',
+        catalog_id: '',
+        description: '',
+      },
+      extensions: [
+        History,
+        Blockquote,
+        Link,
+        Underline,
+        Strike,
+        Italic,
+        ListItem,
+        BulletList,
+        OrderedList,
+        [
+          Heading,
+          {
+            options: {
+              levels: [1, 2, 3]
+            }
+          }
+        ],
+        Bold,
+        Link,
+        Code,
+        HorizontalRule,
+        Paragraph,
+        HardBreak
+      ],
+    }
+  },
+  methods: {
+    textData() {
+      this.$emit('textData', this.newItem)
     },
-    data() {
-      return {
-        newItem: {
+    fetchItems() {
+      this.$emit('fetchItems')
+    },
+    async itemDelete(slug) {
+      await this.$axios.$delete('/admin/' + this.slug + slug)
+      this.fetchItems()
+    },
+    goTo(slug) {
+      this.$router.push('/admin/' + this.slug + slug)
+    },
+  },
+  computed: {
+    titleErrors() {
+      if (this.errors) return this.errors.title
+    },
+    parent_idErrors() {
+      if (this.errors) return this.errors.parent_id
+    },
+    descriptionErrors() {
+      if (this.errors) return this.errors.description
+    },
+    itemsCatalog() {
+      return Array.from(this.catalog).map(cat => {
+        return {
+          'title': cat.depth ? '--' + cat.title : '' + cat.title,
+          'id': cat.id,
+          'slug': cat.slug,
+        }
+      })
+    },
+  },
+  watch: {
+    clrForm: {
+      immediate: true,
+      deep: true,
+      handler() {
+        this.newItem = {
           title: '',
           catalog_id: '',
           description: '',
-        },
-        extensions: [
-          History,
-          Blockquote,
-          Link,
-          Underline,
-          Strike,
-          Italic,
-          ListItem,
-          BulletList,
-          OrderedList,
-          [
-            Heading,
-            {
-              options: {
-                levels: [1, 2, 3]
-              }
-            }
-          ],
-          Bold,
-          Link,
-          Code,
-          HorizontalRule,
-          Paragraph,
-          HardBreak
-        ],
-      }
-    },
-    methods: {
-      textData() {
-        this.$emit('textData', this.newItem)
-      },
-      fetchItems() {
-        this.$emit('fetchItems')
-      },
-      async itemDelete(slug) {
-        await this.$axios.$delete('/admin/' + this.slug + slug)
-        this.fetchItems()
-      },
-      goTo(slug) {
-        this.$router.push('/admin/' + this.slug + slug)
-      },
-    },
-    computed: {
-      titleErrors() {
-        if (this.errors) return this.errors.title
-      },
-      parent_idErrors() {
-        if (this.errors) return this.errors.parent_id
-      },
-      descriptionErrors() {
-        if (this.errors) return this.errors.description
-      },
-      itemsCatalog() {
-        return Array.from(this.catalog).map(cat => {
-          return {
-            'title': cat.depth ? '--' + cat.title : '' + cat.title,
-            'id': cat.id,
-            'slug': cat.slug,
-          }
-        })
-      },
-    },
-    watch: {
-      clrForm: {
-        immediate: true,
-        deep: true,
-        handler() {
-          this.newItem = {
-            title: '',
-            catalog_id: '',
-            description: '',
-          }
         }
-
       }
-    },
 
-  }
+    }
+  },
+
+}
 </script>
 
 <style scoped>
-  li {
-    list-style-type: none;
-  }
+li {
+  list-style-type: none;
+}
 </style>

@@ -78,18 +78,15 @@
   .sub-header-menu__list {
     transition: all 0.2s ease-out 0s;
     min-width: 300px;
-    /*overflow: hidden;*/
     position: absolute;
-
-
+    top: 62px;
+    left: -15px;
   }
 
   .sub-header-menu__item {
     transition: all 0.2s ease-out 0s;
     z-index: 10;
     max-width: 290px;
-    /*display: block;*/
-
     position: absolute;
 
   }
@@ -97,9 +94,8 @@
   .children_wrapper {
     transition: all 0.2s;
     opacity: 0;
-    /*height: 0px;*/
-
     display: none;
+    margin-left: -23px;
   }
 
   .sub-header-menu__item:hover .children_wrapper {
@@ -116,8 +112,6 @@
   .sub-header-menu__list a {
     color: #fff;
     font-size: 18px;
-    -webkit-transition: all 0.5s;
-    -o-transition: all 0.5s;
     transition: all 0.5s;
   }
 
@@ -134,22 +128,12 @@
     position: absolute;
     right: 25px;
     top: 10px;
-    margin: -8px 0px 0px 0px;
-    -webkit-transition: all 0.3s;
-    -o-transition: all 0.3s;
+    margin: 0px 0px 0px 0px;
     transition: all 0.3s;
     cursor: pointer;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
     display: flex;
     font-size: 0;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
     justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
   }
 
@@ -162,25 +146,18 @@
   }
 
   .sub-header-menu__list li:hover .sub-arrow {
-
-    -webkit-transform: translateX(15px);
-    -ms-transform: translateX(15px);
     transform: translateX(15px);
     transition: all 0.3s;
   }
 
 
   .sub-header-menu__list li .sub-arrow.active {
-    -webkit-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
     transform: rotate(90deg);
   }
 
   .sub-header-menu__link {
     display: block;
     padding: 15px 10px;
-    -webkit-transition: all 0.3s;
-    -o-transition: all 0.3s;
     transition: all 0.3s;
   }
 
@@ -196,11 +173,8 @@
 
 
     .sub-header-menu__list {
-      /*position: static;*/
       opacity: 1;
       display: none;
-      -webkit-transition: all 0s;
-      -o-transition: all 0s;
       transition: all 0s;
       position: relative;
       overflow: hidden;
@@ -234,9 +208,6 @@
 
     }
     .sub-header-menu__list li:hover .sub-arrow {
-
-      -webkit-transform: translateX(0px);
-      -ms-transform: translateX(0px);
       transform: translateX(0px);
       transition: all 0.3s;
     }
@@ -246,7 +217,6 @@
   }
 
   @media (min-width: 1100px) {
-
     .sub-header-menu__list a {
       padding: 10px 10px;
     }
@@ -256,7 +226,7 @@
     }
 
     .sub-header-menu__list li {
-      padding: 10px 0px;
+      padding: 10px 10px;
     }
 
 

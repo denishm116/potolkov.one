@@ -6,6 +6,7 @@
         <div class="header__info">
           Интеллигентный подход к вашему интерьеру
         </div>
+
         <div>
           <ul class="header__social">
             <li>
@@ -90,8 +91,11 @@
         </div>
 
       </div>
+      <div class="up" :style="topArrow" @click="goTop">
 
+      </div>
     </div>
+
   </header>
 </template>
 
@@ -105,7 +109,11 @@ export default {
   },
   data() {
     return {
-
+      topArrow: {
+        top: '-200vh',
+        right: '5vw',
+        opacity: 0,
+      },
       submenu_display: {},
       submenu: false,
       menu_icon_active: false,
@@ -120,7 +128,6 @@ export default {
       header_collapse: {
         transform: 'translateY(0px)'
       },
-
       logoScroll: {
         'header__logo': true,
         'header__logo_scroll': false,
@@ -134,13 +141,26 @@ export default {
       fetchLightningCatalog: 'frontend/fetchLightningCatalog',
       fetchComponentCatalog: 'frontend/fetchComponentCatalog'
     }),
+    goTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    },
     handleScroll(event, el) {
       if (window.scrollY > 50) {
         this.header_collapse.transform = 'translateY(-40%)'
         this.logoScroll['header__logo_scroll'] = true;
+        this.topArrow = {
+          top: '10vh',
+          right: '5vw',
+          opacity: 1,
+        }
       } else {
         this.header_collapse.transform = 'translateY(0)'
         this.logoScroll['header__logo_scroll'] = false;
+        this.topArrow = {
+          top: '-200vh',
+          right: '5vw',
+          opacity: 0,
+        }
       }
     },
     showMenu() {
@@ -275,13 +295,7 @@ export default {
 }
 
 .header__row.fade {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   margin: 0 0 15px auto;
 }
@@ -313,12 +327,6 @@ export default {
 }
 
 .header__row.down {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   display: flex;
   font-size: 0;
   align-items: center;
@@ -335,8 +343,6 @@ export default {
   height: 100vh;
   width: 100%;
   overflow: auto;
-  -webkit-transition: all 0.3s;
-  -o-transition: all 0.3s;
   margin: -200vh 0px 0px 0px;
   transition: all 0.3s;
   padding-top: 140px;
@@ -360,10 +366,6 @@ export default {
 }
 
 .header-menu__list {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
   /*position: relative;*/
 
@@ -407,7 +409,7 @@ export default {
   cursor: pointer;
   display: none;
   position: absolute;
-  top: 1rem;
+  top: 1.5rem;
   right: 0;
 }
 
@@ -460,27 +462,17 @@ export default {
 
 
 .header__btn {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
   font-size: 0;
   font-size: 24px;
   font-family: "Geometria-Medium";
   color: #fff;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   width: 280px;
   height: 50px;
   border: 1px solid #fff;
   border-radius: 50px;
-  -webkit-transition: all 0.3s;
-  -o-transition: all 0.3s;
   transition: all 0.3s;
 }
 
@@ -615,23 +607,13 @@ export default {
     position: absolute;
     right: 10px;
     top: 0px;
-    -webkit-transition: 0.3s all;
-    -o-transition: 0.3s all;
     transition: 0.3s all;
     cursor: pointer;
     width: 50px;
     height: 50px;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
     display: flex;
     font-size: 0;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
     justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
   }
 
@@ -687,17 +669,9 @@ export default {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
     display: flex;
     font-size: 0;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
     justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
     border: 1px solid #ff0000;
     padding: 5px;
@@ -710,10 +684,6 @@ export default {
   }
 
   .header__wrap {
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
     display: flex;
     font-size: 0;
     max-width: 100%;
@@ -888,4 +858,48 @@ export default {
   transition: top 0.2s linear, transform 0.2s ease-in 0.2s;
 }
 
+.up {
+  height: 50px;
+  width: 50px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: -200px;
+  right: 2vw;
+  z-index: 5;
+  cursor: pointer;
+  transition: all 1s ease-out;
+  margin: 100px auto 0px;
+}
+.up:before,
+.up:after {
+  height: 2px;
+  width: 20px;
+  position: absolute;
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  background: red;
+}
+.up:before {
+  content: "";
+  left: 8px;
+  top: 23px;
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+.up:after {
+  content: "";
+  right: 8px;
+  top: 23px;
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
 </style>
