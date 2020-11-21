@@ -14,15 +14,17 @@
                                                          class="social_image"/></a>
             </li>
             <li>
-              <a href="https://ok.ru/profile/561793328279"><img src="~/assets/img/icons/02.svg" alt="Однокласники"  class="social_image"/></a>
+              <a href="https://ok.ru/profile/561793328279"><img src="~/assets/img/icons/02.svg" alt="Однокласники"
+                                                                class="social_image"/></a>
             </li>
             <li>
               <a href="https://www.instagram.com/gospodinpotolkov/"><img src="~/assets/img/icons/03.svg"
-                                                                         alt="instagram"  class="social_image"/></a>
+                                                                         alt="instagram" class="social_image"/></a>
             </li>
             <li>
               <a href="https://www.facebook.com/profile.php?id=100033774094645"><img src="~/assets/img/icons/04.svg"
-                                                                                     alt="Facebook"  class="social_image"/></a>
+                                                                                     alt="Facebook"
+                                                                                     class="social_image"/></a>
             </li>
           </ul>
         </div>
@@ -142,7 +144,7 @@ export default {
       fetchComponentCatalog: 'frontend/fetchComponentCatalog'
     }),
     goTop() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({top: 0, behavior: 'smooth'});
     },
     handleScroll(event, el) {
       if (window.scrollY > 50) {
@@ -249,14 +251,9 @@ export default {
     this.fetchCeilingCatalog()
     this.fetchLightningCatalog()
     this.fetchComponentCatalog()
-
     window.addEventListener('resize', this.mobileStyleToggle);
     this.mobileStyleToggle()
-
-
   },
-
-
 }
 </script>
 
@@ -872,6 +869,7 @@ export default {
   transition: all 1s ease-out;
   margin: 100px auto 0px;
 }
+
 .up:before,
 .up:after {
   height: 2px;
@@ -882,6 +880,7 @@ export default {
   transition: all 0.3s;
   background: red;
 }
+
 .up:before {
   content: "";
   left: 8px;
@@ -892,6 +891,7 @@ export default {
   -o-transform: rotate(-45deg);
   transform: rotate(-45deg);
 }
+
 .up:after {
   content: "";
   right: 8px;

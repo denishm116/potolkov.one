@@ -36,7 +36,7 @@ export default {
     './plugins/scroll',
     { src: './plugins/vuejs-clipper.js', ssr: false },
     { src: './plugins/TiptapVuetify', mode: 'client' },
-    { src: './plugins/ymapPlugin',  ssr: false }
+    { src: './plugins/ymapPlugin',  mode: 'client' }
   ],
   auth: {
     strategies: {
