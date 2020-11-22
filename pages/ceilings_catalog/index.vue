@@ -20,7 +20,7 @@
 
 
             <nuxt-link :to="'/ceilings_catalog/' + catalog.slug" class="catalog__item-photo ibg">
-              <img v-if="catalog.images.length" :src="PATH + catalog.mainImage" alt=""/>
+              <img :src="PATH + catalog.mainImage" alt=""/>
             </nuxt-link>
 
             <nuxt-link :to="'/ceilings_catalog/' + catalog.slug" class="catalog__item-title">{{ catalog.title }}</nuxt-link>

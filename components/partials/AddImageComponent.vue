@@ -56,12 +56,15 @@ export default {
   ],
   data() {
     return {
-      imageData: [],
+      // imageData: ,
       formData: [],
       mainImageRadio: 0,
     }
   },
   computed: {
+    imageData() {
+      return []
+    },
     readyToUpload() {
       if (this.show)
         return this.formData.length
@@ -69,7 +72,7 @@ export default {
   },
   methods: {
 
-    onFileChange(event) {
+    async onFileChange(event) {
       if (event.target.files && event.target.files.length) {
         let files = event.target.files
         for (let i = 0; i < files.length; i++) {
@@ -83,25 +86,28 @@ export default {
             key: i,
           }
           let reader = new FileReader();
-          reader.onload = e => {
+          reader.onload =  (e) =>  {
             temp.uploadFileData = e.target.result;
           };
           reader.readAsDataURL(files[i]);
-          this.formData.push(temp)
-          this.sendImageData()
+          await this.formData.push(temp)
+          setTimeout(this.sendImageData, 1000);
         }
+        // await this.sendImageData
+
       }
-      // setTimeout(, 1000);
+      // setTimeout(this.sendImageData, 1000);
+
     },
 
-    sendImageData() {
+    async sendImageData() {
       for (let prop in this.$refs) {
         if (prop.substr(0, 7) === 'clipper') {
-          const canvas = this.$refs[prop][0].clip()
+          const canvas = await this.$refs[prop][0].clip()
           let main = 0;
           if (+prop.substr(7, 1) === this.mainImageRadio)
             main = 1
-          this.imageData.push(
+          await this.imageData.push(
             {
               image: canvas.toDataURL("image/jpeg", 1),
               main: main

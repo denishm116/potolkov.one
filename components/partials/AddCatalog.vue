@@ -27,7 +27,7 @@ export default {
   },
   data() {
     return {
-
+      images: [],
       activeButtonVar: true,
       clearImageField: true,
       clrForm: true,
@@ -47,22 +47,24 @@ export default {
     fetchCatalog() {
       this.$emit('fetchCatalog')
     },
-   async saveCategory() {
+    async saveCategory() {
       try {
-        await this.$store.dispatch('catalog/' + this.addingCategory,  this.newCategory)
+        await this.$store.dispatch('catalog/' + this.addingCategory, this.newCategory)
         await this.fetchCatalog()
-        window.location.reload(false);
+        // window.location.reload(false);
       } catch (e) {
         return e
       }
     },
-    textData(newCategory) {
-      this.newCategory.title = newCategory.title
-      this.newCategory.parent_id = newCategory.parent_id
-      this.newCategory.description = newCategory.description
+    async textData(newCategory) {
+      this.newCategory.title = await newCategory.title
+      this.newCategory.parent_id = await newCategory.parent_id
+      this.newCategory.description = await newCategory.description
+
+
     },
-    imageData(imageData) {
-      this.newCategory.files = imageData
+   async imageData(imageData) {
+     this.newCategory.files = await imageData
     },
     activeButton() {
       this.activeButtonVar = false
