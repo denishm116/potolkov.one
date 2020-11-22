@@ -8,51 +8,51 @@
       </v-col>
     </v-row>
 
-    <AddCatalog :allCatalog="CEILING_CATALOG" :slug="'catalog/'" :addingCategory="'ADD_CEILING_CATEGORY'" @fetchCatalog="fetchCatalog"></AddCatalog>
+    <AddCatalog :allCatalog="CEILING_CATALOG" :slug="'catalog/'" :addingCategory="'ADD_CEILING_CATEGORY'"
+                @fetchCatalog="fetchCatalog"></AddCatalog>
 
   </div>
 </template>
 
 
 <script>
-  import AddCatalog from "@/components/partials/AddCatalog"
-  import {mapGetters, mapActions} from 'vuex'
+import AddCatalog from "@/components/partials/AddCatalog"
+import {mapGetters, mapActions} from 'vuex'
 
-  export default {
-    layout: 'admin',
-    components: {
+export default {
+  layout: 'admin',
+  components: {
     AddCatalog
-    },
-    data() {
-      return {
-      }
-    },
-    methods: {
-      ...mapActions({
-        FETCH_CEILING_CATALOG: 'catalog/FETCH_CEILING_CATALOG',
-      }),
-      async fetchCatalog() {
-        await this.FETCH_CEILING_CATALOG()
-      }
-    },
-    async mounted() {
-     await this.FETCH_CEILING_CATALOG()
-    },
-    computed: {
-      ...mapGetters({
-        CEILING_CATALOG: 'catalog/CEILING_CATALOG',
-      }),
-    },
-  }
+  },
+  data() {
+    return {}
+  },
+  methods: {
+    ...mapActions({
+      FETCH_CEILING_CATALOG: 'catalog/FETCH_CEILING_CATALOG',
+    }),
+    fetchCatalog() {
+      this.FETCH_CEILING_CATALOG()
+    }
+  },
+  async mounted() {
+    await this.FETCH_CEILING_CATALOG()
+  },
+  computed: {
+    ...mapGetters({
+      CEILING_CATALOG: 'catalog/CEILING_CATALOG',
+    }),
+  },
+}
 </script>
 
 <style scoped>
 
-  .bg-grey {
-    margin: 0;
-    padding: 35px 35px 35px 35px;
-    background-color: rgb(238, 238, 238);
-    min-height: 100vh;
-  }
+.bg-grey {
+  margin: 0;
+  padding: 35px 35px 35px 35px;
+  background-color: rgb(238, 238, 238);
+  min-height: 100vh;
+}
 
 </style>

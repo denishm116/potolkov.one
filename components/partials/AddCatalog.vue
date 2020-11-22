@@ -45,7 +45,7 @@
       async saveCategory() {
         try {
           await this.$store.dispatch('catalog/' + this.addingCategory,  this.newCategory)
-          await this.fetchCatalog()
+          this.fetchCatalog()
           // window.location.reload(false);
         } catch (e) {
           return e
