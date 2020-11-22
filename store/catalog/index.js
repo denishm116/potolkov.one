@@ -43,7 +43,7 @@ export const actions = {
   },
   async ADD_CEILING_CATEGORY({commit, dispatch}, params) {
     try {
-      await this.$axios.$post('admin/catalog', params)
+      const ceiling_category = await this.$axios.$post('admin/catalog', params)
       dispatch('FETCH_CEILING_CATALOG')
     } catch (e) {
       return e

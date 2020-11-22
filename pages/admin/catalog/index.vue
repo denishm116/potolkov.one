@@ -31,12 +31,12 @@
       ...mapActions({
         FETCH_CEILING_CATALOG: 'catalog/FETCH_CEILING_CATALOG',
       }),
-      fetchCatalog() {
-        this.FETCH_CEILING_CATALOG()
+      async fetchCatalog() {
+        await this.FETCH_CEILING_CATALOG()
       }
     },
-    mounted() {
-      this.FETCH_CEILING_CATALOG()
+    async mounted() {
+     await this.FETCH_CEILING_CATALOG()
     },
     computed: {
       ...mapGetters({
