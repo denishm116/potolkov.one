@@ -44,8 +44,10 @@
       },
       async saveCategory() {
         try {
-          await this.$store.dispatch('catalog/' + this.addingCategory,  this.newCategory)
-          await this.fetchCatalog()
+          console.log(this.addingCategory)
+          console.log(this.newCategory)
+          // await this.$store.dispatch('catalog/' + this.addingCategory,  this.newCategory)
+          // await this.fetchCatalog()
           // window.location.reload(false);
         } catch (e) {
           return e
