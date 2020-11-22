@@ -68,25 +68,8 @@ export default {
     },
   },
   methods: {
-   sendImageData() {
-      for (let prop in this.$refs) {
-        if (prop.substr(0, 7) === 'clipper') {
-          const canvas = this.$refs[prop][0].clip()
-          let main = 0;
-          if (+prop.substr(7, 1) === this.mainImageRadio)
-            main = 1
-          this.imageData.push(
-            {
-              image: canvas.toDataURL("image/jpeg", 1),
-              main: main
-            }
-          )
-        }
-      }
-    this.$emit('imageData', this.imageData)
 
-    },
-  onFileChange(event) {
+    onFileChange(event) {
       if (event.target.files && event.target.files.length) {
         let files = event.target.files
         for (let i = 0; i < files.length; i++) {
@@ -104,11 +87,31 @@ export default {
             temp.uploadFileData = e.target.result;
           };
           reader.readAsDataURL(files[i]);
-        this.formData.push(temp)
+          this.formData.push(temp)
+          this.sendImageData()
         }
       }
-     setTimeout(this.sendImageData, 1000);
+      // setTimeout(, 1000);
     },
+
+    sendImageData() {
+      for (let prop in this.$refs) {
+        if (prop.substr(0, 7) === 'clipper') {
+          const canvas = this.$refs[prop][0].clip()
+          let main = 0;
+          if (+prop.substr(7, 1) === this.mainImageRadio)
+            main = 1
+          this.imageData.push(
+            {
+              image: canvas.toDataURL("image/jpeg", 1),
+              main: main
+            }
+          )
+        }
+      }
+    this.$emit('imageData', this.imageData)
+    },
+
 
     onButtonClick() {
       this.$refs.fupload.click();

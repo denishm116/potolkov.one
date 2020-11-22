@@ -14,56 +14,61 @@
 </template>
 
 <script>
-  import AddImageComponent from "@/components/partials/AddImageComponent"
-  import CategoryForms from "@/components/partials/CategoryForms"
+import AddImageComponent from "@/components/partials/AddImageComponent"
+import CategoryForms from "@/components/partials/CategoryForms"
 
-  export default {
+export default {
 
-    props: [
-      'allCatalog', 'slug', 'addingCategory'
-    ],
-    components: {
-      AddImageComponent, CategoryForms
-    },
-    data() {
+  props: [
+    'allCatalog', 'slug', 'addingCategory'
+  ],
+  components: {
+    AddImageComponent, CategoryForms
+  },
+  data() {
+    return {
+
+      activeButtonVar: true,
+      clearImageField: true,
+      clrForm: true,
+    }
+  },
+  computed: {
+    newCategory() {
       return {
-        newCategory: {
-          title: '',
-          parent_id: '',
-          description: '',
-          files: ''
-        },
-        activeButtonVar: true,
-        clearImageField: true,
-        clrForm: true,
+        title: '',
+        parent_id: '',
+        description: '',
+        files: ''
       }
     },
-    methods: {
-      fetchCatalog() {
-        this.$emit('fetchCatalog')
-      },
-      async saveCategory() {
-        try {
-          console.log(this.addingCategory)
-          console.log(this.newCategory)
-          // await this.$store.dispatch('catalog/' + this.addingCategory,  this.newCategory)
-          // await this.fetchCatalog()
-          // window.location.reload(false);
-        } catch (e) {
-          return e
-        }
-      },
-      imageData(imageData) {
-        this.newCategory.files = imageData
-      },
-      textData(newCategory) {
-        this.newCategory = newCategory
-      },
-      activeButton() {
-        this.activeButtonVar = false
-      },
-    }
+  },
+  methods: {
+    fetchCatalog() {
+      this.$emit('fetchCatalog')
+    },
+   async saveCategory() {
+      try {
+        await this.$store.dispatch('catalog/' + this.addingCategory,  this.newCategory)
+        await this.fetchCatalog()
+        window.location.reload(false);
+      } catch (e) {
+        return e
+      }
+    },
+    textData(newCategory) {
+      this.newCategory.title = newCategory.title
+      this.newCategory.parent_id = newCategory.parent_id
+      this.newCategory.description = newCategory.description
+    },
+    imageData(imageData) {
+      this.newCategory.files = imageData
+    },
+    activeButton() {
+      this.activeButtonVar = false
+    },
   }
+}
 </script>
 
 <style scoped>
