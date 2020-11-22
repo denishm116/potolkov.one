@@ -26,7 +26,7 @@
           <div>
 
 
-            <a href="https://www.instagram.com/gospodinpotolkov/"><img src="~/assets/img/icons/03.svg"
+            <a href="https://instagram.com/potolki_eysk_?igshid=1ai2ibcsrf6mi"><img src="~/assets/img/icons/03.svg"
                                                                        alt="instagram" class="social_image"/></a>
           </div>
           <div>
@@ -104,7 +104,7 @@ export default {
         },
         "telephone": "+7 (999) 631-45-41",
         "sameAs" : ["https://vk.com/potolki_eysk", "https://ok.ru/profile/561793328279",
-          "https://www.instagram.com/gospodinpotolkov/", "https://www.facebook.com/profile.php?id=100033774094645"]
+          "https://instagram.com/potolki_eysk_?igshid=1ai2ibcsrf6mi", "https://www.facebook.com/profile.php?id=100033774094645"]
       }
     }
   }

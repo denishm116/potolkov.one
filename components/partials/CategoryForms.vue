@@ -31,7 +31,7 @@
                 <td>
 
 
-                  <a small href="" @click.prevent="itemDelete(item.id)">
+                  <a small href="" @click.prevent="itemDelete(item.slug ? item.slug : item.id)">
                     <v-icon>mdi-delete</v-icon>
                   </a>
                 </td>
@@ -184,6 +184,7 @@
         this.fetchCatalog()
       },
       async itemDelete(slug) {
+        console.log('/admin/' + this.slug + slug)
         await this.$axios.$delete('/admin/' + this.slug + slug)
         this.fetchCatalog()
       },

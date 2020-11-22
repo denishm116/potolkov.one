@@ -18,7 +18,7 @@
                                                                 class="social_image"/></a>
             </li>
             <li>
-              <a href="https://www.instagram.com/gospodinpotolkov/"><img src="~/assets/img/icons/03.svg"
+              <a href="https://instagram.com/potolki_eysk_?igshid=1ai2ibcsrf6mi"><img src="~/assets/img/icons/03.svg"
                                                                          alt="instagram" class="social_image"/></a>
             </li>
             <li>
