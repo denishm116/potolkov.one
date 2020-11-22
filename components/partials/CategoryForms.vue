@@ -184,7 +184,6 @@
         this.fetchCatalog()
       },
       async itemDelete(slug) {
-        console.log('/admin/' + this.slug + slug)
         await this.$axios.$delete('/admin/' + this.slug + slug)
         this.fetchCatalog()
       },
