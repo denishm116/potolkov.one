@@ -78,10 +78,10 @@
       }
 
     },
-    mounted() {
-      this.FETCH_LIGHTNING_CATALOG()
-      this.FETCH_LIGHTNING_CATALOG_ITEM(this.$route.params.slug)
-
+    async mounted() {
+      await this.FETCH_LIGHTNING_CATALOG()
+      await this.FETCH_LIGHTNING_CATALOG_ITEM(this.$route.params.slug)
+console.log(this.LIGHTNING_CATALOG_ITEM)
     },
   }
 </script>

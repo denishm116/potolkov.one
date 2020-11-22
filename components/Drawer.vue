@@ -124,7 +124,7 @@ export default {
       {
         title: 'Каталог комплектующих',
         icon: 'mdi-check-all',
-        to: '/admin/component_catalog',
+        to: '/admin/component_catalog/',
         can: 'Admin'
       },
       {
