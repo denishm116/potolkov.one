@@ -91,12 +91,12 @@ export default {
           };
           reader.readAsDataURL(files[i]);
           await this.formData.push(temp)
-          // setTimeout(this.sendImageData, 1000);
+          setTimeout(this.sendImageData, 1000);
         }
         // await this.sendImageData
 
       }
-      setTimeout(this.sendImageData, 1000);
+      // setTimeout(this.sendImageData, 1000);
 
     },
 
@@ -114,8 +114,9 @@ export default {
             }
           )
         }
+        this.$emit('imageData', this.imageData)
       }
-    this.$emit('imageData', this.imageData)
+
     },
 
 
