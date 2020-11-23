@@ -51,7 +51,7 @@ export default {
       try {
         await this.$store.dispatch('catalog/' + this.addingCategory, this.newCategory)
         await this.fetchCatalog()
-        // window.location.reload(false);
+        window.location.reload(false);
       } catch (e) {
         return e
       }
