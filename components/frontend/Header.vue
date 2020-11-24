@@ -19,7 +19,8 @@
             </li>
             <li>
               <a href="https://instagram.com/potolki_eysk_?igshid=1ai2ibcsrf6mi"><img src="~/assets/img/icons/03.svg"
-                                                                         alt="instagram" class="social_image"/></a>
+                                                                                      alt="instagram"
+                                                                                      class="social_image"/></a>
             </li>
             <li>
               <a href="https://www.facebook.com/profile.php?id=100033774094645"><img src="~/assets/img/icons/04.svg"
@@ -30,7 +31,7 @@
         </div>
       </div>
 
-      <div class="header__row down">
+      <div class="header__row down" v-bind:style="{ display: displayNone }">
 
         <div class="menu-icon-wrapper" @click="showMenu">
           <div class="menu-icon" :class="{'menu-icon-active': menu_icon_active}"></div>
@@ -44,7 +45,6 @@
 
 
         <div :class="menuBar" :style="menuToggler">
-
 
           <ul class="header-menu__list">
 
@@ -115,6 +115,7 @@ export default {
         top: '-200vh',
         right: '5vw',
         opacity: 0,
+
       },
       submenu_display: {},
       submenu: false,
@@ -133,7 +134,8 @@ export default {
       logoScroll: {
         'header__logo': true,
         'header__logo_scroll': false,
-      }
+      },
+      displayNone: 'none'
     }
 
   },
@@ -177,9 +179,10 @@ export default {
 
     mobileStyleToggle() {
       if (window.innerWidth < 1100) {
+        this.menuToggler.margin = '-100vh 0 0 0'
         this.menuBar["header-menu"] = false
         this.menuBar["mobile-menu"] = true
-        this.menuToggler.margin = '-100vh 0 0 0'
+
       } else {
         this.menuToggler.margin = '0 0 0 0'
         this.menuBar["header-menu"] = true
@@ -248,11 +251,14 @@ export default {
     }
   },
   mounted() {
+    this.displayNone = 'flex'
     this.fetchCeilingCatalog()
     this.fetchLightningCatalog()
     this.fetchComponentCatalog()
     window.addEventListener('resize', this.mobileStyleToggle);
     this.mobileStyleToggle()
+
+
   },
 }
 </script>
@@ -364,8 +370,6 @@ export default {
 
 .header-menu__list {
   display: flex;
-  /*position: relative;*/
-
 }
 
 .header-menu__list > li {
@@ -563,7 +567,6 @@ export default {
     display: block;
     padding: 20px 20px;
     max-width: 700px;
-    /*overflow: hidden;*/
     transition: 0.3s;
   }
 
@@ -748,7 +751,7 @@ export default {
 
 @media (max-width: 380px) {
   .header__info {
-    font-size: 12px;
+    font-size: 10px;
     text-align: left;
     margin-top: -20px;
     padding-top: 10px;
@@ -864,7 +867,7 @@ export default {
   position: fixed;
   top: -200px;
   right: 2vw;
-  z-index: 5;
+  z-index: -1;
   cursor: pointer;
   transition: all 1s ease-out;
   margin: 100px auto 0px;

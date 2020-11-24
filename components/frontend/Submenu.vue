@@ -175,6 +175,7 @@
     .sub-header-menu__list {
       opacity: 1;
       display: none;
+      top: 0;
       transition: all 0s;
       position: relative;
       overflow: hidden;
