@@ -36,6 +36,7 @@
               @handle-large-image-click="handleLargeImageClick"
               @handle-image-swipe="handleImageSwipe"
               @handle-image-loaded="handleImageLoaded"
+
             />
             <img
               v-else
@@ -86,7 +87,7 @@
           </figure>
           <div class="lingallery_thumbnails" v-if="showThumbnails">
             <div class="lingallery_thumbnails_content">
-              <div
+             <div
                 :key="index"
                 class="lingallery_thumbnails_content_elem"
                 v-for="(item, index) in items"

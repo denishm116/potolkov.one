@@ -1,17 +1,39 @@
 <template>
   <section class="catalog">
+    <v-row>
+      <v-col>
+        <div class='container'>
+          <v-breadcrumbs
+            :second="{ name: 'Каталог натяжных потолков', to: '/ceilings_catalog', active: true }"
+            :third="{ name: breadcrumb.title, to: '/ceilings_catalog/' + breadcrumb.path, active: true }"
+            :forth="{ name: child.title, to: false, active: false }"
+          ></v-breadcrumbs>
+
+          <h1 class="catalog__title my-title">{{ child.title }}</h1>
+
+          <div class="cattegory__row">
+            <div class="article__info">
+              <div class="article__photo">
+                <PhotoGallery
+                  :width="width"
+                  :items="items"
+                  :startImage="startImage"
+                  :addons="{ enableLargeView: true }"
+                >
+                </PhotoGallery>
+              </div>
+              <div class="article__info-text">
+                <span v-html="child.description"></span>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </v-col>
+    </v-row>
+
     <div class='container'>
-      <v-breadcrumbs
-        :second="{ name: 'Каталог натяжных потолков', to: '/ceilings_catalog', active: true }"
-        :third="{ name: breadcrumb.title, to: '/ceilings_catalog/' + breadcrumb.path, active: true }"
-        :forth="{ name: child.title, to: false, active: false }"
-      ></v-breadcrumbs>
-
-      <h1 class="catalog__title my-title">{{ child.title }}</h1>
-      <div class="catalog__text">
-        <p v-html="child.description"></p>
-
-      </div>
       <div class="catalog__row">
         <div class="catalog__column" v-for="(ceiling, index) in child.ceilings">
 
@@ -23,12 +45,11 @@
 
             <a :href="$route.params.slug + '/' + ceiling.slug" class="catalog__item-title">{{ ceiling.title }}</a>
           </div>
-
         </div>
       </div>
     </div>
 
-    <projects :ourObjects="ourObjects" :width="1920" :title="'Наши работы'" v-if="ourObjects.length >= 1"></projects>
+    <projects :ourObjects="ourObjects" :width="width" :title="'Наши работы'" v-if="ourObjects.length >= 1"></projects>
 
     <v-read-also :articles="articles"></v-read-also>
   </section>
@@ -104,15 +125,18 @@ export default {
   },
   async asyncData({params, $axios}) {
     const asyncCatalog = await $axios.$get('frontend/getChildren/' + params.slug)
-    return { asyncCatalog }
+    return {asyncCatalog}
   },
 
   data: () => {
     return {
+      width: 1920,
+      items: [{}],
       child: [],
       ourObjects: [],
       articles: [],
-      breadcrumb: {}
+      breadcrumb: {},
+      startImage: 0
     }
   },
 
@@ -133,11 +157,22 @@ export default {
       this.articles = await this.$axios.$get('frontend/articlesForCatalog/' + this.$route.params.slug)
     },
     createBreadcrumb() {
-      let splitedPath = this.$route.path.split('/')
-      this.breadcrumb =  {
-        path: splitedPath[2],
-        title: this.CEILINGS_CATALOG.filter(item => item.slug == splitedPath[2])[0].title,
+      let splittedPath = this.$route.path.split('/')
+      this.breadcrumb = {
+        path: splittedPath[2],
+        title: this.CEILINGS_CATALOG.filter(item => item.slug == splittedPath[2])[0].title,
       }
+    },
+    itemsInit() {
+      this.child.images.forEach((item, index) => {
+        if (item.main) this.startImage = index
+      })
+      this.items = this.child.images.map(item => {
+        return {
+          src: this.PATH + item.path,
+          thumbnail: this.PATH + item.thumb,
+        }
+      })
     }
   },
 
@@ -145,6 +180,7 @@ export default {
     await this.fetchEntity()
     await this.FETCH_CEILINGS_CATALOG
     this.createBreadcrumb()
+    this.itemsInit()
   },
 
   components: {

@@ -18,9 +18,6 @@ export const state = () => ({
     {title: 'Калькулятор стоимости', slug: 'calculator', children: [], src:  require("assets/img/other/02.jpg")},
     {title: 'Отзывы', slug: 'reviews', children: [], src:  require("assets/img/other/06.jpg")},
     {title: 'Часто задаваемые вопросы', slug: 'faq', children: [], src: require("assets/img/other/01.jpg")},
-    // {title: 'Слив воды', slug: 'sliv_vodi', children: [], src:  require("assets/img/other/04.jpg")},
-    // {title: 'Ремонт натяжных потолков', slug: 'remont_potolkov', children: [], src:  require("assets/img/other/05.jpg")},
-
   ],
 
   fotopechat: [

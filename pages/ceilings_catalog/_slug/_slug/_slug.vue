@@ -31,7 +31,7 @@
     </v-row>
 
 
-    <projects :ourObjects="ourObjects" :width="1920" :title="'Наши работы'" v-if="ourObjects.length >= 1"></projects>
+    <projects :ourObjects="ourObjects" :width="width" :title="'Наши работы'" v-if="ourObjects.length >= 1"></projects>
 
     <v-read-also :articles="articles"></v-read-also>
 
@@ -108,7 +108,7 @@ export default {
   },
   async asyncData({params, $axios}) {
     const asyncCatalog = await $axios.$get('frontend/getCeilings/' + params.slug)
-    return { asyncCatalog }
+    return {asyncCatalog}
   },
 
 
@@ -123,6 +123,7 @@ export default {
       articles: [],
       breadcrumbThird: {},
       breadcrumbForth: {},
+      startImage: 0
     }
   },
 
@@ -150,6 +151,9 @@ export default {
       })
     },
     itemsInit() {
+      this.ceiling.images.forEach((item, index) => {
+        if (item.main) this.startImage = index
+      })
       this.items = this.ceiling.images.map(item => {
         return {
           src: this.PATH + item.path,
@@ -158,12 +162,9 @@ export default {
       })
     },
     async fetchEntity() {
-      const ceiling = await this.$axios.$get('frontend/getCeilings/' + this.$route.params.slug)
-      const ourObjects = await this.$axios.$get('frontend/ourObjectsForCeiling/' + this.$route.params.slug)
-      const articles = await this.$axios.$get('frontend/articlesForCeiling/' + this.$route.params.slug)
-      this.ceiling = ceiling
-      this.ourObjects = ourObjects
-      this.articles = articles
+      this.ceiling = await this.$axios.$get('frontend/getCeilings/' + this.$route.params.slug)
+      this.ourObjects = await this.$axios.$get('frontend/ourObjectsForCeiling/' + this.$route.params.slug)
+      this.articles = await this.$axios.$get('frontend/articlesForCeiling/' + this.$route.params.slug)
     },
     ...mapActions({
       FETCH_CEILINGS_CATALOG: 'frontend/fetchCeilingCatalog',

@@ -4,7 +4,7 @@
 
     <div class="projects__row">
       <div class="projects__column">
-        <PhotoGallery :width="width" :items="items" :addons="{ enableLargeView: true }"></PhotoGallery>
+        <PhotoGallery :width="width" :items="items" :addons="{ enableLargeView: true }" class="mx-5"></PhotoGallery>
       </div>
       <div class="projects__column">
         <div class="projects__flex__column">
