@@ -56,62 +56,52 @@ export default {
   ],
   data() {
     return {
-      // imageData: ,
+      imageData: [],
       formData: [],
       mainImageRadio: 0,
     }
   },
   computed: {
-    imageData() {
-      return []
-    },
     readyToUpload() {
       if (this.show)
         return this.formData.length
     },
   },
   methods: {
-
     async onFileChange(event) {
       if (event.target.files && event.target.files.length) {
         let files = event.target.files
         for (let i = 0; i < files.length; i++) {
           let temp = {
-            displayFileName: event.target.files[i].name +
-              " (" +
-              this.calcSize(files[i].size) +
-              "Kb)",
+            displayFileName: " (" + this.calcSize(files[i].size) + "Kb)",
             uploadFileData: '',
             file: files[i],
             key: i,
           }
+          let temp2 = {
+            image: '',
+            main: (this.mainImageRadio === i) ? 1 : 0
+          }
           let reader = new FileReader();
-          reader.onload =  (e) =>  {
+          reader.onload = (e) => {
             temp.uploadFileData = e.target.result;
+            temp2.image = e.target.result;
           };
           reader.readAsDataURL(files[i]);
           await this.formData.push(temp)
+          await this.imageData.push(temp2)
         }
       }
-      setTimeout(this.sendImageData, 1000);
+      this.$emit('imageData', this.imageData)
     },
 
     async sendImageData() {
-      for (let prop in this.$refs) {
-        if (prop.substr(0, 7) === 'clipper') {
-          const canvas = await this.$refs[prop][0].clip()
-          let main = 0;
-          if (+prop.substr(7, 1) === this.mainImageRadio)
-            main = 1
-          await this.imageData.push(
-            {
-              image: canvas.toDataURL("image/jpeg", 1),
-              main: main
-            }
-          )
+      this.imageData = this.imageData.map((item, index) => {
+        return {
+          image: item.image,
+          main: (this.mainImageRadio === index) ? 1 : 0
         }
-
-      }
+      })
       this.$emit('imageData', this.imageData)
     },
 

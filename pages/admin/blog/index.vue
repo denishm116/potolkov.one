@@ -187,26 +187,28 @@
                     <v-checkbox
                       :label="catalog.title"
                       :value="catalog.id"
-
                       :key="index"
-                      v-model="formData.catalogs"
-
+                      v-model="newArticle.catalogs"
+                      @change="textChange"
                     ></v-checkbox>
+
                     <v-row v-if="catalog.ceilings.length">
                       <v-subheader>Потолки в категории {{catalog.title}}
                       </v-subheader>
+
                       <v-col v-for="(ceiling, index) in catalog.ceilings" :key="index">
                         <v-checkbox
                           :label="ceiling.title"
                           :value="ceiling.id"
 
                           :key="index"
-                          v-model="formData.ceilings"
+                          v-model="newArticle.ceilings"
                           @change="textChange"
                         ></v-checkbox>
-                      </v-col>
 
+                      </v-col>
                     </v-row>
+
                   </v-sheet>
                 </v-col>
               </v-row>
@@ -253,7 +255,6 @@ export default {
   layout: 'admin',
   data() {
     return {
-
       disabled: true,
       show: true,
       imageData: [],
@@ -310,8 +311,7 @@ export default {
       this.saveImageData()
       this.newArticle.images = this.imageData
       this.ADD_ARTICLE(this.newArticle)
-      console.log(this.newArticle) //Отправляем на бэк
-      this.newArticle = {
+        this.newArticle = {
         title: '',
         description: '',
         metaDescription: '',
@@ -321,7 +321,6 @@ export default {
       }
       this.imageData = []
       this.formData = []
-
     },
     textChange() {
       this.disabled = false
@@ -331,7 +330,6 @@ export default {
       let titles = []
       let descriptions = []
       let i = 0
-
       for (let title in this.$refs) {
         if (title.substr(0, 5) === 'title') {
           titles.push(this.$refs[title][0].value)
@@ -366,10 +364,7 @@ export default {
         let files = event.target.files
         for (let i = 0; i < files.length; i++) {
           let temp = {
-            displayFileName: event.target.files[i].name +
-              " (" +
-              this.calcSize(files[i].size) +
-              "Kb)",
+            displayFileName:" (" + this.calcSize(files[i].size) + "Kb)",
             uploadFileData: '',
             file: files[i],
             key: i,
@@ -382,7 +377,6 @@ export default {
           this.formData.push(temp)
         }
       }
-      // setTimeout(this.sendImageData, 500);
     },
     onButtonClick() {
       this.$refs.fupload.click();

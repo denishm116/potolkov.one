@@ -22,9 +22,11 @@ export default {
   props: [
     'allCatalog', 'slug', 'addingCategory'
   ],
+
   components: {
     AddImageComponent, CategoryForms
   },
+
   data() {
     return {
       images: [],
@@ -33,6 +35,7 @@ export default {
       clrForm: true,
     }
   },
+
   computed: {
     newCategory() {
       return {
@@ -43,6 +46,7 @@ export default {
       }
     },
   },
+
   methods: {
     fetchCatalog() {
       this.$emit('fetchCatalog')
@@ -60,8 +64,6 @@ export default {
       this.newCategory.title = await newCategory.title
       this.newCategory.parent_id = await newCategory.parent_id
       this.newCategory.description = await newCategory.description
-
-
     },
    async imageData(imageData) {
      this.newCategory.files = await imageData

@@ -36,25 +36,28 @@
       <horizontal-list :items="items" :options="options">
         <template v-slot:default="{item}">
           <div>
+
+
             <div class="aspect r-10-12 border-3 overflow-hidden">
               <div class="relative wh-100 lh-0">
+
                 <img :src="item.image"/>
 
-
-                <div class="bg-overlay absolute-0 wh-100 p-24 flex-end">
+                <div class="bg-overlay absolute-0 wh-100 p-24 flex-end mt-3">
                   <span class="m-0 text-ellipsis-2l text-center white font-weight-bold blog__item-title">{{ item.title }}</span>
                 </div>
               </div>
             </div>
-            <br>
 
-            <p class="mt-4 text-ellipsis-2l">{{ item.content }}</p>
+            <v-divider></v-divider>
+            <p class="text-ellipsis-2l mt-3">{{ item.content }}</p>
+            <v-divider></v-divider>
           </div>
         </template>
       </horizontal-list>
     </section>
 
-    <section class="blog">
+
       <div class='container'>
         <h2 class="blog__title read">
           Читайте так же
@@ -79,7 +82,6 @@
 
         </div>
       </div>
-    </section>
   </div>
 </template>
 
