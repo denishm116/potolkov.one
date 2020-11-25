@@ -87,13 +87,14 @@
           <v-row>
             <v-col>
               Категории
-              <v-row>
+              <v-row  v-for="(catalog, index) in CEILING_CATALOG" :key="index" md="3">
 
-                <v-col  v-for="(catalog, index) in CEILING_CATALOG" :key="index" md="3">
+                <v-col >
                   <v-sheet
                     color="white"
                     elevation="5"
                     class="pa-2"
+                    v-if="catalog.parent_id === null"
                   >
                     <v-checkbox
                       :label="catalog.title"
@@ -101,11 +102,31 @@
 
                       :key="index"
                       v-model="formData.catalogs"
-
                     ></v-checkbox>
+
+                    <v-subheader v-if="catalog.parent_id === null">Подкатегории
+                    </v-subheader>
+                    <v-row v-if="catalog.parent_id === null" >
+
+                      <v-col v-for="(child, index) in catalog.children" :key="index">
+
+                        <v-checkbox
+                          :label="child.title"
+                          :value="child.id"
+
+                          :key="index"
+                          v-model="formData.catalogs"
+                          @change="textChange"
+                        ></v-checkbox>
+                      </v-col>
+
+                    </v-row>
+
+
+                    <v-subheader  v-if="catalog.ceilings.length">Потолки в категории {{catalog.title}}
+                    </v-subheader>
                     <v-row v-if="catalog.ceilings.length">
-                      <v-subheader>Потолки в категории {{catalog.title}}
-                      </v-subheader>
+
                       <v-col v-for="(ceiling, index) in catalog.ceilings" :key="index">
                         <v-checkbox
                           :label="ceiling.title"
