@@ -18,30 +18,24 @@
       </div>
       <div class="main__column">
         <form action="#" class="main__form form">
-          <h3 class="form__title">Узнайте цену на
-            натяжной потолок</h3>
+          <h3 class="form__title">Выберите ширину Вашего потолка</h3>
           <div>
             <v-radio-group
               row
               v-model="radio"
+              @change="calculate"
             >
-              <v-radio
-                label="Матовый"
-                color="red"
-                value="1"
-              ></v-radio>
               <v-spacer></v-spacer>
               <v-radio
-                label="Глянцевый"
+                v-for="ceiling in ceilings"
+                :label="ceiling.title"
                 color="red"
-                value="2"
+                :key="ceiling.id"
+                :value="ceiling.id"
               ></v-radio>
               <v-spacer></v-spacer>
-              <v-radio
-                label="Сатиновый"
-                color="red"
-                value="3"
-              ></v-radio>
+
+
             </v-radio-group>
           </div>
           <h4 class="form__subtitle">
@@ -84,9 +78,9 @@ export default {
     return {
       formData: {},
       active: true,
-      radio: '1',
+      radio: 0,
       quadrature: 10,
-      price: 2800
+      price: 2600
     }
   },
 
@@ -94,17 +88,17 @@ export default {
     ceilings() {
       return [
         {
-          title: 'Матовый',
+          title: 'до 2-х м',
           id: 0,
           active: true
         },
         {
-          title: 'Глянцевый',
+          title: 'от 2-х до 3,6 м',
           id: 1,
           active: false
         },
         {
-          title: 'Сатиновый',
+          title: 'больше 3,6 м',
           id: 2,
           active: false
         },
@@ -133,7 +127,12 @@ export default {
       })
     },
     calculate() {
-      this.price = this.val * 280
+      if (this.radio === 0)
+        this.price = this.quadrature * 260
+      else if (this.radio === 1)
+        this.price = this.quadrature * 280
+      else
+        this.price = this.quadrature * 340
     },
     checked() {
       this.active = !this.active

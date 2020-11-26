@@ -1,36 +1,57 @@
 <template>
   <section class="catalog">
+    <v-row>
+
+    <v-col>
     <div class='container'>
 
       <v-breadcrumbs
         :second="{ name: 'Каталог освещения', to: '/lightnings_catalog', active: true }"
-        :third="{ name: breadcrumb.title, to: '/lightnings_catalog' + breadcrumb.path, active: true }"
+        :third="{ name: breadcrumb.title, to: '/lightnings_catalog/' + breadcrumb.path, active: true }"
         :forth="{ name: children.title, to: false, active: false }"
       ></v-breadcrumbs>
 
       <h1 class="catalog__title my-title">{{ children.title }}</h1>
-      <div class="catalog__text">
-        <p v-html="children.description"></p>
+      <div class="cattegory__row">
+        <div class="article__info">
+          <div class="article__photo">
+            <PhotoGallery
+              v-if="children.images"
+              :width="width"
+              :items="items"
+              :startImage="startImage"
+              :addons="{ enableLargeView: true }"
+            >
+            </PhotoGallery>
+          </div>
+          <div class="article__info-text">
+            <span v-html="children.description"></span>
+          </div>
 
+        </div>
       </div>
+
+
+    </div>
+    </v-col>
+    </v-row>
+
+    <div class='container'>
       <div class="catalog__row">
         <div class="catalog__column" v-for="(ceiling, index) in children.lightnings">
 
           <div class="catalog__item">
-            {{ ceiling }}
-            <nuxt-link :to="$route.params.slug + '/' + ceiling.slug" class="catalog__item-photo ibg">
-              <img :src="PATH + ceiling.mainImage" alt=""/>
-            </nuxt-link>
 
-            <nuxt-link :to="$route.params.slug + '/' + ceiling.slug" class="catalog__item-title">{{ ceiling.title }}</nuxt-link>
+            <a :href="$route.params.slug + '/' + ceiling.slug" class="catalog__item-photo ibg">
+              <img :src="PATH + ceiling.mainImage" :alt="ceiling.title"/>
+            </a>
+
+            <a :href="$route.params.slug + '/' + ceiling.slug" class="catalog__item-title">{{ ceiling.title }}</a>
           </div>
-
         </div>
-
-
       </div>
-
     </div>
+
   </section>
 </template>
 
@@ -110,6 +131,9 @@ export default {
 
   data: () => {
     return {
+      width: 1920,
+      items: [{}],
+      startImage: 0,
       children: [],
       title: '',
       description: '',
@@ -137,7 +161,25 @@ export default {
         path: splitedPath[2],
         title: this.LIGHTNING_CATALOG.filter(item => item.slug == splitedPath[2])[0].title,
       }
-      console.log(this.LIGHTNING_CATALOG)
+    },
+    itemsInit() {
+      if (this.children.images) {
+        this.children.images.forEach((item, index) => {
+          if (item.main) this.startImage = index
+        })
+
+        this.items = this.children.images.map(item => {
+          return {
+            src: (item.path) ? (this.PATH + item.path) : null,
+            thumbnail: this.PATH + item.thumb,
+          }
+        })
+      } else {
+        return {
+          src: '',
+          thumbnail: '',
+        }
+      }
     }
   },
 
@@ -145,6 +187,7 @@ export default {
     await this.fetchCeiling()
     await this.FETCH_LIGHTNING_CATALOG()
     await this.createBreadcrumb()
+    this.itemsInit()
   },
 
   components: {

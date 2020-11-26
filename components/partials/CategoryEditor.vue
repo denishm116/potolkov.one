@@ -215,14 +215,8 @@ export default {
       }
     },
   },
-  async mounted() {
-    await this.test()
-  },
+
   methods: {
-    test() {
-      let a = this.category
-      console.log(a)
-    },
     textChange() {
       this.$emit('textChange', this.editedEntity)
     },
@@ -260,10 +254,7 @@ export default {
         let files = event.target.files
         for (let i = 0; i < files.length; i++) {
           let temp = {
-            displayFileName: event.target.files[i].name +
-              " (" +
-              this.calcSize(files[i].size) +
-              "Kb)",
+            displayFileName: "(" + this.calcSize(files[i].size) + "Kb)",
             uploadFileData: '',
             file: files[i],
             key: i,

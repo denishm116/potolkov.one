@@ -56,6 +56,7 @@ export default {
   ],
   data() {
     return {
+      // trigger: 0,
       imageData: [],
       formData: [],
       mainImageRadio: 0,
@@ -68,41 +69,43 @@ export default {
     },
   },
   methods: {
-    async onFileChange(event) {
+    onFileChange(event) {
       if (event.target.files && event.target.files.length) {
         let files = event.target.files
         for (let i = 0; i < files.length; i++) {
           let temp = {
-            displayFileName: " (" + this.calcSize(files[i].size) + "Kb)",
+            displayFileName: "(" + this.calcSize(files[i].size) + "Kb)",
             uploadFileData: '',
             file: files[i],
             key: i,
           }
-          let temp2 = {
-            image: '',
-            main: (this.mainImageRadio === i) ? 1 : 0
-          }
           let reader = new FileReader();
           reader.onload = (e) => {
             temp.uploadFileData = e.target.result;
-            temp2.image = e.target.result;
           };
           reader.readAsDataURL(files[i]);
-          await this.formData.push(temp)
-          await this.imageData.push(temp2)
+          this.formData.push(temp)
+        }
+      }
+
+    },
+    sendImageData() {
+      let m = 0
+      for (let prop in this.$refs) {
+        if (prop.substr(0, 7) === 'clipper') {
+          const canvas = this.$refs[prop][0].clip()
+          let main = (this.mainImageRadio === m) ? 1 : 0;
+          this.imageData.push(
+            {
+              image: canvas.toDataURL("image/jpeg", 1),
+              main: main
+            }
+          )
+          m++
         }
       }
       this.$emit('imageData', this.imageData)
-    },
-
-    async sendImageData() {
-      this.imageData = this.imageData.map((item, index) => {
-        return {
-          image: item.image,
-          main: (this.mainImageRadio === index) ? 1 : 0
-        }
-      })
-      this.$emit('imageData', this.imageData)
+      this.imageData = []
     },
 
     onButtonClick() {
@@ -112,6 +115,12 @@ export default {
       return Math.round(size / 1024);
     },
   },
+
+  watch: {
+    formData: function () {
+      setTimeout(() => (this.sendImageData()), 500)
+    }
+  }
 
 }
 </script>
