@@ -26,8 +26,7 @@
               <v-row v-if="catalog.parent_id === null">
 
                 <v-col v-for="(child, index) in catalog.children" :key="index">
-                  {{ checkBoxData.catalogs }}
-                  <v-checkbox
+                    <v-checkbox
                     :label="child.title"
                     :value="child.id"
 

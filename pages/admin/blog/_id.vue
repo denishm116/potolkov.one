@@ -234,6 +234,7 @@ import {
 } from 'tiptap-vuetify'
 import {clipperBasic, clipperPreview} from 'vuejs-clipper'
 import {mapGetters, mapActions} from 'vuex'
+import vCatalogCheckBoxes from "@/components/partials/vCatalogCheckBoxes";
 
 export default {
   layout: 'admin',
@@ -421,7 +422,7 @@ export default {
 
 
   components: {
-    TiptapVuetify, clipperBasic, clipperPreview
+    TiptapVuetify, clipperBasic, clipperPreview, vCatalogCheckBoxes
   },
   async mounted() {
     await this.FETCH_ARTICLES()
