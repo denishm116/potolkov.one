@@ -197,20 +197,12 @@
             </v-col>
           </v-row>
 
-          <v-row>
-            <v-col>
-              Категория
-
-
-              <v-catalog-check-boxes
-                :checkedCatalog="catalogCheckBox"
-                :checkedCeilings="ceilingsCheckBox"
-                :ceilingCatalog="CEILING_CATALOG"
-                @checkBoxData="checkBoxData"
-              ></v-catalog-check-boxes>
-
-            </v-col>
-          </v-row>
+          <v-catalog-check-boxes
+            :checkedCatalog="catalogCheckBox"
+            :checkedCeilings="ceilingsCheckBox"
+            :ceilingCatalog="CEILING_CATALOG"
+            @checkBoxData="checkBoxData"
+          ></v-catalog-check-boxes>
 
 
         </v-card>
@@ -420,11 +412,11 @@ export default {
       this.ceilingsCheckBox = article.ceilings.map(item => {
         return item.pivot.articable_id
       })
-       this.catalogCheckBox = article.catalogs.map(item => {
+      this.catalogCheckBox = article.catalogs.map(item => {
         return item.pivot.articable_id
       })
 
-     },
+    },
   },
 
 

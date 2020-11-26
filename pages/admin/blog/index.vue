@@ -174,9 +174,6 @@
             </v-col>
           </v-row>
 
-          <v-row>
-            <v-col>
-              Категория
 
               <v-catalog-check-boxes
                 :ceilingCatalog="CEILING_CATALOG"
@@ -185,8 +182,7 @@
                 @checkBoxData="checkBoxData"
               ></v-catalog-check-boxes>
 
-            </v-col>
-          </v-row>
+
 
         </v-card>
 
