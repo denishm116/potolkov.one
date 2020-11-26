@@ -6,14 +6,17 @@
         :second="{name: 'Каталог освещения', to: false, active: false}"
       ></v-breadcrumbs>
 
-      <h2 class="catalog__title my-title">Светильники для натяжных потолков</h2>
-      <p class="catalog__text">
+      <h2 class="catalog__title my-title">Освещение для натяжных потолков</h2>
+      <div class=" my-5">
+
+      <p class="catalog__text my-5">
         Есть масса способов украсить натяжной потолок. Один из них - это освещение. Еще несколько лет
         назад под освещением воспринималась только люстра, сегодня же, помимо люстры, потолок, и комнату в целом, могут
         украшать: точечные светодиодные светильники (споты),
-        светодиодная подсветка по периметру потолка, и новинка последних сезонов - световые линии.
+        светодиодная подсветка по периметру потолка, и новинка последних сезонов - <a href="https://potolkov.shop/ceilings_catalog/s-podsvetkoi/svetovye-linii-na-natyaznom-potolke"> световые линии </a>.
       </p>
-      <div class="catalog__row">
+      </div>
+      <div class="catalog__row  my-10">
         <div class="catalog__column" v-for="(catalog, index) in lightning_catalog">
           <div class="catalog__item">
             <nuxt-link :to="'/lightnings_catalog/' + catalog.slug" class="catalog__item-photo ibg">
@@ -21,7 +24,7 @@
             </nuxt-link>
             <nuxt-link :to="'/lightnings_catalog/' + catalog.slug" class="catalog__item-title">{{ catalog.title }}</nuxt-link>
           </div>
-          <nuxt-child></nuxt-child>
+
         </div>
       </div>
     </div>

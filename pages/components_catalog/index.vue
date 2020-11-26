@@ -13,7 +13,7 @@
         разделе мы представим комплектующие, необходимые всем. Это потолочные карнизы, скрытые, классические, потолчную
         вставку и т. д.
       </p>
-      <div class="catalog__row">
+      <div class="catalog__row my-10">
         <div class="catalog__column" v-for="(catalog, index) in component_catalog">
           <div class="catalog__item">
 

@@ -14,7 +14,7 @@
         многоуровневые потолки с подсветкой и без, и современные парящие потолки, и резные потолки Apply, и
         технологичные потолки DoubleVision, изображение на которых меняется в зависимости от освещения.
       </p>
-      <div class="catalog__row">
+      <div class="catalog__row mt-10">
         <div class="catalog__column" v-for="(catalog, index) in ceiling_catalog">
           <div class="catalog__item">
 
