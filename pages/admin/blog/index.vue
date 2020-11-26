@@ -177,41 +177,14 @@
           <v-row>
             <v-col>
               Категория
-              <v-row>
-                <v-col  v-for="(catalog, index) in CEILING_CATALOG" :key="index" md="3">
-                  <v-sheet
-                    color="white"
-                    elevation="5"
-                    class="pa-2"
-                  >
-                    <v-checkbox
-                      :label="catalog.title"
-                      :value="catalog.id"
-                      :key="index"
-                      v-model="newArticle.catalogs"
-                      @change="textChange"
-                    ></v-checkbox>
 
-                    <v-row v-if="catalog.ceilings.length">
-                      <v-subheader>Потолки в категории {{catalog.title}}
-                      </v-subheader>
+              <v-catalog-check-boxes
+                :ceilingCatalog="CEILING_CATALOG"
+                :checkedCatalog="newArticle.catalogs"
+                :checkedCeilings="newArticle.ceilings"
+                @checkBoxData="checkBoxData"
+              ></v-catalog-check-boxes>
 
-                      <v-col v-for="(ceiling, index) in catalog.ceilings" :key="index">
-                        <v-checkbox
-                          :label="ceiling.title"
-                          :value="ceiling.id"
-
-                          :key="index"
-                          v-model="newArticle.ceilings"
-                          @change="textChange"
-                        ></v-checkbox>
-
-                      </v-col>
-                    </v-row>
-
-                  </v-sheet>
-                </v-col>
-              </v-row>
             </v-col>
           </v-row>
 
@@ -221,11 +194,12 @@
     </v-row>
     <v-row>
       <v-col>
-        <v-col class="d-flex justify-end">
-          <v-btn @click="saveArticle">Сохранить</v-btn>
+        <v-col class="d-flex justify-start">
+          <v-btn :color="buttonColor" @click="saveArticle">Сохранить</v-btn>
         </v-col>
       </v-col>
     </v-row>
+
   </div>
 </template>
 
@@ -255,6 +229,7 @@ export default {
   layout: 'admin',
   data() {
     return {
+      buttonColor: 'orange',
       disabled: true,
       show: true,
       imageData: [],
@@ -307,20 +282,25 @@ export default {
     },
   },
   methods: {
+    checkBoxData(data) {
+      this.newArticle.catalogs = data.catalogs
+      this.newArticle.ceilings = data.ceilings
+    },
     saveArticle() {
       this.saveImageData()
       this.newArticle.images = this.imageData
       this.ADD_ARTICLE(this.newArticle)
-        this.newArticle = {
-        title: '',
-        description: '',
-        metaDescription: '',
-        images: [],
-        catalogs: [],
-        ceilings: [],
-      }
-      this.imageData = []
-      this.formData = []
+      window.location.reload(false);
+      //   this.newArticle = {
+      //   title: '',
+      //   description: '',
+      //   metaDescription: '',
+      //   images: [],
+      //   catalogs: [],
+      //   ceilings: [],
+      // }
+      // this.imageData = []
+      // this.formData = []
     },
     textChange() {
       this.disabled = false

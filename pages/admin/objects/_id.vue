@@ -5,7 +5,9 @@
     <v-row no-gutters>
       <v-col>
         <span
-          class="grey--text text--darken-3 text-right text-uppercase text-lg-h5 font-weight-bold ">Редактировоать {{ OUR_OBJECT.title }}</span>
+          class="grey--text text--darken-3 text-right text-uppercase text-lg-h5 font-weight-bold ">Редактировоать {{
+            OUR_OBJECT.title
+          }}</span>
       </v-col>
       <v-col class="d-flex justify-end">
         <v-btn :color="buttonColor" :disabled="disabled" @click="saveChanges">Сохранить изменения</v-btn>
@@ -152,53 +154,27 @@
                 </v-col>
               </v-row>
 
-    <v-card-actions>
-      <v-btn
-        color="orange"
-        @click="addImages"
-      >Сохранить
-      </v-btn>
-    </v-card-actions>
+              <v-card-actions>
+                <v-btn
+                  color="orange"
+                  @click="addImages"
+                >Сохранить
+                </v-btn>
+              </v-card-actions>
 
             </v-col>
           </v-row>
 
         </v-col>
       </v-row>
-      <v-row>
-        <v-col>
-          Категория
-          <v-row>
-            <v-col v-for="(catalog, index) in CEILING_CATALOG" :key="index">
-              <v-checkbox
-                :label="catalog.title"
-                :value="catalog.id"
 
-                :key="index"
-                v-model="formData.catalogs"
-                @change="textChange"
-              ></v-checkbox>
-            </v-col>
-          </v-row>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col>
-          Потолок
-          <v-row>
-            <v-col v-for="(ceiling, index) in CEILINGS" :key="index">
-              <v-checkbox
-                :label="ceiling.title"
-                :value="ceiling.id"
+      <v-catalog-check-boxes
+        :checkedCatalog="catalogCheckBox"
+        :checkedCeilings="ceilingsCheckBox"
+        :ceilingCatalog="CEILING_CATALOG"
+        @checkBoxData="checkBoxData"
+      ></v-catalog-check-boxes>
 
-                :key="index"
-                v-model="formData.ceilings"
-                @change="textChange"
-              ></v-checkbox>
-            </v-col>
-          </v-row>
-        </v-col>
-      </v-row>
     </v-card>
   </div>
 </template>
@@ -222,14 +198,17 @@ import {
   HorizontalRule,
   History
 } from 'tiptap-vuetify'
-
 import {mapGetters, mapActions} from 'vuex'
+import vCatalogCheckBoxes from "@/components/partials/vCatalogCheckBoxes";
 
 export default {
+
   components: {
-    TiptapVuetify, clipperBasic, clipperPreview
+    TiptapVuetify, clipperBasic, clipperPreview, vCatalogCheckBoxes
   },
+
   layout: 'admin',
+
   data() {
     return {
       extensions: [
@@ -265,12 +244,17 @@ export default {
       catalogCheckBox: [],
     }
   },
+
   methods: {
+    checkBoxData(data) {
+      this.catalogCheckBox = data.catalogs
+      this.ceilingsCheckBox = data.ceilings
+      this.textChange()
+    },
+
     saveChanges() {
       this.UPDATE_OUR_OBJECT({url: 'admin/ourObject/' + this.$route.params.id, params: this.formData})
       this.FETCH_OUR_OBJECT(this.$route.params.id)
-      this.ceilingsCheckBox = this.formData.ceilings
-      this.catalogCheckBox = this.formData.catalogs
       this.disabled = true
     },
     textChange() {
@@ -381,7 +365,6 @@ export default {
     await this.FETCH_CEILINGS()
     await this.FETCH_OUR_OBJECT(this.$route.params.id)
     this.checkboxes()
-
   }
 
 }

@@ -84,70 +84,13 @@
             </v-col>
           </v-row>
 
-          <v-row>
-            <v-col>
-              Категории
-              <v-row  v-for="(catalog, index) in CEILING_CATALOG" :key="index" md="3">
+         <v-catalog-check-boxes
+           :ceilingCatalog="CEILING_CATALOG"
+           :checkedCatalog="formData.catalogs"
+           :checkedCeilings="formData.ceilings"
+           @checkBoxData="checkBoxData"
+         ></v-catalog-check-boxes>
 
-                <v-col >
-                  <v-sheet
-                    color="white"
-                    elevation="5"
-                    class="pa-2"
-                    v-if="catalog.parent_id === null"
-                  >
-                    <v-checkbox
-                      :label="catalog.title"
-                      :value="catalog.id"
-
-                      :key="index"
-                      v-model="formData.catalogs"
-                    ></v-checkbox>
-
-                    <v-subheader v-if="catalog.parent_id === null">Подкатегории
-                    </v-subheader>
-                    <v-row v-if="catalog.parent_id === null" >
-
-                      <v-col v-for="(child, index) in catalog.children" :key="index">
-
-                        <v-checkbox
-                          :label="child.title"
-                          :value="child.id"
-
-                          :key="index"
-                          v-model="formData.catalogs"
-                          @change="textChange"
-                        ></v-checkbox>
-                      </v-col>
-
-                    </v-row>
-
-
-                    <v-subheader  v-if="catalog.ceilings.length">Потолки в категории {{catalog.title}}
-                    </v-subheader>
-                    <v-row v-if="catalog.ceilings.length">
-
-                      <v-col v-for="(ceiling, index) in catalog.ceilings" :key="index">
-                        <v-checkbox
-                          :label="ceiling.title"
-                          :value="ceiling.id"
-
-                          :key="index"
-                          v-model="formData.ceilings"
-                          @change="textChange"
-                        ></v-checkbox>
-                      </v-col>
-
-                    </v-row>
-                  </v-sheet>
-                </v-col>
-
-              </v-row>
-            </v-col>
-          </v-row>
-          <v-row>
-
-          </v-row>
         </v-col>
       </v-row>
     </v-card>
@@ -232,14 +175,19 @@ import {
   History
 } from 'tiptap-vuetify'
 import AddImageComponent from "../../../components/partials/AddImageComponent"
+import vCatalogCheckBoxes from "@/components/partials/vCatalogCheckBoxes";
 import {mapGetters, mapActions} from 'vuex'
 
 export default {
+
   components: {
     AddImageComponent,
-    TiptapVuetify
+    TiptapVuetify,
+    vCatalogCheckBoxes
   },
+
   layout: 'admin',
+
   data() {
     return {
       show: true,
@@ -279,11 +227,16 @@ export default {
         images: [],
         catalogs: [],
         ceilings: [],
-
       }
     }
   },
+
   methods: {
+
+    checkBoxData(data) {
+      this.formData.catalogs = data.catalogs
+      this.formData.ceilings = data.ceilings
+   },
 
     async itemDelete(id) {
       await this.$axios.$delete('/admin/ourObject/' + id)

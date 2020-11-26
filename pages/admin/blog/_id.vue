@@ -200,37 +200,18 @@
           <v-row>
             <v-col>
               Категория
-              <v-row>
-                <v-col v-for="(catalog, index) in CEILING_CATALOG" :key="index">
-                  <v-checkbox
-                    :label="catalog.title"
-                    :value="catalog.id"
-                    @change="textChange"
-                    :key="index"
-                    v-model="article.catalogs"
 
-                  ></v-checkbox>
-                </v-col>
-              </v-row>
+
+              <v-catalog-check-boxes
+                :checkedCatalog="catalogCheckBox"
+                :checkedCeilings="ceilingsCheckBox"
+                :ceilingCatalog="CEILING_CATALOG"
+                @checkBoxData="checkBoxData"
+              ></v-catalog-check-boxes>
+
             </v-col>
           </v-row>
-          <v-row>
-            <v-col>
-              Потолок
-              <v-row>
-                <v-col v-for="(ceiling, index) in CEILINGS" :key="index">
-                  <v-checkbox
-                    :label="ceiling.title"
-                    :value="ceiling.id"
-                    @change="textChange"
-                    :key="index"
-                    v-model="article.ceilings"
 
-                  ></v-checkbox>
-                </v-col>
-              </v-row>
-            </v-col>
-          </v-row>
 
         </v-card>
 
@@ -333,7 +314,11 @@ export default {
   },
 
   methods: {
-
+    checkBoxData(data) {
+      this.catalogCheckBox = data.catalogs
+      this.ceilingsCheckBox = data.ceilings
+      this.textChange()
+    },
     saveChanges() {
       this.UPDATE_ARTICLE({url: 'admin/Article/' + this.$route.params.id, params: this.article})
       this.FETCH_ARTICLE(this.$route.params.id)

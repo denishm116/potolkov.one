@@ -13,8 +13,9 @@
 
           <div class="cattegory__row">
             <div class="article__info">
-              <div class="article__photo">
+              <div class="article__photo" >
                 <PhotoGallery
+                  v-if="child.images"
                   :width="width"
                   :items="items"
                   :startImage="startImage"
@@ -49,7 +50,7 @@
       </div>
     </div>
 
-    <projects :ourObjects="ourObjects" :width="width" :title="'Наши работы'" v-if="ourObjects.length >= 1"></projects>
+    <projects :ourObjects="ourObjects" :width="width" :title="'Наши работы'" v-if="ourObjects.length >= 1 && child.images"></projects>
 
     <v-read-also :articles="articles"></v-read-also>
   </section>
@@ -164,15 +165,23 @@ export default {
       }
     },
     itemsInit() {
-      this.child.images.forEach((item, index) => {
-        if (item.main) this.startImage = index
-      })
-      this.items = this.child.images.map(item => {
+      if (this.child.images) {
+        this.child.images.forEach((item, index) => {
+          if (item.main) this.startImage = index
+        })
+
+        this.items = this.child.images.map(item => {
+          return {
+            src: (item.path) ? (this.PATH + item.path) : null,
+            thumbnail: this.PATH + item.thumb,
+          }
+        })
+      } else {
         return {
-          src: this.PATH + item.path,
-          thumbnail: this.PATH + item.thumb,
+          src: '',
+          thumbnail: '',
         }
-      })
+      }
     }
   },
 
