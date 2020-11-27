@@ -283,10 +283,10 @@ export default {
       this.newArticle.catalogs = data.catalogs
       this.newArticle.ceilings = data.ceilings
     },
-    saveArticle() {
-      this.saveImageData()
+    async saveArticle() {
+      await this.saveImageData()
       this.newArticle.images = this.imageData
-      this.ADD_ARTICLE(this.newArticle)
+      await this.ADD_ARTICLE(this.newArticle)
       window.location.reload(false);
       //   this.newArticle = {
       //   title: '',
