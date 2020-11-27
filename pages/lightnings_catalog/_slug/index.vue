@@ -15,14 +15,14 @@
         <div class="catalog__column" v-for="(catalog, index) in children.children">
 
           <div class="catalog__item">
-            <!--{{catalog}}11-->
+
             <nuxt-link :to="$route.params.slug + '/' + catalog.slug" class="catalog__item-photo ibg">
               <img :src="PATH + catalog.mainImage " alt=""/>
             </nuxt-link>
 
-            <nuxt-link :to="$route.params.slug + '/' + catalog.slug" class="catalog__ite my-title">{{ catalog.title }}</nuxt-link>
+            <nuxt-link :to="$route.params.slug + '/' + catalog.slug" class="catalog__item-title">{{ catalog.title }}</nuxt-link>
           </div>
-          <!--          <nuxt-child></nuxt-child>-->
+
         </div>
 
 
