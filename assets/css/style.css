@@ -1170,7 +1170,7 @@ body.ie .ibg img {
 
   .main__column:nth-child(1) {
     padding: 0px 0px 0px 0px;
-    margin: 0px 0px 80px 0px;
+    margin: -100px 0px 80px 0px;
   }
 
   .main .container {
