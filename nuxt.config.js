@@ -34,8 +34,8 @@ export default {
     './plugins/mixins/user',
     './plugins/axios',
     './plugins/scroll',
-    { src: './plugins/vuejs-clipper.js', ssr: false },
-    { src: './plugins/TiptapVuetify', mode: 'client' },
+    {src: './plugins/vuejs-clipper.js', ssr: false},
+    {src: './plugins/TiptapVuetify', mode: 'client'},
   ],
   auth: {
     strategies: {
@@ -68,7 +68,12 @@ export default {
       {
         id: '69918457',
         webvisor: true,
-      }],
+        clickmap: true,
+        useCDN: false,
+        trackLinks: true,
+        accurateTrackBounce: true,
+      }
+    ],
   ],
   env: {
     baseURL:
