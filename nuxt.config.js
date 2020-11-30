@@ -64,6 +64,11 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/auth',
+    ['@nuxtjs/yandex-metrika',
+      {
+        id: '69918457',
+        webvisor: true,
+      }],
   ],
   env: {
     baseURL:

@@ -14,6 +14,7 @@
     "@nuxtjs/axios": "^5.12.2",
     "@nuxtjs/proxy": "^2.0.1",
     "@nuxtjs/pwa": "^3.0.2",
+    "@nuxtjs/yandex-metrika": "^1.3.0",
     "epic-spinners": "^1.1.0",
     "hammerjs": "^2.0.8",
     "nuxt": "^2.14.4",
