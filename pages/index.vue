@@ -40,6 +40,7 @@ export default {
       title: 'Натяжные потолки в Краснодаре от 260 р. - Господин Потолков',
       meta: [
         {
+          hid: 'yandex-verification',
           name: 'yandex-verification',
           content: '0e637a5f8bb61215'
         },
