@@ -48,10 +48,29 @@
               <div class="projects-info-block__text">
                 <span>Категории</span>
 
-                <div v-for="cat in ourObject.catalogs" class="projects-info-block__text__categories">- {{
-                    cat.title
-                  }}
+                <div class="projects-info-item__row description_hover">
+                  <div v-if="ourObject.catalogs.length > 2" class="hidden_description cats">
+                    <div v-for="cat in ourObject.catalogs"
+                         class="projects-info-block__text__categories">- {{ cat.title }}
+                    </div>
+                  </div>
+                  <div v-if="ourObject.catalogs.length > 2">
+                    <div v-for="(cat, index) in ourObject.catalogs.slice(0, 2)"
+                         class="projects-info-block__text__categories">- {{
+                        cat.title
+                      }}
+                    </div>
+                    <div style="line-height: 2px;">...</div>
+                  </div>
+                  <div v-else>
+                    <div v-for="(cat, index) in ourObject.catalogs"
+                         class="projects-info-block__text__categories">- {{
+                        cat.title
+                      }}
+                    </div>
+                  </div>
                 </div>
+
 
               </div>
             </div>
@@ -103,7 +122,7 @@
           </p>
 
           <div class="order__form-input">
-            <input autocomplete="off" type="text" v-model="userName"  placeholder="Ваше имя"
+            <input autocomplete="off" type="text" v-model="userName" placeholder="Ваше имя"
                    class="input"/>
           </div>
           <div class="order__form-input">
@@ -112,11 +131,9 @@
           <button class="order__form-btn btn" @click.prevent="sendFormData">Заказать бесплатный звонок</button>
         </v-card-text>
 
-     </v-card>
+      </v-card>
       <emailSender :formData="formData"></emailSender>
     </v-dialog>
-
-
 
 
   </div>
@@ -165,7 +182,9 @@ export default {
         phone: this.phone,
         formName: 'Выполнеенные проекты',
       }
-      setTimeout(() => {if (this.dialog && this.phone) this.dialog = false}, 3000)
+      setTimeout(() => {
+        if (this.dialog && this.phone) this.dialog = false
+      }, 3000)
     },
   },
   components: {
@@ -175,11 +194,15 @@ export default {
 </script>
 
 <style scoped>
+.cats {
+  min-width: max-content;
+  z-index: 1;
+}
 
 .description_hover {
   position: relative;
-  height: 250px;
-
+  height: 100%;
+  min-width: 100%;
 }
 
 .description_hover:hover .hidden_description {
