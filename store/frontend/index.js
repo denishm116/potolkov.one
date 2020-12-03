@@ -10,6 +10,7 @@ export const state = () => ({
 
   our_objects: {},
   our_object: {},
+  our_objects_for_landing: {},
 
   other: [
     {title: 'Каталог фотопечати', slug: 'katalog_fotopechati', children: [], src:  require("assets/img/other/07.jpg")},
@@ -197,6 +198,9 @@ export const mutations = {
   SET_OUR_OBJECT(state, our_object) {
     state.our_object = our_object
   },
+  SET_OUR_OBJECTS_FOR_LANDING(state, our_objects_for_landing) {
+    state.our_objects_for_landing = our_objects_for_landing
+  },
 }
 
 export const actions = {
@@ -209,6 +213,7 @@ export const actions = {
       return e
     }
   },
+
   async fetchLightningCatalog({commit}) {
     try {
       const lightning_catalog = await this.$axios.$get('frontend/getLightningCatalog')
@@ -217,6 +222,7 @@ export const actions = {
       return e
     }
   },
+
   async fetchComponentCatalog({commit}) {
     try {
       const component_catalog = await this.$axios.$get('frontend/getComponentCatalog')
@@ -225,6 +231,7 @@ export const actions = {
       return e
     }
   },
+
   async FETCH_ARTICLES({commit}) {
     try {
       const articles = await this.$axios.$get('frontend/articles')
@@ -233,6 +240,7 @@ export const actions = {
       return e
     }
   },
+
   async FETCH_ARTICLE({commit}, id) {
     try {
       const article = await this.$axios.$get('frontend/article/' + id)
@@ -241,6 +249,7 @@ export const actions = {
       return e
     }
   },
+
   async FETCH_OUR_OBJECTS({commit}) {
     try {
       const our_objects =  await this.$axios.$get('frontend/ourObjects')
@@ -250,11 +259,21 @@ export const actions = {
       return e
     }
   },
+
   async FETCH_OUR_OBJECT({commit}, id) {
     try {
       const our_object =  await this.$axios.$get('frontend/ourObject/' + id)
       commit('SET_OUR_OBJECT', our_object)
 
+    } catch (e) {
+      return e
+    }
+  },
+
+  async FETCH_OUR_OBJECTS_FOR_LANDING({commit}) {
+    try {
+      const our_objects_for_landing =  await this.$axios.$get('frontend/ourObjectsForLanding')
+      commit('SET_OUR_OBJECTS_FOR_LANDING', our_objects_for_landing)
     } catch (e) {
       return e
     }
@@ -272,6 +291,7 @@ export const getters = {
   ARTICLE: state => state.article,
   OUR_OBJECT: state => state.our_object,
   OUR_OBJECTS: state => state.our_objects,
+  OUR_OBJECTS_FOR_LANDING: state => state.our_objects_for_landing,
   other: state => state.other,
   facturi: state => state.facturi,
   fotopechat: state => state.fotopechat,

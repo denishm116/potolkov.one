@@ -112,6 +112,9 @@
               Удалить
             </th>
             <th class="text-left">
+              Landing
+            </th>
+            <th class="text-left">
               Заголовок
             </th>
 
@@ -130,10 +133,14 @@
 
           >
             <td>
+
               <a small href="" @click.prevent="itemDelete(item.id)">
                 <v-icon>mdi-delete</v-icon>
               </a>
             </td>
+
+            <td> <v-icon v-if="item.landing">mdi-book</v-icon></td>
+
             <td><a :href="item.id">{{ item.title }}</a></td>
 
             <td>
@@ -245,20 +252,6 @@ export default {
     async saveChanges() {
       await this.ADD_OUR_OBJECT(this.formData)
       window.location.reload(false);
-      // this.formData = {
-      //   title: '',
-      //   address: '',
-      //   square: '',
-      //   description: '',
-      //   price: '',
-      //   images: [],
-      //   catalogs: [],
-      //   ceilings: [],
-      // }
-      // this.show = false
-      // this.disabled = true
-      // await this.FETCH_OUR_OBJECTS()
-
     },
     textChange() {
       this.disabled = false

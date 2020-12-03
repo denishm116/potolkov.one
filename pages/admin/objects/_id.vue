@@ -10,7 +10,17 @@
           }}</span>
       </v-col>
       <v-col class="d-flex justify-end">
+
         <v-btn :color="buttonColor" :disabled="disabled" @click="saveChanges">Сохранить изменения</v-btn>
+      </v-col>
+    </v-row>
+    <v-row no-gutters>
+      <v-col>
+        <v-checkbox
+          v-model="landing"
+          label="Для главной страницы"
+          @click="changeLanding"
+        ></v-checkbox>
       </v-col>
     </v-row>
     <v-card class="mt-5 pa-5">
@@ -211,6 +221,7 @@ export default {
 
   data() {
     return {
+
       extensions: [
         History,
         Blockquote,
@@ -243,6 +254,36 @@ export default {
       ceilingsCheckBox: [],
       catalogCheckBox: [],
     }
+  },
+
+  computed: {
+    landing() {
+      return this.OUR_OBJECT.landing
+    } ,
+    path() {
+      return process.env.baseURL + 'storage/'
+    },
+    readyToUpload() {
+      if (this.imgData.length)
+        return this.imgData.length
+    },
+    formData() {
+      return {
+        title: this.OUR_OBJECT.title,
+        address: this.OUR_OBJECT.address,
+        square: this.OUR_OBJECT.square,
+        description: this.OUR_OBJECT.description,
+        price: this.OUR_OBJECT.price,
+        images: this.OUR_OBJECT.images,
+        catalogs: this.catalogCheckBox,
+        ceilings: this.ceilingsCheckBox,
+      }
+    },
+    ...mapGetters({
+      CEILINGS: 'catalogItems/CEILINGS',
+      CEILING_CATALOG: 'catalog/CEILING_CATALOG',
+      OUR_OBJECT: 'our_objects/OUR_OBJECT'
+    })
   },
 
   methods: {
@@ -331,35 +372,20 @@ export default {
       this.catalogCheckBox = p.catalogs.map(item => {
         return item.pivot.presenter_id
       })
+    },
+    async changeLanding() {
+      try {
+        const obj = await this.$axios.get('admin/ourObject/changeLanding/' + this.OUR_OBJECT.id)
+        console.log(obj)
+        this.landing = !this.landing
+      } catch (e) {
+        return e
+      }
+
     }
   },
-  computed: {
 
-    path() {
-      return process.env.baseURL + 'storage/'
-    },
-    readyToUpload() {
-      if (this.imgData.length)
-        return this.imgData.length
-    },
-    formData() {
-      return {
-        title: this.OUR_OBJECT.title,
-        address: this.OUR_OBJECT.address,
-        square: this.OUR_OBJECT.square,
-        description: this.OUR_OBJECT.description,
-        price: this.OUR_OBJECT.price,
-        images: this.OUR_OBJECT.images,
-        catalogs: this.catalogCheckBox,
-        ceilings: this.ceilingsCheckBox,
-      }
-    },
-    ...mapGetters({
-      CEILINGS: 'catalogItems/CEILINGS',
-      CEILING_CATALOG: 'catalog/CEILING_CATALOG',
-      OUR_OBJECT: 'our_objects/OUR_OBJECT'
-    })
-  },
+
   async mounted() {
     await this.FETCH_CEILING_CATALOG()
     await this.FETCH_CEILINGS()
