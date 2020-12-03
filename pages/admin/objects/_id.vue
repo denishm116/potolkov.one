@@ -259,7 +259,7 @@ export default {
   computed: {
     landing() {
       return this.OUR_OBJECT.landing
-    } ,
+    },
     path() {
       return process.env.baseURL + 'storage/'
     },
@@ -375,8 +375,7 @@ export default {
     },
     async changeLanding() {
       try {
-        const obj = await this.$axios.get('admin/ourObject/changeLanding/' + this.OUR_OBJECT.id)
-        console.log(obj)
+        await this.$axios.get('admin/ourObject/changeLanding/' + this.OUR_OBJECT.id)
         this.landing = !this.landing
       } catch (e) {
         return e
