@@ -51,12 +51,12 @@
                 <div class="projects-info-item__row description_hover">
                   <div v-if="ourObject.catalogs.length > 2" class="hidden_description cats">
                     <div v-for="cat in ourObject.catalogs"
-                         class="projects-info-block__text__categories">- {{ cat.title }}
+                         >- {{ cat.title }}
                     </div>
                   </div>
                   <div v-if="ourObject.catalogs.length > 2">
                     <div v-for="(cat, index) in ourObject.catalogs.slice(0, 2)"
-                         class="projects-info-block__text__categories">- {{
+                        >- {{
                         cat.title
                       }}
                     </div>
