@@ -23,35 +23,29 @@
             <img :src="PATH + ARTICLE.mainImage" :alt="ARTICLE.title">
           </div>
           <div class="article__info-text">
-            <span v-html="ARTICLE.description"></span>
+            <span class="art" v-html="ARTICLE.description"></span>
 
             <div v-for="subArticle in ARTICLE.sub_articles">
-              <div>
+              <div class="article__info-text">
                 <span v-html="subArticle.description"></span>
 
               </div>
-
-                <div class="image_wrapper">
-                  <div class="image_container">
-                    <div class="image_item" v-for="image in subArticle.images">
-                      <div class="image_item_container">
-                        <img :src="PATH + image.path">
-                      </div>
+              <div class="image_wrapper">
+                <div class="image_container">
+                  <div class="image_item" v-for="image in subArticle.images">
+                    <div class="image_item_container">
+                      <img :src="PATH + image.path">
                     </div>
                   </div>
                 </div>
-
+              </div>
 
             </div>
           </div>
 
-
-
         </div>
       </div>
     </section>
-
-
 
 
     <div class='container'>
@@ -217,16 +211,28 @@ export default {
 
 <style scoped>
 
+h2 {
+  font-size: 46px;
+  font-weight: bold;
+  margin-top: 15px;
+  display: block;
+}
+
+h3 {
+  font-size: 36px;
+  margin-top: 45px;
+  display: block;
+}
+
 .image_item_container {
   max-width: 1270px;
-
 }
+
 .image_wrapper {
   margin: 25px 0;
 }
 
 .image_container {
-
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -236,7 +242,7 @@ export default {
 
 .image_item {
   max-width: 47%;
-  padding: 10px;
+
   margin: 20px 0;
   align-self: center;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.4);

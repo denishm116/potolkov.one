@@ -121,7 +121,7 @@
                 <v-col>
                   <ClientOnly>
                     <!-- Use the component in the right place of the template -->
-                    <tiptap-vuetify v-model="subArticle.description" :extensions="extensions"/>
+                    <tiptap-vuetify v-model="subArticle.description" :extensions="extensions" @input="makeShowTrue"/>
                     <template #placeholder>
                       Подождите капельку...
                     </template>
@@ -160,7 +160,7 @@
                 <v-col>
                   <ClientOnly>
                     <!-- Use the component in the right place of the template -->
-                    <tiptap-vuetify v-model="subArticle.description" :extensions="extensions"/>
+                    <tiptap-vuetify v-model="subArticle.description" :extensions="extensions" @input="textChange"/>
                     <template #placeholder>
                       Подождите капельку...
                     </template>
@@ -173,7 +173,7 @@
 
           <div class="white--text text-center">
             <v-btn
-              color="blue"
+              :color="addBlockButtonColor"
               class="ma-2 white--text text-center"
               @click="addSubArticle"
             >
@@ -243,6 +243,7 @@ export default {
       subArticleShow: false,
       buttonText: 'Добавить блок',
       formData: [],
+      addBlockButtonColor: 'blue',
       newArticle: {
         title: '',
         description: '',
@@ -297,12 +298,33 @@ export default {
       this.newArticle.ceilings = data.ceilings
     },
     async saveArticle() {
+      this.show = false
       await this.ADD_ARTICLE(this.newArticle)
-      // window.location.reload(false);
+      this.newArticle.images = []
+      this.subArticle.images = []
+      this.newArticle = {
+        title: '',
+        description: '',
+        metaDescription: '',
+        images: [],
+        catalogs: [],
+        ceilings: [],
+        subArticles: []
+      }
+      this.subArticle = {
+        description: '',
+        images: '',
+      }
+      this.show = true
+    },
+    makeShowTrue() {
+
     },
     textChange() {
       this.disabled = false
+      this.addBlockButtonColor = 'red'
     },
+
     async imageData(imageData) {
       this.newArticle.images = await imageData
     },
@@ -319,10 +341,12 @@ export default {
           description: '',
           images: '',
         }
+        this.addBlockButtonColor = 'blue'
       }
     },
     async subArticleImageData(imageData) {
       this.subArticle.images = await imageData
+      this.addBlockButtonColor = 'red'
     },
     ...mapActions({
       ADD_ARTICLE: 'article/ADD_ARTICLE',

@@ -113,15 +113,15 @@ img {
   vertical-align: top;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-weight: inherit;
-  font-size: inherit;
-}
+/*h1,*/
+/*h2,*/
+/*h3,*/
+/*h4,*/
+/*h5,*/
+/*h6 {*/
+/*  font-weight: inherit;*/
+/*  font-size: inherit;*/
+/*}*/
 
 body {
   color: #333;
@@ -1310,6 +1310,7 @@ body.ie .ibg img {
   height: 50px;
   margin: 0px 0px 0px -38px;
   position: relative;
+  overflow: hidden;
 }
 
 .form__btn::after {
@@ -2166,6 +2167,7 @@ body.ie .ibg img {
   flex: 0 0 220px;
   margin: 0px 20px 0px 0px;
   position: relative;
+  overflow: hidden;
 }
 
 .projects__btn_white {

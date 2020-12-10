@@ -172,16 +172,13 @@
             </v-col>
           </v-row>
 
-
-
-
           <v-row v-if="addNewSubArticleShow">
             <v-col>
               <v-row>
                 <v-col>
                   <ClientOnly>
                     <!-- Use the component in the right place of the template -->
-                    <tiptap-vuetify v-model="addNewSubArticle.description" :extensions="extensions"/>
+                    <tiptap-vuetify v-model="addNewSubArticle.description" :extensions="extensions" @input="addBlockButtonColor = 'red'"/>
                     <template #placeholder>
                       Подождите капельку...
                     </template>
@@ -359,15 +356,21 @@ export default {
         await this.addNewSubArticles.push(this.addNewSubArticle)
         this.addNewSubArticleShow = false
         this.buttonText = 'Добавить еще блок'
+        this.addBlockButtonColor = 'blue'
         this.addNewSubArticle = {
           description: '',
           images: '',
         }
+        this.textChange()
       }
     },
     textChange() {
       this.disabled = false
       this.save_changes = true
+    },
+   addBlockButtonColorSet() {
+      this.addBlockButtonColor = 'red'
+      this.textChange()
     },
     async imageData(imageData) {
       await this.$axios.$post('admin/images/addImages', {
@@ -387,8 +390,9 @@ export default {
       })
       window.location.reload(false);
     },
-    async addNewSubArticleImageData(imageData, id) {
+    async addNewSubArticleImageData(imageData) {
       this.addNewSubArticle.images = await imageData
+      this.addBlockButtonColor = 'red'
     },
     onButtonClick() {
       this.$refs.fupload.click();

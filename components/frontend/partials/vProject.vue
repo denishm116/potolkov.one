@@ -211,32 +211,7 @@ export default {
   animation-iteration-count: infinite;
 }
 
-@keyframes blick {
-  0% {
-    left: 0px;
-    opacity: 0;
-  }
-  5% {
-    opacity: 0.2;
-  }
-  10% {
-    opacity: 1;
-  }
-  15% {
-    opacity: 0.7;
-  }
-  20% {
-    left: 130%;
-    opacity: .1;
-  }
-  25% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 0;
-  }
 
-}
 
 
 .cats {
