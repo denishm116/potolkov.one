@@ -18,7 +18,7 @@
       </div>
       <div class="main__column">
         <form action="#" class="main__form form">
-          <h3 class="form__title">Выберите ширину Вашего потолка</h3>
+          <div class="form__title">Выберите ширину Вашего потолка</div>
           <div>
             <v-radio-group
               row
@@ -38,9 +38,9 @@
 
             </v-radio-group>
           </div>
-          <h4 class="form__subtitle">
+          <div class="form__subtitle">
             Площадь потолка, м2
-          </h4>
+          </div>
           <div class="form__input">
             <input autocomplete="off" type="number" @input="calculate" class="input" v-model="quadrature"/>
           </div>

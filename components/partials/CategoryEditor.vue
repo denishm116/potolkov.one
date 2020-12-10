@@ -39,15 +39,12 @@
 
 
         <v-row class="mt-3" align-content="space-between">
-
           <v-col v-for="(image, index) in this.category.images" align-self="center" :key="index">
             <v-card
               class="mx-auto"
               max-width="400"
             >
               <v-img :src="path + image.path" class="align-end"></v-img>
-
-
               <v-card-actions>
                 <v-btn
                   class="del"
@@ -68,7 +65,6 @@
                   {{ image.main ? 'основное фото' : 'сделать основным' }}
                 </v-btn>
               </v-card-actions>
-
             </v-card>
           </v-col>
         </v-row>

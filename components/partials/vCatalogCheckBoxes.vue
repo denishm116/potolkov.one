@@ -76,22 +76,16 @@ export default {
     },
     checkedCatalog: {
       type: Array,
-      // default() {
-      //   return []
-      // }
+      default() {
+        return []
+      }
     },
     checkedCeilings: {
       type: Array,
-      // default() {
-      //   return []
-      // }
+      default() {
+        return []
+      }
     },
-  },
-
-  data() {
-    return {
-
-    }
   },
 
   computed: {

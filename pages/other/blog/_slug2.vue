@@ -25,61 +25,63 @@
           <div class="article__info-text">
             <span v-html="ARTICLE.description"></span>
 
-            <div v-for="subArticle in ARTICLE.sub_articles">
-              <div>
-                <span v-html="subArticle.description"></span>
 
-              </div>
-
-                <div class="image_wrapper">
-                  <div class="image_container">
-                    <div class="image_item" v-for="image in subArticle.images">
-                      <div class="image_item_container">
-                        <img :src="PATH + image.path">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-
-            </div>
           </div>
-
-
 
         </div>
       </div>
     </section>
 
+    <section class='container'>
+      <horizontal-list :items="items" :options="options">
+        <template v-slot:default="{item}">
+          <div>
 
 
+            <div class="aspect r-10-12 border-3 overflow-hidden">
+              <div class="relative wh-100 lh-0">
 
-    <div class='container'>
-      <h2 class="blog__title read">
-        Читайте так же
-      </h2>
-      <div class="blog__row row-read">
-        <div class="blog__column" v-for="article in ARTICLES">
-          <div class="blog__item">
-            <a href="" class="blog__item-photo ibg">
-              <img :src="PATH + article.mainImage" :alt="article.title">
-            </a>
-            <div class="blog__item-date">
-              {{ new Date(article.created_at).getDate() }}.{{
-                new Date(article.created_at).getMonth() + 1
-              }}.{{ new Date(article.created_at).getFullYear() }} г.
+                <img :src="item.image"/>
+
+                <div class="bg-overlay absolute-0 wh-100 p-24 flex-end mt-3">
+                  <span class="m-0 text-ellipsis-2l text-center white font-weight-bold blog__item-title">{{ item.title }}</span>
+                </div>
+              </div>
             </div>
-            <a href="" class="blog__item-title">
-              {{ article.title }}
-            </a>
-            <div class="blog__item-text">
-              {{ article.meta_description }}
+
+            <v-divider></v-divider>
+            <p class="text-ellipsis-2l mt-3">{{ item.content }}</p>
+            <v-divider></v-divider>
+          </div>
+        </template>
+      </horizontal-list>
+    </section>
+
+
+      <div class='container'>
+        <h2 class="blog__title read">
+          Читайте так же
+        </h2>
+        <div class="blog__row row-read">
+          <div class="blog__column" v-for="article in ARTICLES">
+            <div class="blog__item">
+              <a href="" class="blog__item-photo ibg">
+                <img :src="PATH + article.mainImage" :alt="article.title">
+              </a>
+              <div class="blog__item-date">
+                {{new Date(article.created_at).getDate() }}.{{new Date(article.created_at).getMonth() + 1 }}.{{new Date(article.created_at).getFullYear() }} г.
+              </div>
+              <a href="" class="blog__item-title">
+                {{ article.title }}
+              </a>
+              <div class="blog__item-text">
+                {{ article.meta_description}}
+              </div>
             </div>
           </div>
-        </div>
 
+        </div>
       </div>
-    </div>
   </div>
 </template>
 
@@ -153,7 +155,7 @@ export default {
   },
   async asyncData({params, $axios}) {
     const asyncCatalog = await $axios.$get('frontend/article/' + params.slug)
-    return {asyncCatalog}
+    return { asyncCatalog }
   },
 
   components: {
@@ -198,13 +200,13 @@ export default {
       FETCH_ARTICLES: 'frontend/FETCH_ARTICLES'
     }),
     itemsInit() {
-      this.items = this.ARTICLE.images.map(item => {
-        return {
-          title: item.title,
-          content: item.description,
-          image: this.PATH + item.path,
-        }
-      })
+     this.items = this.ARTICLE.images.map(item => {
+          return {
+            title: item.title,
+            content: item.description,
+            image: this.PATH + item.path,
+          }
+        })
     },
   },
   async mounted() {
@@ -216,41 +218,6 @@ export default {
 </script>
 
 <style scoped>
-
-.image_item_container {
-  max-width: 1270px;
-
-}
-.image_wrapper {
-  margin: 25px 0;
-}
-
-.image_container {
-
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  background: rgba(237, 237, 237, 0.98);
-
-}
-
-.image_item {
-  max-width: 47%;
-  padding: 10px;
-  margin: 20px 0;
-  align-self: center;
-  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.4);
-}
-
-@media (max-width: 768px) {
-  .image_item {
-    max-width: none;
-    padding: 5px;
-    margin: 5px;
-    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.4);
-  }
-}
-
 .flex {
   display: flex;
   flex-direction: column;

@@ -89,7 +89,7 @@
           </div>
           <div class="projects__buttons">
             <a href="" class="projects__btn btn" @click.prevent="dialog = true">Заказать замер</a>
-            <a href="/ceilings_catalog" class="projects__btn btn tr">Каталог</a>
+            <a href="/ceilings_catalog" class="projects__btn_white btn tr">Каталог</a>
           </div>
         </div>
 
@@ -194,6 +194,51 @@ export default {
 </script>
 
 <style scoped>
+
+.projects__btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1.5em;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.6);
+  transform: translateX(-4em) skewX(-45deg);
+  animation: blick;
+  animation-duration: 4s;
+  /*animation-delay: 3s;*/
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes blick {
+  0% {
+    left: 0px;
+    opacity: 0;
+  }
+  5% {
+    opacity: 0.2;
+  }
+  10% {
+    opacity: 1;
+  }
+  15% {
+    opacity: 0.7;
+  }
+  20% {
+    left: 130%;
+    opacity: .1;
+  }
+  25% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+
+}
+
+
 .cats {
   min-width: max-content;
   z-index: 1;

@@ -56,7 +56,6 @@ export default {
   ],
   data() {
     return {
-      // trigger: 0,
       imageData: [],
       formData: [],
       mainImageRadio: 0,
@@ -119,6 +118,10 @@ export default {
   watch: {
     formData: function () {
       setTimeout(() => (this.sendImageData()), 500)
+    },
+    show: function () {
+      this.formData = []
+      this.imageData = []
     }
   }
 

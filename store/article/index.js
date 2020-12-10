@@ -28,7 +28,6 @@ export const actions = {
     try {
       const article =  await this.$axios.$get('admin/Article/' + params)
       commit('SET_ARTICLE', article)
-
     } catch (e) {
       return e
     }

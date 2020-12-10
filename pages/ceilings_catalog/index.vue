@@ -34,7 +34,7 @@
     </div>
     <projects :ourObjects="ourObjects" :width="1920" :title="'Наши работы'" v-if="ourObjects.length >= 1"></projects>
 
-    <v-read-also :articles="articles"></v-read-also>
+    <v-read-also :articles="articles.slice(0,4)"></v-read-also>
   </section>
 </template>
 
@@ -42,6 +42,8 @@
 
 import {mapGetters, mapActions} from 'vuex'
 import vBreadcrumbs from '@/components/frontend/partials/vBreadcrumbs'
+import Projects from '@/components/frontend/Projects'
+import vReadAlso from '@/components/frontend/partials/vReadAlso'
 
 export default {
 
@@ -135,7 +137,7 @@ export default {
    },
 
   components: {
-    vBreadcrumbs
+    vBreadcrumbs, Projects, vReadAlso
   }
 }
 </script>

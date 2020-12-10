@@ -254,7 +254,6 @@ export const actions = {
     try {
       const our_objects =  await this.$axios.$get('frontend/ourObjects')
       commit('SET_OUR_OBJECTS', our_objects)
-
     } catch (e) {
       return e
     }

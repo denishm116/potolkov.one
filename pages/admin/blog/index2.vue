@@ -26,8 +26,7 @@
 
                 <th class="text-left">
                   Потолки
-                </th>
-                <th>Мета-описание</th>
+                </th> <th>Мета-описание</th>
               </tr>
               </thead>
               <tbody>
@@ -43,11 +42,11 @@
                 <td><a :href="'blog/' + item.id">{{ item.title }}</a></td>
 
                 <td>
-                  <span v-for="cats in item.catalogs ">{{ cats.title }}, </span>
+                  <span v-for="cats in item.catalogs ">{{cats.title}}, </span>
                 </td>
 
                 <td>
-                  <span v-for="cats in item.ceilings ">{{ cats.title }}, </span>
+                  <span v-for="cats in item.ceilings ">{{cats.title}}, </span>
                 </td>
                 <td>{{ item.meta_description }}</td>
               </tr>
@@ -112,87 +111,77 @@
               </ClientOnly>
             </v-col>
           </v-row>
-          <add-image-component @imageData="imageData" :show="show"></add-image-component>
-
-
-          <v-row v-for="(subArticle, index) in newArticle.subArticles" :key="index">
+          <v-row>
             <v-col>
-              <v-row>
-                <v-col>
-                  <ClientOnly>
-                    <!-- Use the component in the right place of the template -->
-                    <tiptap-vuetify v-model="subArticle.description" :extensions="extensions"/>
-                    <template #placeholder>
-                      Подождите капельку...
-                    </template>
-                  </ClientOnly>
-                </v-col>
-              </v-row>
+              <v-btn @click="onButtonClick">
+                <v-icon>mdi-paperclip</v-icon>
+                Прикрепить изображения
+              </v-btn>
+              <input multiple class="input-field-file" type="file" ref="fupload" @change="onFileChange">
+            </v-col>
+          </v-row>
+          <v-row justify="space-between">
+            <v-col cols="auto" v-if="readyToUpload">
 
-              <v-row class="mt-3" align-content="space-between">
-                <v-col v-for="(image, imgIndex) in subArticle.images" align-self="center" :key="imgIndex">
-                  <v-card
-                    class="mx-auto"
-                    max-width="400"
-                  >
-                    <v-img :src="image.image" class="align-end"></v-img>
-                    <v-card-actions>
-                      <v-btn
-                        class="del"
-                        color="error"
-                        fab
-                        x-small
-                        @click="subArticle.images.splice(imgIndex, 1)"
+              <v-radio-group v-model="mainImageRadio" column @change="saveImageData" v-for="(file, index) in formData"
+                             :key="index">
+
+                <v-card class="pa-5 mx-5">
+                  <v-row>
+                    <v-col>
+                      <clipper-basic
+                        class="my-clipper"
+                        :src="file.uploadFileData"
+                        :ref="'clipper' + index"
+                        :preview="'my-preview' + index"
+                        :corner="true"
+                        :init-width="100"
+                        :init-height="100"
+                        :ratio="265/180"
                       >
-                        <v-icon>mdi-delete</v-icon>
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-col>
-              </v-row>
+                      </clipper-basic>
+                      {{ file.displayFileName }}
+                    </v-col>
+                    <v-col>
+                      <clipper-preview :name="'my-preview' + index" class="my-clipper">
+                        <div class="placeholder" slot="placeholder">preview area</div>
+                      </clipper-preview>
+                      <v-radio label="Сделать основной" :value="index"></v-radio>
+                    </v-col>
+
+                    <v-col>
+                      <v-text-field
+                        :ref="'title' + index"
+                        label="Заголовок к картинке"
+                        outlined
+                        dense
+
+                        v-model="file.title"
+                      ></v-text-field>
+                      <v-textarea
+                        :ref="'description' + index"
+                        outlined
+                        name="input-7-4"
+                        label="Описание к картинке"
+                        v-model="file.description"
+                      ></v-textarea>
+                    </v-col>
+                  </v-row>
+                </v-card>
+
+              </v-radio-group>
 
             </v-col>
           </v-row>
 
-          <v-row v-if="subArticleShow">
-            <v-col>
-              <v-row>
-                <v-col>
-                  <ClientOnly>
-                    <!-- Use the component in the right place of the template -->
-                    <tiptap-vuetify v-model="subArticle.description" :extensions="extensions"/>
-                    <template #placeholder>
-                      Подождите капельку...
-                    </template>
-                  </ClientOnly>
-                </v-col>
-              </v-row>
-              <add-image-component @imageData="subArticleImageData" :show="true"></add-image-component>
-            </v-col>
-          </v-row>
-
-          <div class="white--text text-center">
-            <v-btn
-              color="blue"
-              class="ma-2 white--text text-center"
-              @click="addSubArticle"
-            >
-              {{ buttonText }}
-              <v-icon
-                right
-                dark
-              >mdi-plus-circle-outline
-              </v-icon>
-            </v-btn>
-          </div>
+              <v-catalog-check-boxes
+                :ceilingCatalog="CEILING_CATALOG"
+                :checkedCatalog="newArticle.catalogs"
+                :checkedCeilings="newArticle.ceilings"
+                @checkBoxData="checkBoxData"
+              ></v-catalog-check-boxes>
 
 
-          <v-catalog-check-boxes
-            :ceilingCatalog="CEILING_CATALOG"
-            :checkedCatalog="newArticle.catalogs"
-            :checkedCeilings="newArticle.ceilings"
-            @checkBoxData="checkBoxData"
-          ></v-catalog-check-boxes>
 
         </v-card>
 
@@ -231,7 +220,6 @@ import {
 import {clipperBasic, clipperPreview} from 'vuejs-clipper'
 import {mapGetters, mapActions} from 'vuex'
 import vCatalogCheckBoxes from "@/components/partials/vCatalogCheckBoxes";
-import AddImageComponent from "@/components/partials/AddImageComponent";
 
 export default {
   layout: 'admin',
@@ -240,9 +228,9 @@ export default {
       buttonColor: 'orange',
       disabled: true,
       show: true,
-      subArticleShow: false,
-      buttonText: 'Добавить блок',
+      imageData: [],
       formData: [],
+      mainImageRadio: 0,
       newArticle: {
         title: '',
         description: '',
@@ -250,11 +238,6 @@ export default {
         images: [],
         catalogs: [],
         ceilings: [],
-        subArticles: []
-      },
-      subArticle: {
-        description: '',
-        images: '',
       },
       extensions: [
         History,
@@ -289,40 +272,83 @@ export default {
       CEILINGS: 'catalogItems/CEILINGS',
       CEILING_CATALOG: 'catalog/CEILING_CATALOG',
     }),
+    readyToUpload() {
+      if (this.show)
+        return this.formData.length
+    },
   },
-
   methods: {
     checkBoxData(data) {
       this.newArticle.catalogs = data.catalogs
       this.newArticle.ceilings = data.ceilings
     },
     async saveArticle() {
+      await this.saveImageData()
+      this.newArticle.images = this.imageData
       await this.ADD_ARTICLE(this.newArticle)
-      // window.location.reload(false);
+      window.location.reload(false);
     },
     textChange() {
       this.disabled = false
     },
-    async imageData(imageData) {
-      this.newArticle.images = await imageData
-    },
 
-    async addSubArticle() {
-      if (!this.subArticleShow) {
-        this.subArticleShow = true
-        this.buttonText = 'Сохранить блок'
-      } else {
-        await this.newArticle.subArticles.push(this.subArticle)
-        this.subArticleShow = false
-        this.buttonText = 'Добавить еще блок'
-        this.subArticle = {
-          description: '',
-          images: '',
+    saveImageData() {
+      let titles = []
+      let descriptions = []
+      let i = 0
+      for (let title in this.$refs) {
+        if (title.substr(0, 5) === 'title') {
+          titles.push(this.$refs[title][0].value)
+        }
+      }
+
+      for (let description in this.$refs) {
+        if (description.substr(0, 11) === 'description') {
+          descriptions.push(this.$refs[description][0].value)
+        }
+      }
+
+      for (let img in this.$refs) {
+        if (img.substr(0, 7) === 'clipper') {
+          const canvas = this.$refs[img][0].clip()
+          let main = 0;
+          if (+img.substr(7, 1) === this.mainImageRadio)
+            main = 1
+          this.imageData.push({
+            image: canvas.toDataURL("image/jpeg", 1),
+            main: main,
+            title: titles[i],
+            description: descriptions[i],
+          })
+          i++
+        }
+      }
+      return this.imageData
+    },
+    onFileChange(event) {
+      if (event.target.files && event.target.files.length) {
+        let files = event.target.files
+        for (let i = 0; i < files.length; i++) {
+          let temp = {
+            displayFileName:" (" + this.calcSize(files[i].size) + "Kb)",
+            uploadFileData: '',
+            file: files[i],
+            key: i,
+          }
+          let reader = new FileReader();
+          reader.onload = e => {
+            temp.uploadFileData = e.target.result;
+          };
+          reader.readAsDataURL(files[i]);
+          this.formData.push(temp)
         }
       }
     },
-    async subArticleImageData(imageData) {
-      this.subArticle.images = await imageData
+    onButtonClick() {
+      this.$refs.fupload.click();
+    },
+    calcSize(size) {
+      return Math.round(size / 1024);
     },
     ...mapActions({
       ADD_ARTICLE: 'article/ADD_ARTICLE',
@@ -335,13 +361,10 @@ export default {
       await this.$axios.$delete('/admin/Article/' + id)
       await this.FETCH_ARTICLES()
     }
-  }
-  ,
+  },
   components: {
-    AddImageComponent,
     TiptapVuetify, clipperBasic, clipperPreview, vCatalogCheckBoxes
-  }
-  ,
+  },
   mounted() {
     this.FETCH_ARTICLES()
     this.FETCH_CEILING_CATALOG()

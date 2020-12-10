@@ -13,7 +13,7 @@
             <div class="blog__item-date">
               {{new Date(article.created_at).getDate() }}.{{new Date(article.created_at).getMonth() + 1 }}.{{new Date(article.created_at).getFullYear() }} г.
             </div>
-            <a href="" class="blog__item-title">
+            <a :href="'/other/blog/' + article.id" class="blog__item-title">
               {{ article.title }}
             </a>
             <div class="blog__item-text">
