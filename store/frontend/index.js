@@ -5,6 +5,7 @@ export const state = () => ({
   lightning_catalog: {},
   component_catalog: {},
 
+  articles_short_list: {},
   articles: {},
   article: {},
 
@@ -201,6 +202,9 @@ export const mutations = {
   SET_OUR_OBJECTS_FOR_LANDING(state, our_objects_for_landing) {
     state.our_objects_for_landing = our_objects_for_landing
   },
+  SET_ARTICLES_SHORT_LIST(state, articles_short_list) {
+    state.articles_short_list = articles_short_list
+  },
 }
 
 export const actions = {
@@ -236,6 +240,15 @@ export const actions = {
     try {
       const articles = await this.$axios.$get('frontend/articles')
       commit('SET_ARTICLES', articles)
+    } catch (e) {
+      return e
+    }
+  },
+
+  async FETCH_ARTICLES_SHORT_LIST({commit}) {
+    try {
+      const articles_short_list = await this.$axios.$get('frontend/articlesShortList')
+      commit('SET_ARTICLES_SHORT_LIST', articles_short_list)
     } catch (e) {
       return e
     }
@@ -291,6 +304,7 @@ export const getters = {
   OUR_OBJECT: state => state.our_object,
   OUR_OBJECTS: state => state.our_objects,
   OUR_OBJECTS_FOR_LANDING: state => state.our_objects_for_landing,
+  ARTICLES_SHORT_LIST: state => state.articles_short_list,
   other: state => state.other,
   facturi: state => state.facturi,
   fotopechat: state => state.fotopechat,

@@ -53,9 +53,9 @@
         Читайте так же
       </h2>
       <div class="blog__row row-read">
-        <div class="blog__column" v-for="article in ARTICLES">
+        <div class="blog__column" v-for="article in ARTICLES_SHORT_LIST">
           <div class="blog__item">
-            <a href="" class="blog__item-photo ibg">
+            <a :href="article.id" class="blog__item-photo ibg">
               <img :src="PATH + article.mainImage" :alt="article.title">
             </a>
             <div class="blog__item-date">
@@ -63,12 +63,13 @@
                 new Date(article.created_at).getMonth() + 1
               }}.{{ new Date(article.created_at).getFullYear() }} г.
             </div>
-            <a href="" class="blog__item-title">
-              {{ article.title }}
-            </a>
-            <div class="blog__item-text">
-              {{ article.meta_description }}
-            </div>
+            <a :href="article.id" class="blog__item-title">
+              {{ article.title }}</a>
+
+              <div class="blog__item-text">
+                <a :href="article.id"><span v-html="article.description.slice(0,100)"></span>...</a>
+              </div>
+
           </div>
         </div>
 
@@ -182,14 +183,15 @@ export default {
     ...mapGetters({
       ARTICLES: 'frontend/ARTICLES',
       ARTICLE: 'frontend/ARTICLE',
-      PATH: 'frontend/PATH'
+      PATH: 'frontend/PATH',
+      ARTICLES_SHORT_LIST: 'frontend/ARTICLES_SHORT_LIST'
     }),
 
   },
   methods: {
     ...mapActions({
       FETCH_ARTICLE: 'frontend/FETCH_ARTICLE',
-      FETCH_ARTICLES: 'frontend/FETCH_ARTICLES'
+      FETCH_ARTICLES_SHORT_LIST: 'frontend/FETCH_ARTICLES_SHORT_LIST'
     }),
     itemsInit() {
       this.items = this.ARTICLE.images.map(item => {
@@ -203,14 +205,17 @@ export default {
   },
   async mounted() {
     await this.FETCH_ARTICLE(this.$route.params.slug)
-    await this.FETCH_ARTICLES()
+    await this.FETCH_ARTICLES_SHORT_LIST()
     await this.itemsInit()
   }
 }
 </script>
 
 <style scoped>
-
+a {
+  color: #222222;
+  font-weight: normal;
+}
 h2 {
   font-size: 46px;
   font-weight: bold;

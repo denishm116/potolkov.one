@@ -86,13 +86,14 @@ export default {
           this.formData.push(temp)
         }
       }
-
     },
-    sendImageData() {
+    async sendImageData() {
       let m = 0
       for (let prop in this.$refs) {
         if (prop.substr(0, 7) === 'clipper') {
+
           const canvas = this.$refs[prop][0].clip()
+          console.log(canvas)
           let main = (this.mainImageRadio === m) ? 1 : 0;
           this.imageData.push(
             {
@@ -103,7 +104,7 @@ export default {
           m++
         }
       }
-      this.$emit('imageData', this.imageData)
+      await this.$emit('imageData', this.imageData)
       this.imageData = []
     },
 
@@ -120,8 +121,10 @@ export default {
       setTimeout(() => (this.sendImageData()), 500)
     },
     show: function () {
-      this.formData = []
-      this.imageData = []
+      if (this.show === false) {
+        this.formData = []
+        this.imageData = []
+      }
     }
   }
 

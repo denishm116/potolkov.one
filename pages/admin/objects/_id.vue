@@ -11,7 +11,7 @@
       </v-col>
       <v-col class="d-flex justify-end">
 
-        <v-btn :color="buttonColor" :disabled="disabled" @click="saveChanges">Сохранить изменения</v-btn>
+        <v-btn :color="buttonColor" :disabled="disabled" @click="saveChanges"  :class="{save_changes}">Сохранить изменения</v-btn>
       </v-col>
     </v-row>
     <v-row no-gutters>
@@ -28,7 +28,6 @@
       </v-subheader>
       <v-row class="pa-3">
         <v-col>
-
           <v-row>
             <v-col>
               <v-text-field
@@ -221,7 +220,7 @@ export default {
 
   data() {
     return {
-
+      save_changes: false,
       extensions: [
         History,
         Blockquote,
@@ -248,7 +247,7 @@ export default {
         HardBreak
       ],
       disabled: true,
-      buttonColor: 'grey',
+      buttonColor: 'red',
       imageData: [],
       imgData: [],
       ceilingsCheckBox: [],
@@ -287,12 +286,18 @@ export default {
   },
 
   methods: {
+    ...mapActions({
+      ADD_OUR_OBJECT: 'our_objects/ADD_OUR_OBJECT',
+      UPDATE_OUR_OBJECT: 'our_objects/UPDATE_OUR_OBJECT',
+      FETCH_OUR_OBJECT: 'our_objects/FETCH_OUR_OBJECT',
+      FETCH_CEILING_CATALOG: 'catalog/FETCH_CEILING_CATALOG',
+      FETCH_CEILINGS: 'catalogItems/FETCH_CEILINGS',
+    }),
     checkBoxData(data) {
       this.catalogCheckBox = data.catalogs
       this.ceilingsCheckBox = data.ceilings
       this.textChange()
     },
-
     saveChanges() {
       this.UPDATE_OUR_OBJECT({url: 'admin/ourObject/' + this.$route.params.id, params: this.formData})
       this.FETCH_OUR_OBJECT(this.$route.params.id)
@@ -300,18 +305,16 @@ export default {
     },
     textChange() {
       this.disabled = false
+      this.save_changes = true
     },
-
     async deleteImage(id) {
       await this.$axios.$get('admin/ourObject/deleteImage/' + id)
       await this.FETCH_OUR_OBJECT(this.$route.params.id)
     },
-
     async changeMainImage(id) {
       await this.$axios.$get('admin/ourObject/changeMainImage/' + id)
       await this.FETCH_OUR_OBJECT(this.$route.params.id)
     },
-
     async addImages() {
       for (let prop in this.$refs) {
         if (prop.substr(0, 7) === 'clipper') {
@@ -357,13 +360,7 @@ export default {
     calcSize(size) {
       return Math.round(size / 1024);
     },
-    ...mapActions({
-      ADD_OUR_OBJECT: 'our_objects/ADD_OUR_OBJECT',
-      UPDATE_OUR_OBJECT: 'our_objects/UPDATE_OUR_OBJECT',
-      FETCH_OUR_OBJECT: 'our_objects/FETCH_OUR_OBJECT',
-      FETCH_CEILING_CATALOG: 'catalog/FETCH_CEILING_CATALOG',
-      FETCH_CEILINGS: 'catalogItems/FETCH_CEILINGS',
-    }),
+
     checkboxes() {
       let p = this.OUR_OBJECT
       this.ceilingsCheckBox = p.ceilings.map(item => {
@@ -380,7 +377,6 @@ export default {
       } catch (e) {
         return e
       }
-
     }
   },
 
@@ -396,6 +392,15 @@ export default {
 </script>
 
 <style scoped>
+
+.save_changes {
+  position: fixed;
+  bottom: 15px;
+  left: 15%;
+  z-index: 4;
+  transition: .5s;
+}
+
 .imgWrapper {
   display: flex;
   flex-direction: column;

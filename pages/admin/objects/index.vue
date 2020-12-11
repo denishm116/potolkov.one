@@ -6,7 +6,14 @@
         <span
           class="grey--text text--darken-3 text-right text-uppercase text-lg-h5 font-weight-bold ">Добавить объект</span>
       </v-col>
-
+    </v-row>
+    <v-row no-gutters>
+      <v-col>
+        <v-checkbox
+          v-model="formData.landing"
+          label="Для главной страницы"
+        ></v-checkbox>
+      </v-col>
     </v-row>
     <v-card class="mt-5 pa-5">
       <v-subheader>Заполните необходимые поля (Название категории, родительскую категорию, описание и изображения)
@@ -84,12 +91,12 @@
             </v-col>
           </v-row>
 
-         <v-catalog-check-boxes
-           :ceilingCatalog="CEILING_CATALOG"
-           :checkedCatalog="formData.catalogs"
-           :checkedCeilings="formData.ceilings"
-           @checkBoxData="checkBoxData"
-         ></v-catalog-check-boxes>
+          <v-catalog-check-boxes
+            :ceilingCatalog="CEILING_CATALOG"
+            :checkedCatalog="formData.catalogs"
+            :checkedCeilings="formData.ceilings"
+            @checkBoxData="checkBoxData"
+          ></v-catalog-check-boxes>
 
         </v-col>
       </v-row>
@@ -97,7 +104,7 @@
     <v-row>
       <v-col>
         <v-col class="d-flex justify-start">
-          <v-btn :color="buttonColor" :disabled="disabled" @click="saveChanges">Сохранить</v-btn>
+          <v-btn :color="buttonColor" :disabled="disabled" @click="createObject">Сохранить</v-btn>
         </v-col>
       </v-col>
     </v-row>
@@ -130,7 +137,6 @@
           <tbody>
           <tr
             v-for="item in OUR_OBJECTS"
-
           >
             <td>
 
@@ -139,7 +145,9 @@
               </a>
             </td>
 
-            <td> <v-icon v-if="item.landing">mdi-book</v-icon></td>
+            <td>
+              <v-icon v-if="item.landing">mdi-book</v-icon>
+            </td>
 
             <td><a :href="item.id">{{ item.title }}</a></td>
 
@@ -234,45 +242,59 @@ export default {
         images: [],
         catalogs: [],
         ceilings: [],
+        landing: false,
       }
     }
   },
 
   methods: {
-
-    checkBoxData(data) {
-      this.formData.catalogs = data.catalogs
-      this.formData.ceilings = data.ceilings
-   },
-
-    async itemDelete(id) {
-      await this.$axios.$delete('/admin/ourObject/' + id)
-      await this.FETCH_OUR_OBJECTS()
-    },
-    async saveChanges() {
-      await this.ADD_OUR_OBJECT(this.formData)
-      window.location.reload(false);
-    },
-    textChange() {
-      this.disabled = false
-    },
-    imageData(data) {
-      this.formData.images = data
-    },
     ...mapActions({
       ADD_OUR_OBJECT: 'our_objects/ADD_OUR_OBJECT',
       FETCH_OUR_OBJECTS: 'our_objects/FETCH_OUR_OBJECTS',
       FETCH_CEILING_CATALOG: 'catalog/FETCH_CEILING_CATALOG',
       FETCH_CEILINGS: 'catalogItems/FETCH_CEILINGS',
     }),
+    checkBoxData(data) {
+      this.formData.catalogs = data.catalogs
+      this.formData.ceilings = data.ceilings
+    },
+    async itemDelete(id) {
+      await this.$axios.$delete('/admin/ourObject/' + id)
+      await this.FETCH_OUR_OBJECTS()
+    },
+    async createObject() {
+      await this.ADD_OUR_OBJECT(this.formData)
+      this.formData = {
+        title: '',
+        address: '',
+        square: '',
+        description: '',
+        price: '',
+        images: [],
+        catalogs: [],
+        ceilings: [],
+        landing: false,
+      }
+      this.show = false
+    },
+    textChange() {
+      this.disabled = false
+      this.show = true
+    },
+    async imageData(data) {
+      this.formData.images = await data
+    },
   },
+
   computed: {
     ...mapGetters({
       CEILINGS: 'catalogItems/CEILINGS',
       CEILING_CATALOG: 'catalog/CEILING_CATALOG',
       OUR_OBJECTS: 'our_objects/OUR_OBJECTS'
-    })
+    }),
+
   },
+
   async mounted() {
     await this.FETCH_CEILING_CATALOG()
     await this.FETCH_CEILINGS()

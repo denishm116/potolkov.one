@@ -18,7 +18,7 @@
         <div class="blog__column" v-for="article in objects">
           <div class="blog__item">
             <a :href="'blog/' + article.id" class="blog__item-photo ibg">
-              <img :src="PATH + article.mainImage" :alt="article.images[0].title">
+              <img :src="PATH + article.mainImage" :alt="article.title">
 
             </a>
             <div class="blog__item-date">
