@@ -22,7 +22,9 @@
 
             </a>
             <div class="blog__item-date">
-              04 Май 2020
+              {{ new Date(article.created_at).getDate() }}.{{
+                new Date(article.created_at).getMonth() + 1
+              }}.{{ new Date(article.created_at).getFullYear() }} г.
             </div>
             <a :href="'blog/' + article.id" class="blog__item-title">
               {{ article.title }}
