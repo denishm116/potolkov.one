@@ -117,6 +117,7 @@ export default {
     },
     ...mapGetters({
       OUR_OBJECTS: 'frontend/OUR_OBJECTS',
+      OUR_OBJECT: 'frontend/OUR_OBJECT',
       PATH: 'frontend/PATH'
     })
   },
@@ -135,6 +136,7 @@ export default {
     },
     ...mapActions({
       FETCH_OUR_OBJECTS: 'frontend/FETCH_OUR_OBJECTS',
+      FETCH_OUR_OBJECT: 'frontend/FETCH_OUR_OBJECT',
 
     })
   },

@@ -227,7 +227,7 @@ v-model="loginForm.email"
         try {
           await this.$axios.post('/auth/login', this.loginForm)
           this.$auth.login({data: this.loginForm})
-          this.$store.dispatch('authentication/authenticationWindow')
+          await this.$store.dispatch('authentication/authenticationWindow')
         } catch (e) {
           return e
         }
@@ -236,7 +236,7 @@ v-model="loginForm.email"
         try {
           await this.$axios.post('/auth/register', this.form)
           this.$auth.login({data: this.form})
-          this.$store.dispatch('authentication/authenticationWindow')
+          await this.$store.dispatch('authentication/authenticationWindow')
         } catch (e) {
         return e
         }

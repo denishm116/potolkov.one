@@ -3,16 +3,16 @@
     <Main></Main>
     <Flat></Flat>
 
-
+    <Order></Order>
     <Calculator></Calculator>
     <!--    <Stocks></Stocks>-->
-    <Order></Order>
 
-    <Why></Why>
     <Projects :ourObjects="OUR_OBJECTS_FOR_LANDING" :width="1920" v-if="OUR_OBJECTS_FOR_LANDING.length > 0"
               :title="'Выполненные проекты'"></Projects>
-    <Questions></Questions>
+    <Why></Why>
     <Moments></Moments>
+    <Questions></Questions>
+
     <Reviews></Reviews>
     <Map></Map>
   </div>

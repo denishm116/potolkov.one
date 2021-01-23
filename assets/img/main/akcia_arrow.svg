@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW X7 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="100.006mm" height="58.7419mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 11235 6599"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .fil0 {fill:url(#id0);fill-rule:nonzero}
+   ]]>
+  </style>
+  <linearGradient id="id0" gradientUnits="userSpaceOnUse" x1="5617.32" y1="0" x2="5617.32" y2="6599.03">
+   <stop offset="0" style="stop-opacity:1; stop-color:#E81119"/>
+   <stop offset="0.329412" style="stop-opacity:1; stop-color:#E01117"/>
+   <stop offset="0.678431" style="stop-opacity:1; stop-color:#971D11"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:#550E08"/>
+  </linearGradient>
+ </defs>
+ <g id="Слой_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <polygon class="fil0" points="0,0 0,5603 2247,5603 2247,5863 0,5863 5617,6599 11235,5863 8988,5863 8988,5603 11235,5603 11235,0 "/>
+ </g>
+</svg>

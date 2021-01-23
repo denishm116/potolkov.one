@@ -64,6 +64,9 @@
 </script>
 
 <style scoped>
+.questions {
+  padding: 0 0 20px 0;
+}
   .container {
     max-width: 1370px;
     margin: 0 auto;

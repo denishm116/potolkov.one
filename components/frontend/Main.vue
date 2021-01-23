@@ -13,52 +13,40 @@
         </div>
         <div class="main__wrap">
           <a href="/ceilings_catalog/" class="main__btn btn">Перейти в каталог</a>
-          <span class="main__label">Создайте свой уютный уголок</span>
+          <span class="main__label">Потолки на любой вкус и кошелек</span>
         </div>
       </div>
       <div class="main__column">
-        <form action="#" class="main__form form">
-          <div class="form__title">Выберите ширину Вашего потолка</div>
-          <div>
-            <v-radio-group
-              row
-              v-model="radio"
-              @change="calculate"
-            >
-              <v-spacer></v-spacer>
-              <v-radio
-                v-for="ceiling in ceilings"
-                :label="ceiling.title"
-                color="red"
-                :key="ceiling.id"
-                :value="ceiling.id"
-              ></v-radio>
-              <v-spacer></v-spacer>
+        <div class="main__form form">
+          <div class="form__title">АКЦИЯ</div>
+          <div class="form__subtitle">Предлжение действительно до <span class="red_date">{{ dateOnScreen }}</span>г.
+          </div>
+          <div class="into_arrow">
+            <div class="akcia_arrow"><span class="akcia_arrow_189">189</span> <span
+              class="akcia_arrow_rub">р/м<sup>2</sup></span></div>
+            <div class="akcia_arrow_s_ustanovkoi"> С УСТАНОВКОЙ</div>
+          </div>
 
-
-            </v-radio-group>
-          </div>
-          <div class="form__subtitle">
-            Площадь потолка, м2
-          </div>
-          <div class="form__input">
-            <input autocomplete="off" type="number" @input="calculate" class="input" v-model="quadrature"/>
-          </div>
-          <div class="form__info">
-            <h5 class="form__info-title">Ваша цена сегодня</h5>
-            <span>{{ price }} ₽</span>
-          </div>
           <div class="form__num">
             <vPhoneInput @putPhone="getPhone"></vPhoneInput>
             <button class="form__btn btn" @click.prevent="sendFormData">Заказть звонок</button>
           </div>
-          <div class="form__root">
-            <div class="check" :class="{'active': active}" @click="checked">
-              Перезвонить в ближайшее время
-              <input type="checkbox" value="1" name="form[]" checked>
+          <div class="podrobnosti_wrapper">
+            <div class="podrobnosti">подробности акции
+              <div class="akcia"><p>Стоимость действительна при заказе потолков с использованием плёнки ПВХ общей
+                площадью более 30 кв.м. В акции участвуют только белые матовые M501 (1,4м) и глянцевые
+                L501 (1,4м) полотна. Установка крепежного профиля входит в стоимост потолка.</p>
+
+                <p>Установка осветительных приборов, маскировочной ленты, потолочных карнизов, обработка дополнительных
+                  углов
+                  (более 4 в помещении), окантовка труб и другие комплектующие
+                  оплачиваются дополнительно.</p>
+
+                Минимальну стоимость заказа уточняйте у менеджеров по тел: <p class="tel"><a href="tel:+79996314541"> +7 (999) 631-45-41</a></p>
+              </div>
             </div>
           </div>
-        </form>
+        </div>
       </div>
     </div>
     <emailSender :formData="formData"></emailSender>
@@ -76,38 +64,21 @@ export default {
   },
   data() {
     return {
+      dateOnScreen: "",
       formData: {},
-      active: true,
-      radio: 0,
-      quadrature: 10,
-      price: 2600
-    }
-  },
-
-  computed: {
-    ceilings() {
-      return [
-        {
-          title: 'до 2-х м',
-          id: 0,
-          active: true
-        },
-        {
-          title: 'от 2-х до 3,6 м',
-          id: 1,
-          active: false
-        },
-        {
-          title: 'больше 3,6 м',
-          id: 2,
-          active: false
-        },
-      ]
-
+      phone: ""
     }
   },
 
   methods: {
+    setDate() {
+      let datePlusTwoWeeks = new Date(Date.now() + 604800000)
+      let year = datePlusTwoWeeks.getFullYear()
+      let m = datePlusTwoWeeks.getMonth()
+      let month = m ? (m + 1) : ("0" + (m + 1))
+      let day = datePlusTwoWeeks.getDate()
+      this.dateOnScreen = day + "." + month + "." + year
+    },
     getPhone(phone) {
       this.phone = phone
     },
@@ -115,34 +86,99 @@ export default {
       this.formData = {
         userName: 'Неизвестно',
         phone: this.phone,
-        formName: 'Верхний калькулятор',
+        formName: 'Форма из акции',
       }
     },
-    makeActive(id) {
-      this.ceilings.forEach((ceiling, i) => {
-        this.ceilings[i].active = false
-        if (ceiling.id == id) {
-          this.ceilings[i].active = true
-        }
-      })
-    },
-    calculate() {
-      if (this.radio === 0)
-        this.price = this.quadrature * 260
-      else if (this.radio === 1)
-        this.price = this.quadrature * 280
-      else
-        this.price = this.quadrature * 340
-    },
-    checked() {
-      this.active = !this.active
-    }
   },
-
+  mounted() {
+    this.setDate()
+  }
 }
 </script>
 
 <style scoped>
+.tel {
+  margin: 1rem auto;
+  text-align: center;
+}
+.akcia {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  padding: 10px;
+  background: white;
+  border-radius: 5px;
+  text-align: left;
+  color: #222222;
+  font-size: 15px;
+  font-weight: normal;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  display: none;
+  transition: 0.3s;
+  border: 2px solid red;
+}
+
+.podrobnosti:hover .akcia {
+  display: block;
+
+}
+.podrobnosti_wrapper {
+  margin: 0 auto;
+}
+.podrobnosti {
+  display: inline-block;
+   text-align: center;
+  font-size: 15px;
+  color: red;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.main__form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-weight: bolder;
+}
+
+.into_arrow {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  background: url("~@/assets/img/main/akcia_arrow.svg") no-repeat;
+  background-size: 100%;
+}
+
+.akcia_arrow_189 {
+  color: white;
+  font-weight: bolder;
+  font-size: 145px;
+  line-height: 1;
+
+}
+
+.akcia_arrow_rub {
+  color: white;
+  font-weight: bolder;
+  font-size: 60px;
+}
+
+.akcia_arrow_s_ustanovkoi {
+  color: white;
+  font-weight: bolder;
+  font-size: 50px;
+  line-height: 1;
+  margin-bottom: 55px;
+}
+
+.red_date {
+  color: #ff0000;
+  margin-right: 5px;
+}
 
 .main__btn, .form__btn {
   color: #eaeaea;
@@ -153,4 +189,66 @@ export default {
   margin: 0 auto;
   width: 100%;
 }
+
+@media (max-width: 480px) {
+  .into_arrow {
+    padding-top: 1rem;
+  }
+
+  .akcia_arrow_189 {
+    font-size: 105px;
+    line-height: 1;
+  }
+
+  .akcia_arrow_rub {
+    font-size: 45px;
+  }
+
+  .akcia_arrow_s_ustanovkoi {
+    line-height: 1;
+    font-size: 40px;
+    margin-bottom: 90px;
+  }
+
+  .podrobnosti {
+
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 450px) {
+  .akcia_arrow_s_ustanovkoi {
+    line-height: 1;
+    font-size: 35px;
+    margin-bottom: 80px;
+  }
+}
+
+@media (max-width: 350px) {
+  .into_arrow {
+    padding-top: 1rem;
+  }
+
+  .akcia_arrow_189 {
+    font-size: 65px;
+    line-height: 1;
+  }
+
+  .akcia_arrow_rub {
+    font-size: 35px;
+  }
+
+  .akcia_arrow_s_ustanovkoi {
+    line-height: 1;
+    font-size: 30px;
+    margin-bottom: 70px;
+  }
+
+  .podrobnosti {
+
+    font-size: 15px;
+
+  }
+}
+
 </style>
