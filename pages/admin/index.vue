@@ -23,7 +23,7 @@
 
           <v-card-actions right>
 
-            <nuxt-link :to="'/admin/objects'"
+            <nuxt-link :to="'/admin/objects/'"
             >
               Добавить объект
             </nuxt-link>
@@ -45,7 +45,7 @@
 
           <v-card-actions right>
 
-            <nuxt-link :to="'/admin/blog'"
+            <nuxt-link :to="'/admin/blog/'"
             >
               Добавить статью
             </nuxt-link>

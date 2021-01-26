@@ -19,7 +19,7 @@
       <div class="main__column">
         <div class="main__form form">
           <div class="form__title">АКЦИЯ</div>
-          <div class="form__subtitle">Предлжение действительно до <span class="red_date">{{ dateOnScreen }}</span>г.
+          <div class="form__subtitle">Предложение действительно до <span class="red_date">{{ dateOnScreen }}</span>г.
           </div>
           <div class="into_arrow">
             <div class="akcia_arrow"><span class="akcia_arrow_189">189</span> <span
@@ -74,9 +74,17 @@ export default {
     setDate() {
       let datePlusTwoWeeks = new Date(Date.now() + 604800000)
       let year = datePlusTwoWeeks.getFullYear()
+
       let m = datePlusTwoWeeks.getMonth()
+
       let month = m ? (m + 1) : ("0" + (m + 1))
+
       let day = datePlusTwoWeeks.getDate()
+      if (day < 10)
+          day = "0" + day
+      if (month < 10)
+          month = "0" + month
+
       this.dateOnScreen = day + "." + month + "." + year
     },
     getPhone(phone) {

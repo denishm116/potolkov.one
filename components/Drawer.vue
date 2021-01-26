@@ -94,7 +94,7 @@ export default {
       {
         title: 'Блог',
         icon: 'mdi-book-open',
-        to: '/admin/blog',
+        to: '/admin/blog/',
         can: 'Manager'
       },
       {
@@ -106,7 +106,7 @@ export default {
       {
         icon: 'mdi-tab',
         title: 'Потолки',
-        to: '/admin/ceilings',
+        to: '/admin/ceilings/',
         can: 'Admin'
       },
       {
@@ -130,7 +130,7 @@ export default {
       {
         title: 'Комплектующие',
         icon: 'mdi-check',
-        to: '/admin/component',
+        to: '/admin/component/',
         can: 'Admin'
       },
 

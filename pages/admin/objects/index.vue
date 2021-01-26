@@ -149,7 +149,7 @@
               <v-icon v-if="item.landing">mdi-book</v-icon>
             </td>
 
-            <td><a :href="item.id">{{ item.title }}</a></td>
+            <td><a :href="'/'+item.id">{{ item.title }}</a></td>
 
             <td>
               <span v-for="cats in item.catalogs">{{ cats.title }}, </span>
