@@ -16,7 +16,7 @@
           <div class="order__column">
             <form action="#" class="order__form">
               <h3 class="order__form-title">
-                Закажите бесплатный обратный звонок
+                Хочу бесплатный замер!
               </h3>
               <div class="order__form-input">
                 <input autocomplete="off" type="text" v-model="userName"  placeholder="Ваше имя"
@@ -77,13 +77,12 @@ export default {
   bottom: 10px;
   right: 10px;
   color: #eaeaea;
-  font-size: 12px;
+  font-size: 10px;
 }
 @media (max-width: 576px) {
   .confidential {
-
-    bottom: 2px;
-    right: 0;
+   bottom: 0px;
+    left: 2px;
 
   }
 }

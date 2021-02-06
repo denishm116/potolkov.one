@@ -8,7 +8,7 @@
     <!--    <Stocks></Stocks>-->
 
     <Projects :ourObjects="OUR_OBJECTS_FOR_LANDING" :width="1920" v-if="OUR_OBJECTS_FOR_LANDING.length > 0"
-              :title="'Выполненные проекты'"></Projects>
+              :title="'Наши работы'"></Projects>
     <Why></Why>
     <Moments></Moments>
     <Questions></Questions>

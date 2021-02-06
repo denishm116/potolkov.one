@@ -12,8 +12,11 @@
           ребенок!
         </div>
         <div class="main__wrap">
-          <a href="/ceilings_catalog/" class="main__btn btn">Перейти в каталог</a>
+          <a class="main__btn btn" @click.prevent="openDialog">Заказать бесплатный замер</a>
           <span class="main__label">Потолки на любой вкус и кошелек</span>
+          <div v-if="dialog">
+            <v-order-dialog :dialog="dialog" @closeDialog="closeDialog"></v-order-dialog>
+          </div>
         </div>
       </div>
       <div class="main__column">
@@ -57,13 +60,15 @@
 <script>
 import emailSender from '@/components/frontend/partials/emailSender'
 import vPhoneInput from '@/components/frontend/partials/vPhoneInput'
+import vOrderDialog from '@/components/frontend/partials/vOrderDilog'
 
 export default {
   components: {
-    emailSender, vPhoneInput
+    emailSender, vPhoneInput, vOrderDialog
   },
   data() {
     return {
+      dialog: false,
       dateOnScreen: "",
       formData: {},
       phone: ""
@@ -97,6 +102,12 @@ export default {
         formName: 'Форма из акции',
       }
     },
+    closeDialog() {
+      this.dialog = false;
+    },
+    openDialog() {
+      this.dialog = true;
+    }
   },
   mounted() {
     this.setDate()
@@ -105,6 +116,23 @@ export default {
 </script>
 
 <style scoped>
+
+.main__btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1.5em;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.6);
+  transform: translateX(-4em) skewX(-45deg);
+  animation: blick;
+  animation-duration: 4s;
+  animation-delay: 3s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
 .tel {
   margin: 1rem auto;
   text-align: center;

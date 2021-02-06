@@ -48,9 +48,9 @@
                 }}</p>
             </div>
             <div>
-              <p class="info__subtitle" style="text-transform: none">Итого: {{
+              <p class="info__subtitle" style="text-transform: none">Итого: <span>{{
                   dispalyClick !== '' ? flat[dispalyClick].price : flat[0].price
-                }} р.</p>
+                }} р.</span></p>
             </div>
 
           </div>

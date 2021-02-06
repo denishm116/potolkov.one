@@ -3,7 +3,7 @@
   <section class="price">
     <div class='container'>
       <h2 class="price__title  my-title">
-        Рассчитайте стоимость Вашего потолка
+        Калькулятор потолков
       </h2>
       <form action="#" class="price__form">
         <div class="price__row">
@@ -74,9 +74,10 @@
           <span>Стоимость</span>
           <v-spacer></v-spacer>
           <v-btn
-            color="error"
-            fab
-            x-small
+            class="popup_close_button"
+
+            icon
+
             @click="dialog = false"
           >
             <v-icon>mdi-close</v-icon>
@@ -254,6 +255,14 @@ export default {
 </script>
 
 <style scoped>
+
+.popup_close_button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 99 !important;
+}
+
 .popup_submit_button {
   margin: 10px 0 10px 35px;
   padding: 0 0 0 0px;

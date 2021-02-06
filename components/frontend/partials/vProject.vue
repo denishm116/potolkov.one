@@ -1,7 +1,5 @@
 <template>
   <div>
-
-
     <div class="projects__row">
       <div class="projects__column">
         <PhotoGallery :width="width" :items="items" :addons="{ enableLargeView: true }" class="mx-5"></PhotoGallery>
@@ -51,12 +49,12 @@
                 <div class="projects-info-item__row description_hover">
                   <div v-if="ourObject.catalogs.length > 2" class="hidden_description cats">
                     <div v-for="cat in ourObject.catalogs"
-                         >- {{ cat.title }}
+                    >- {{ cat.title }}
                     </div>
                   </div>
                   <div v-if="ourObject.catalogs.length > 2">
                     <div v-for="(cat, index) in ourObject.catalogs.slice(0, 2)"
-                        >- {{
+                    >- {{
                         cat.title
                       }}
                     </div>
@@ -70,8 +68,6 @@
                     </div>
                   </div>
                 </div>
-
-
               </div>
             </div>
           </div>
@@ -88,7 +84,7 @@
             </div>
           </div>
           <div class="projects__buttons">
-            <a href="" class="projects__btn btn" @click.prevent="dialog = true">Заказать замер</a>
+            <a class="projects__btn btn" @click.prevent="openDialog">Заказать замер</a>
             <a href="/ceilings_catalog" class="projects__btn_white btn tr">Каталог</a>
           </div>
         </div>
@@ -96,44 +92,9 @@
       </div>
     </div>
 
-
-    <v-dialog
-      v-model="dialog"
-      max-width="500"
-    >
-      <v-card>
-
-
-        <v-card-title class="headline">
-          <span>Стоимость</span>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="error"
-            fab
-            x-small
-            @click="dialog = false"
-          >
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </v-card-title>
-
-        <v-card-text>
-          <p>*Компания "Господин Потолков" гарантирует конфиденциальность Ваших персональных данных.
-          </p>
-
-          <div class="order__form-input">
-            <input autocomplete="off" type="text" v-model="userName" placeholder="Ваше имя"
-                   class="input"/>
-          </div>
-          <div class="order__form-input">
-            <vPhoneInput @putPhone="getPhone"></vPhoneInput>
-          </div>
-          <button class="order__form-btn btn" @click.prevent="sendFormData">Заказать бесплатный звонок</button>
-        </v-card-text>
-
-      </v-card>
-      <emailSender :formData="formData"></emailSender>
-    </v-dialog>
+    <div v-if="dialog">
+    <v-order-dialog :dialog="dialog" @closeDialog="closeDialog"></v-order-dialog>
+    </div>
 
 
   </div>
@@ -142,8 +103,7 @@
 
 <script>
 import PhotoGallery from "../../partials/PhotoGallery"
-import emailSender from '@/components/frontend/partials/emailSender'
-import vPhoneInput from '@/components/frontend/partials/vPhoneInput'
+import vOrderDialog from '@/components/frontend/partials/vOrderDilog'
 
 export default {
   props: [
@@ -152,13 +112,12 @@ export default {
   data() {
     return {
       dialog: false,
-      formData: {},
-      phone: '',
-      userName: ''
     }
   },
   computed: {
-
+    dialogListener() {
+      return this.dialog
+    },
     path() {
       return process.env.baseURL + 'storage/'
     },
@@ -172,23 +131,17 @@ export default {
       })
     }
   },
+
   methods: {
-    getPhone(phone) {
-      this.phone = phone
+    closeDialog() {
+      this.dialog = false;
     },
-    sendFormData() {
-      this.formData = {
-        userName: this.userName,
-        phone: this.phone,
-        formName: 'Выполнеенные проекты',
-      }
-      setTimeout(() => {
-        if (this.dialog && this.phone) this.dialog = false
-      }, 3000)
-    },
+    openDialog() {
+      this.dialog = true;
+    }
   },
   components: {
-    PhotoGallery, emailSender, vPhoneInput
+    PhotoGallery, vOrderDialog
   }
 }
 </script>
@@ -210,8 +163,6 @@ export default {
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
 }
-
-
 
 
 .cats {

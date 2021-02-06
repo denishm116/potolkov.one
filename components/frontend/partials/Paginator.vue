@@ -63,11 +63,11 @@ export default {
     },
     prevText: {
       type: String,
-      default: '<<'
+      default: 'назад'
     },
     nextText: {
       type: String,
-      default: '>>'
+      default: 'далее'
     },
     breakViewText: {
       type: String,
