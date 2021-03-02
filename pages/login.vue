@@ -6,13 +6,10 @@
       :elevation="12"
     >
       <v-form class="mx-15 mt-15">
-
         <v-list-item-title class="headline">Вход</v-list-item-title>
-
         <v-row>
           <v-col
             cols="12"
-
           >
             <v-text-field
               :error-messages="emailErrors"
@@ -22,12 +19,10 @@
             ></v-text-field>
           </v-col>
         </v-row>
-
         <v-row>
           <v-col
             cols="12"
-
-          >
+         >
             <v-text-field
               v-model="loginForm.password"
               :append-icon="passwordShow ? 'mdi-eye' : 'mdi-eye-off'"
@@ -41,15 +36,12 @@
             ></v-text-field>
           </v-col>
         </v-row>
-
       </v-form>
       <v-flex class="d-flex justify-center flex-column mx-15 my-15">
-
         <v-btn @click="login" color="success" class="">
           Войти
         </v-btn>
         <template v-if="$auth.loggedIn">
-
           <v-btn depressed @click="logOut">
             <v-avatar size="26" left>
               <img
@@ -63,10 +55,8 @@
         </template>
       </v-flex>
       <v-flex class="d-flex justify-center flex-column  mx-15 mt-5">
-
       </v-flex>
     </v-card>
-
   </div>
 </template>
 

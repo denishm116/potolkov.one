@@ -19,7 +19,7 @@ import vBreadcrumbs from '@/components/frontend/partials/vBreadcrumbs'
 export default {
   head() {
     return {
-      title: `Калькулятор стоимости натяжных потолков - Господин Потолков`,
+      title: `Калькулятор натяжных потолков - Господин Потолков`,
       meta: [
         {
           hid: 'description',

@@ -97,6 +97,72 @@ import vProject from '@/components/frontend/partials/vProject'
 import Paginator from '@/components/frontend/partials/Paginator'
 
 export default {
+  head() {
+    return {
+      title: 'Фотографии натяжных потолков в Краснодаре',
+      meta: [
+        {
+          hid: 'yandex-verification',
+          name: 'yandex-verification',
+          content: '0e637a5f8bb61215'
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Фотографии натяжных потолков в Краснодаре. 10 лет гарантии. Бесплатный замер. Господин Потолков.'
+        },
+        {
+          'property': 'og:type',
+          'content': 'website',
+        },
+        {
+          'property': 'og:url',
+          'content': `https://potolkov.shop${this.$route.path}`,
+        },
+        {
+          'property': 'og:title',
+          'content': 'Натяжные потолки в Краснодаре от 260 р. - Господин Потолков',
+        },
+        {
+          'property': 'og:description',
+          'content': 'Компания Господин Потолков предлагает натяжные потолки в Краснодаре от 260 р. с установкой! 10 лет гарантии. Бесплатный замер.',
+        },
+        {
+          'property': 'og:site_name',
+          'content': 'potolkov.shop',
+        },
+        {
+          'property': 'og:locale',
+          'content': 'ru_RU',
+        },
+        {
+          'property': 'og:image',
+          'content': 'https://potolkov.shop/site-screen.jpg'
+        },
+        {
+          'property': 'og:image:alt',
+          'content': 'Натяжные потолки в Краснодаре от 260 р. - Господин Потолков'
+        },
+        {
+          'name': 'twitter:card',
+          'content': 'summary_large_image'
+        },
+        {
+          'name': 'twitter:title',
+          'content': 'Натяжные потолки в Краснодаре от 260 р. - Господин Потолков'
+        },
+        {
+          'name': 'twitter:description',
+          'content': 'Компания Господин Потолков предлагает натяжные потолки в Краснодаре от 260 р. с установкой! 10 лет гарантии. Бесплатный замер.'
+        },
+        {
+          'name': 'twitter:image:src',
+          'content': 'https://potolkov.shop/site-screen.jpg'
+        },
+
+      ]
+    }
+  },
   data() {
     return {
       showBig: false,

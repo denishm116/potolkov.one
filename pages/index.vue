@@ -2,17 +2,14 @@
   <div class="wrapper">
     <Main></Main>
     <Flat></Flat>
-
     <Order></Order>
     <Calculator></Calculator>
     <!--    <Stocks></Stocks>-->
-
     <Projects :ourObjects="OUR_OBJECTS_FOR_LANDING" :width="1920" v-if="OUR_OBJECTS_FOR_LANDING.length > 0"
               :title="'Наши работы'"></Projects>
     <Why></Why>
     <Moments></Moments>
     <Questions></Questions>
-
     <Reviews></Reviews>
     <Map></Map>
   </div>
@@ -37,7 +34,7 @@ export default {
 
   head() {
     return {
-      title: 'Натяжные потолки в Краснодаре от 260 р. - Господин Потолков',
+      title: 'Натяжные потолки в Краснодаре от 189 р. с установкой',
       meta: [
         {
           hid: 'yandex-verification',
@@ -47,7 +44,7 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: 'Компания Господин Потолков предлагает натяжные потолки в Краснодаре от 260 р. с установкой! 10 лет гарантии. Бесплатный замер.'
+          content: 'Натяжные потолки в Краснодаре от 189 р. с установкой! 10 лет гарантии. Бесплатный замер. Господин Потолков.'
         },
         {
           'property': 'og:type',

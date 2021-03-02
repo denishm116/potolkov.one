@@ -111,9 +111,82 @@
 
 <script>
 export default {
+  head() {
+    return {
+      title: 'Цены на натяжные потолки в Краснодаре',
+      meta: [
+        {
+          hid: 'yandex-verification',
+          name: 'yandex-verification',
+          content: '0e637a5f8bb61215'
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Цены на натяжные потолки в Краснодаре! 10 лет гарантии. Бесплатный замер. Господин Потолков.'
+        },
+        {
+          'property': 'og:type',
+          'content': 'website',
+        },
+        {
+          'property': 'og:url',
+          'content': `https://potolkov.shop${this.$route.path}`,
+        },
+        {
+          'property': 'og:title',
+          'content': 'Натяжные потолки в Краснодаре от 260 р. - Господин Потолков',
+        },
+        {
+          'property': 'og:description',
+          'content': 'Компания Господин Потолков предлагает натяжные потолки в Краснодаре от 260 р. с установкой! 10 лет гарантии. Бесплатный замер.',
+        },
+        {
+          'property': 'og:site_name',
+          'content': 'potolkov.shop',
+        },
+        {
+          'property': 'og:locale',
+          'content': 'ru_RU',
+        },
+        {
+          'property': 'og:image',
+          'content': 'https://potolkov.shop/site-screen.jpg'
+        },
+        {
+          'property': 'og:image:alt',
+          'content': 'Натяжные потолки в Краснодаре от 260 р. - Господин Потолков'
+        },
+        {
+          'name': 'twitter:card',
+          'content': 'summary_large_image'
+        },
+        {
+          'name': 'twitter:title',
+          'content': 'Натяжные потолки в Краснодаре от 260 р. - Господин Потолков'
+        },
+        {
+          'name': 'twitter:description',
+          'content': 'Компания Господин Потолков предлагает натяжные потолки в Краснодаре от 260 р. с установкой! 10 лет гарантии. Бесплатный замер.'
+        },
+        {
+          'name': 'twitter:image:src',
+          'content': 'https://potolkov.shop/site-screen.jpg'
+        },
+
+      ]
+    }
+  },
   data() {
     return {
+
       ceilings: [
+        {
+          title: 'Белый (матовый, глянцевый) до 1,4 м. АКЦИЯ',
+          unit: 'кв.м.',
+          price: '189',
+          href: 'ceilings_catalog/',
+        },
         {
           title: 'Белый (матовый, глянцевый, сатиновый) до 2 м.',
           unit: 'кв.м.',
@@ -179,7 +252,7 @@ export default {
         {
           title: 'Закладная под точечный светильник',
           unit: 'шт.',
-          price: '280',
+          price: '330',
           href: 'ceilings_catalog/',
         },
         {
@@ -191,19 +264,19 @@ export default {
         {
           title: 'Закладная под карниз и установка',
           unit: 'м.п.',
-          price: '280',
+          price: '350',
           href: 'ceilings_catalog/',
         },
         {
           title: 'Вставка потолочная белая',
           unit: 'м.п.',
-          price: '50',
+          price: '60',
           href: 'ceilings_catalog/',
         },
         {
           title: 'Вставка потолочная цветная',
           unit: 'п.м.',
-          price: '60',
+          price: '70',
           href: 'ceilings_catalog/',
         },
         {
@@ -215,7 +288,7 @@ export default {
         {
           title: 'Обвод одной трубы',
           unit: 'шт.',
-          price: '200',
+          price: '350',
           href: 'ceilings_catalog/',
         },
         {
@@ -269,13 +342,13 @@ export default {
         {
           title: 'Монтаж бруса',
           unit: 'п.м.',
-          price: '300',
+          price: '350',
           href: 'ceilings_catalog/',
         },
         {
           title: 'Монтаж провода для спотов',
           unit: 'п.м.',
-          price: '40',
+          price: '100',
           href: 'ceilings_catalog/',
         },
       ],
