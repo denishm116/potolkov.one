@@ -56,10 +56,12 @@ export default {
   components: true,
 
   buildModules: [
-
+    '@nuxtjs/google-analytics',
     ['@nuxtjs/vuetify', { /* module options */}]
   ],
-
+  googleAnalytics: {
+    id: 'UA-186758138-1'
+  },
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/pwa',

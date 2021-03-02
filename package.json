@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "@nuxt/types": "^2.14.7",
+    "@nuxtjs/google-analytics": "^2.4.0",
     "@nuxtjs/vuetify": "^1.11.2",
     "node-sass": "^4.14.1",
     "sass-loader": "^10.0.2"
