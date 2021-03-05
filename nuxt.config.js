@@ -1,9 +1,9 @@
 export default {
 
-  // mode: 'universal',
-  //
-  // target: 'server',
-ssr: false,
+  mode: 'universal',
+
+  target: 'server',
+
   head: {
     htmlAttrs: {
       lang: 'ru-Ru'
