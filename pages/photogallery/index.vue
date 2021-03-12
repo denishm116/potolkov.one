@@ -26,7 +26,7 @@
                 {{ object.title }}
               </a>
               <div class="photos__item-wrap">
-                <div class="photos__item-date">16.09.2020</div>
+<!--                <div class="photos__item-date">16.09.2020</div>-->
                 <a href="#" class="photos__item-adress">{{ object.address }}</a>
               </div>
               <div class="photos__item-text">
@@ -121,11 +121,11 @@ export default {
         },
         {
           'property': 'og:title',
-          'content': 'Натяжные потолки в Краснодаре от 260 р. - Господин Потолков',
+          'content': 'Натяжные потолки в Краснодаре от 189 р. - Господин Потолков',
         },
         {
           'property': 'og:description',
-          'content': 'Компания Господин Потолков предлагает натяжные потолки в Краснодаре от 260 р. с установкой! 10 лет гарантии. Бесплатный замер.',
+          'content': 'Компания Господин Потолков предлагает натяжные потолки в Краснодаре от 189 р. с установкой! 10 лет гарантии. Бесплатный замер.',
         },
         {
           'property': 'og:site_name',
@@ -141,7 +141,7 @@ export default {
         },
         {
           'property': 'og:image:alt',
-          'content': 'Натяжные потолки в Краснодаре от 260 р. - Господин Потолков'
+          'content': 'Натяжные потолки в Краснодаре от 189 р. - Господин Потолков'
         },
         {
           'name': 'twitter:card',
@@ -149,7 +149,7 @@ export default {
         },
         {
           'name': 'twitter:title',
-          'content': 'Натяжные потолки в Краснодаре от 260 р. - Господин Потолков'
+          'content': 'Натяжные потолки в Краснодаре от 189 р. - Господин Потолков'
         },
         {
           'name': 'twitter:description',
