@@ -1123,20 +1123,20 @@ body.ie .ibg img {
   margin: 0px 0px 30px 0px;
 }
 
-.main__wrap {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  font-size: 0;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
+/*.main__wrap {*/
+/*  display: -webkit-box;*/
+/*  display: -moz-box;*/
+/*  display: -ms-flexbox;*/
+/*  display: -webkit-flex;*/
+/*  display: flex;*/
+
+/*  -webkit-box-align: center;*/
+/*  -ms-flex-align: center;*/
+/*  align-items: center;*/
+/*}*/
 
 .main__btn {
-  margin: 0px 20px 0px 0px;
+  /*margin: 0px 20px 0px 0px;*/
   position: relative;
 }
 
@@ -1212,8 +1212,7 @@ body.ie .ibg img {
 .form {
   width: 460px;
   background: #fff;
-  padding: 20px 20px 10px 20px;
-  margin: 0px 0px -35px 0px;
+  padding: 10px 20px 10px 20px;
   border-radius: 10px;
   color: #333333;
   position: relative;
@@ -1235,7 +1234,7 @@ body.ie .ibg img {
   font-size: 18px;
   color: #333333;
   font-family: "Geometria-Bold";
-  margin: 0px auto;
+  margin: 10px auto;
   line-height: 36px;
 }
 
@@ -1361,7 +1360,7 @@ body.ie .ibg img {
 @media (max-width: 479.98px) {
   .form {
     width: 100%;
-    padding: 25px 10px;
+
     margin-top: 0;
   }
 
@@ -1372,7 +1371,6 @@ body.ie .ibg img {
   }
 
   .form__radiobuttons {
-
     flex-direction: column;
     margin: 0px 0px 20px 0px;
   }
@@ -1679,7 +1677,7 @@ body.ie .ibg img {
 
 @media (max-width: 480px) {
   .price__title {
-    margin: 100px 0px 20px 0px;
+    margin: 40px 0px 20px 0px;
   }
 
   .price__row {

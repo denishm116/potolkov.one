@@ -34,6 +34,7 @@ export default {
     './plugins/mixins/user',
     './plugins/axios',
     './plugins/scroll',
+    './plugins/v-mask.js',
     {src: './plugins/vuejs-clipper.js', ssr: false},
     {src: './plugins/TiptapVuetify', mode: 'client'},
   ],

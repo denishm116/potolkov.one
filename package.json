@@ -22,6 +22,7 @@
     "rxjs": "^6.6.3",
     "smoothscroll-polyfill": "^0.4.4",
     "tiptap-vuetify": "^2.24.0",
+    "v-mask": "^2.2.4",
     "vue-rx": "^6.2.0",
     "vue-trix": "github:hanhdt/vue-trix",
     "vuejs-clipper": "^3.0.2",

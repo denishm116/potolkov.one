@@ -5,15 +5,20 @@
         <h1 class="main__title animate__animated animate__bounce">
           <span>Натяжные потолки</span>в Краснодаре
         </h1>
+
         <div class="main__text">
-          Больше 11 лет мы, специалисты компании "Господин Потолков", трудимся ради комфорта и уюта жителей
-          Краснодарского края. От всей души делимся с Вами своим опытом и трудолюбием. В каждом квадратном метре
-          натянутого нами потолка - частичка нашей души: будь то дом, офис, или детский сад, в который ходит Ваш
-          ребенок!
+          <div class="main-title"><span>11 лет</span> на рынке</div>
+          <div class="main-title">Более <span>550 000 м<sup>2</sup></span> установлено</div>
+          <div class="main-title"><span>10 лет</span> гарантия на полотна</div>
+
+          <!--          Больше 11 лет мы, специалисты компании "Господин Потолков", трудимся ради комфорта и уюта жителей-->
+          <!--          Краснодарского края. От всей души делимся с Вами своим опытом и трудолюбием. В каждом квадратном метре-->
+          <!--          натянутого нами потолка - частичка нашей души: будь то дом, офис, или детский сад, в который ходит Ваш-->
+          <!--          ребенок!-->
         </div>
         <div class="main__wrap">
           <a class="main__btn btn" @click.prevent="openDialog">Заказать бесплатный замер</a>
-          <span class="main__label">Потолки на любой вкус и кошелек</span>
+          <!--          <span class="main__label">Потолки на любой вкус и кошелек</span>-->
           <div v-if="dialog">
             <v-order-dialog :dialog="dialog" @closeDialog="closeDialog"></v-order-dialog>
           </div>
@@ -21,12 +26,14 @@
       </div>
       <div class="main__column">
         <div class="main__form form">
-          <div class="form__title">АКЦИЯ</div>
-          <div class="form__subtitle">Предложение действительно до <span class="red_date">{{ dateOnScreen }}</span>г.
+          <!--          <div class="form__title">АКЦИЯ</div>-->
+          <div class="form__subtitle"><span class="red_date">АКЦИЯ</span> до <span class="red_date">{{
+              dateOnScreen
+            }}</span>г.
           </div>
           <div class="into_arrow">
-            <div class="akcia_arrow"><span class="akcia_arrow_189">189</span> <span
-              class="akcia_arrow_rub">р/м<sup>2</sup></span></div>
+            <div class="akcia_arrow"><span class="akcia_arrow_189">189</span><span
+              class="akcia_arrow_rub"> р/м<sup>2</sup></span></div>
             <div class="akcia_arrow_s_ustanovkoi"> С УСТАНОВКОЙ</div>
           </div>
 
@@ -45,7 +52,8 @@
                   (более 4 в помещении), окантовка труб и другие комплектующие
                   оплачиваются дополнительно.</p>
 
-                Минимальну стоимость заказа уточняйте у менеджеров по тел: <p class="tel"><a href="tel:+79996314541"> +7 (999) 631-45-41</a></p>
+                Минимальну стоимость заказа уточняйте у менеджеров по тел: <p class="tel"><a href="tel:+79996314541"> +7
+                  (999) 631-45-41</a></p>
               </div>
             </div>
           </div>
@@ -77,7 +85,7 @@ export default {
 
   methods: {
     setDate() {
-      let datePlusTwoWeeks = new Date(Date.now() + 604800000)
+      let datePlusTwoWeeks = new Date(Date.now() + 205900000)
       let year = datePlusTwoWeeks.getFullYear()
 
       let m = datePlusTwoWeeks.getMonth()
@@ -86,9 +94,9 @@ export default {
 
       let day = datePlusTwoWeeks.getDate()
       if (day < 10)
-          day = "0" + day
+        day = "0" + day
       if (month < 10)
-          month = "0" + month
+        month = "0" + month
 
       this.dateOnScreen = day + "." + month + "." + year
     },
@@ -117,6 +125,44 @@ export default {
 
 <style scoped>
 
+.main-title {
+  font-size: 30px;
+  margin-bottom: 1rem;
+}
+
+.main-title span {
+  color: #ff0000;
+}
+
+.main__wrap {
+  max-width: 50%;
+  text-align: center;
+  align-self: center;
+}
+
+@media (max-width: 992px) {
+  .main__wrap {
+    margin: 0 auto;
+    max-width: 100%;
+  }
+
+  .main-title {
+    font-size: 20px;
+    margin-bottom: 0.5rem;
+  }
+
+  .main__column:nth-child(1) {
+    padding: 0px 0px 0px 0px;
+    margin: -100px 0px 30px 0px;
+  }
+
+  .main__column {
+    align-items: center;
+    align-self: center;
+    text-align: center;
+  }
+}
+
 .main__btn::after {
   content: '';
   position: absolute;
@@ -137,6 +183,7 @@ export default {
   margin: 1rem auto;
   text-align: center;
 }
+
 .akcia {
   position: absolute;
   left: 0;
@@ -159,12 +206,14 @@ export default {
   display: block;
 
 }
+
 .podrobnosti_wrapper {
   margin: 0 auto;
 }
+
 .podrobnosti {
   display: inline-block;
-   text-align: center;
+  text-align: center;
   font-size: 15px;
   color: red;
   margin-top: 10px;
@@ -232,7 +281,7 @@ export default {
   }
 
   .akcia_arrow_189 {
-    font-size: 105px;
+    font-size: 65px;
     line-height: 1;
   }
 
@@ -242,12 +291,11 @@ export default {
 
   .akcia_arrow_s_ustanovkoi {
     line-height: 1;
-    font-size: 40px;
-    margin-bottom: 90px;
+    font-size: 30px;
+    margin-bottom: 30px;
   }
 
   .podrobnosti {
-
     font-size: 15px;
   }
 }
@@ -255,8 +303,26 @@ export default {
 @media (max-width: 450px) {
   .akcia_arrow_s_ustanovkoi {
     line-height: 1;
-    font-size: 35px;
-    margin-bottom: 80px;
+    font-size: 25px;
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 380px) {
+  .main__title {
+    font-size: 25px;
+  }
+
+  .main-title {
+    font-size: 18px;
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .main__title {
+    margin-top: 15px;
+    font-size: 20px;
   }
 }
 
