@@ -89,7 +89,7 @@ export default {
         "@type": "Organization",
         "name" : "Господин Потолков",
         "alternateName": "Натяжнае потолки - Господин Потолков",
-        "description": "Натяжные потолки в Краснодаре от 260 р.",
+        "description": "Натяжные потолки в Краснодаре от 189 р.",
         "url": "https://potolkov.shop",
         "email": "info@potolkov.shop",
         "legalName": "И.П. Завадская Ю.А.",
