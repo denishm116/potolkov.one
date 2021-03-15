@@ -1,12 +1,12 @@
 <template>
   <div class="wrapper">
     <Main></Main>
-    <Flat></Flat>
-    <Order></Order>
     <Calculator></Calculator>
+    <Order></Order>
     <!--    <Stocks></Stocks>-->
     <Projects :ourObjects="OUR_OBJECTS_FOR_LANDING" :width="1920" v-if="OUR_OBJECTS_FOR_LANDING.length > 0"
               :title="'Наши работы'"></Projects>
+    <Flat></Flat>
     <Why></Why>
     <Moments></Moments>
     <Questions></Questions>
