@@ -2,7 +2,7 @@
   <section>
     <div class='container'>
       <h2 class="price__title  my-title">
-        Выберите помещение
+        Выберите комнату
       </h2>
       <div class="info__row">
         <div class="info__column">

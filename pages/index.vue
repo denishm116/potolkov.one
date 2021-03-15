@@ -4,8 +4,10 @@
     <Calculator></Calculator>
     <Order></Order>
     <!--    <Stocks></Stocks>-->
+    <div class="mt-16 pt-5">
     <Projects :ourObjects="OUR_OBJECTS_FOR_LANDING" :width="1920" v-if="OUR_OBJECTS_FOR_LANDING.length > 0"
               :title="'Наши работы'"></Projects>
+    </div>
     <Flat></Flat>
     <Why></Why>
     <Moments></Moments>

@@ -1584,7 +1584,7 @@ body.ie .ibg img {
 
 .price__title {
   max-width: 600px;
-  margin: 100px 0px 50px 0px;
+  margin: 50px 0px 50px 0px;
   text-transform: uppercase;
 }
 
@@ -1677,7 +1677,7 @@ body.ie .ibg img {
 
 @media (max-width: 480px) {
   .price__title {
-    margin: 40px 0px 20px 0px;
+    margin: 0px 0px 20px 0px;
   }
 
   .price__row {
